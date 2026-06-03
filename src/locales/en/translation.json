@@ -1,0 +1,13 @@
+{
+  "header": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "banner": {
+    "title": "Cindy Handmade",
+    "subtitle": "Handmade creations that warm the heart",
+    "button": "Discover the shop"
+  }
+}

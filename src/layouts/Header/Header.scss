@@ -1,0 +1,103 @@
+.header {
+  @apply fixed top-0 left-0 right-0 z-[1000] w-full bg-white/70 backdrop-blur-[15px] border-b border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.05)];
+}
+
+.header-container {
+  @apply flex justify-between items-center max-w-[1200px] mx-auto px-10 py-[15px];
+
+  @media (max-width: 768px) {
+    padding: 10px 15px;
+  }
+}
+
+.logo-section {
+  @apply flex items-center;
+}
+
+.logo-text {
+  @apply font-great-vibes text-[2.2rem] max-md:text-[1.4rem] max-md:pr-3 text-brand-green no-underline font-normal;
+  white-space: nowrap;
+}
+
+.navigation {
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 20px 0;
+    z-index: 999;
+    
+    /* Cấu hình animation */
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+    
+    &.mobile-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+}
+
+.navigation ul {
+  @apply flex list-none gap-[30px] m-0 p-0;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.navigation a {
+  /* Dùng SCSS nesting thay vì group của Tailwind để tránh lỗi */
+  @apply relative no-underline text-[#555] text-[1.1rem] font-medium font-outfit transition-colors duration-300 hover:text-brand-pink block;
+  
+  &::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-pink transition-all duration-300;
+  }
+
+  &:hover::after {
+    @apply w-full;
+  }
+}
+
+.actions {
+  @apply flex items-center gap-4 max-md:gap-2;
+}
+
+.lang-switcher {
+  @apply flex items-center gap-2 text-[#555] mr-[15px] max-md:mr-[8px] max-md:gap-1 text-[0.8rem] max-md:text-[0.7rem];
+}
+
+.lang-btn {
+  @apply bg-transparent border-none cursor-pointer font-outfit text-[0.8rem] font-semibold p-0 transition-colors duration-300 hover:text-[#555];
+  
+  &.active {
+    @apply text-brand-green;
+  }
+  &:not(.active) {
+    @apply text-[#aaa];
+  }
+}
+
+.btn-cart {
+  @apply bg-transparent border-2 border-brand-pink text-brand-pink px-5 py-2 max-md:px-2 max-md:py-1 max-md:text-[0.75rem] rounded-full font-outfit text-base font-medium cursor-pointer transition-all duration-300 hover:bg-brand-pink hover:text-white;
+  white-space: nowrap;
+}
+
+.hamburger-btn {
+  @apply hidden max-md:flex bg-transparent border-none text-[#555] cursor-pointer p-1;
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}

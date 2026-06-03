@@ -1,0 +1,13 @@
+{
+  "header": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "about": "À propos",
+    "contact": "Contact"
+  },
+  "banner": {
+    "title": "Cindy Handmade",
+    "subtitle": "Créations artisanales qui réchauffent le cœur",
+    "button": "Découvrir la boutique"
+  }
+}
