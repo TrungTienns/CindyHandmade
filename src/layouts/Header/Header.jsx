@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLottie } from 'lottie-react';
+import { Link } from 'react-router-dom';
 import { PATHS } from '../../common/path';
 import catLoading from '../../assets/animations/catLoading.json';
-import './Header.scss'; // Import lại file SCSS chứa Tailwind @apply
+import { CartContext } from '../../context/CartContext';
+import './Header.scss';
 const Header = () => {
   const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cartCount } = useContext(CartContext);
 
   const lottieOptions = {
     animationData: catLoading,
@@ -16,13 +19,14 @@ const Header = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem('appLanguage', lng);
   };
 
   return (
     <header className="header">
       <div className="header-container">
         <div className="logo-section">
-          <a href={PATHS.HOME} className="logo-text">Cindy Handmade</a>
+          <Link to={PATHS.HOME} className="logo-text">Cindy Handmade</Link>
         </div>
         <nav className={`navigation ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul>
@@ -33,12 +37,12 @@ const Header = () => {
               { key: 'contact', path: PATHS.CONTACT }
             ].map((item) => (
               <li key={item.key}>
-                <a 
-                  href={item.path}
+                <Link 
+                  to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t(`header.${item.key}`)}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -56,7 +60,7 @@ const Header = () => {
             >FR</button>
           </div>
           <button className="btn-cart">
-            Cart (0)
+            Cart ({cartCount})
           </button>
           
           <div className="hidden md:flex w-20 h-20 ml-2 items-center justify-center">

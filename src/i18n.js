@@ -17,7 +17,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en', // Default language
+    lng: localStorage.getItem('appLanguage') || 'en', // Lấy từ localStorage hoặc mặc định
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false // React already escapes values safely

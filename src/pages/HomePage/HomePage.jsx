@@ -1,6 +1,8 @@
 import React from 'react';
 import MainLayout from '../../layouts/MainLayout/MainLayout';
 import Banner from '../../layouts/Banner/Banner';
+import AboutUs from '../../layouts/AboutUs/AboutUs';
+import FeaturedProducts from '../../layouts/FeaturedProducts/FeaturedProducts';
 import './HomePage.scss';
 
 const HomePage = () => {
@@ -8,10 +10,8 @@ const HomePage = () => {
     <MainLayout>
       <div className="home-page">
         <Banner />
-        <section className="features-placeholder">
-          <h2>Featured Creations</h2>
-          <p>More sections will be added here...</p>
-        </section>
+        <AboutUs />
+        <FeaturedProducts />
       </div>
     </MainLayout>
   );

@@ -212,7 +212,7 @@
 
   .banner-container {
     flex-direction: column;
-    padding: 120px 20px 0;
+    padding: 90px 20px 0; /* Giảm padding để chữ dịch lên trên, nhường chỗ cho ảnh */
     justify-content: flex-start;
     align-items: center;
   }
@@ -247,11 +247,12 @@
   .banner-image-wrapper {
     height: auto; 
     margin-right: 0;
-    margin-top: 40px;
+    margin-top: -20px; /* Kéo ảnh trồi lên, đè nhẹ vào phần chữ/nút bấm để tạo sự liên kết */
     padding-bottom: 20px;
     width: 100%;
     justify-content: center;
     align-items: center;
+    z-index: 1; /* Nằm dưới chữ một chút nếu đè vào */
   }
 
   .banner-image {
@@ -269,7 +270,7 @@
   }
 
   .banner-container {
-    padding: 100px 20px 0;
+    padding: 80px 20px 0; /* Kéo toàn bộ layout lên cao hơn trên điện thoại */
   }
 
   .banner-content h1 {
@@ -286,8 +287,8 @@
   }
 
   .banner-image-wrapper {
-    height: 35vh; /* Nhỏ hơn trên phone */
-    margin-top: 40px;
+    height: 45vh; /* Tăng độ lớn của ảnh trên điện thoại để lấp đầy màn hình */
+    margin-top: -10px; /* Bám sát cụm chữ */
   }
 
   .banner-image {

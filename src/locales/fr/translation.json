@@ -9,5 +9,35 @@
     "title": "Cindy Handmade",
     "subtitle": "Créations artisanales qui réchauffent le cœur",
     "button": "Découvrir la boutique"
+  },
+  "aboutUs": {
+    "subtitle": "Notre Histoire",
+    "title": "Créé avec Passion & Précision",
+    "paragraph1": "Chez Cindy Handmade, chaque maille porte un morceau de notre cœur. Née d'un amour profond pour l'artisanat traditionnel au crochet, nous sommes spécialisés dans la création de produits au crochet faits main qui apportent chaleur, charme et une touche d'unicité dans votre vie quotidienne.",
+    "paragraph2": "Chaque article est confectionné à la commande avec des fils de qualité supérieure, garantissant que votre pièce est non seulement belle, mais véritablement unique.",
+    "button": "En savoir plus"
+  },
+  "aboutUsPage": {
+    "heroLabel": "Cindy Handmade",
+    "heroTitle": "Fait à la main",
+    "heroTitleItalic": "avec Âme",
+    "heroSub": "Chaque fil tissé avec intention. Chaque pièce faite avec amour.",
+    "introQuote": "Nous ne vendons pas seulement des produits — nous mettons notre cœur dans chaque maille, créant des pièces au crochet qui apportent chaleur dans votre vie quotidienne.",
+    "storyEyebrow": "Notre Histoire",
+    "valuesLabel": "Ce En Quoi Nous Croyons",
+    "value1Title": "Fait à la Main avec Soin",
+    "value1Desc": "Chaque maille est réalisée avec des mains stables et patientes — jamais à la hâte, jamais sous-traitée. Uniquement un travail lent et intentionnel.",
+    "value2Title": "Fils Naturels Premium",
+    "value2Desc": "Nous sélectionnons uniquement les fils de coton et acrylique les plus doux et de la plus haute qualité pour que votre pièce soit agréable et durable.",
+    "value3Title": "Fait sur Commande",
+    "value3Desc": "Chaque article est confectionné spécialement pour vous après votre commande — vous recevez ainsi toujours quelque chose de vraiment frais et personnel.",
+    "processSubtitle": "Le Voyage de la Création",
+    "processTitle": "Notre Processus",
+    "step1Title": "Choisir les Meilleurs Fils",
+    "step1Desc": "Chaque pièce commence par la sélection soigneuse de fils premium — doux au toucher, riches en couleur et conçus pour durer.",
+    "step2Title": "Crocheter avec Intention",
+    "step2Desc": "Maille par maille, chaque produit est confectionné à la main avec patience et souci du détail, pour que chaque courbe et texture soit parfaite.",
+    "step3Title": "Finition avec Amour",
+    "step3Desc": "Avant de vous parvenir, chaque pièce est inspectée, nettoyée et soigneusement emballée — avec le même amour qui l'a créée."
   }
 }

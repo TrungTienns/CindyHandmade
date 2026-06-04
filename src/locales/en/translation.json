@@ -9,5 +9,35 @@
     "title": "Cindy Handmade",
     "subtitle": "Handmade creations that warm the heart",
     "button": "Discover the shop"
+  },
+  "aboutUs": {
+    "subtitle": "Our Story",
+    "title": "Crafted with Passion & Precision",
+    "paragraph1": "At Cindy Handmade, every stitch carries a piece of our heart. We were born from a deep love for traditional crochet craftsmanship — specializing in beautifully handcrafted crochet products that bring warmth, charm, and a touch of uniqueness into your everyday life.",
+    "paragraph2": "Each item is carefully made to order using only premium-quality yarns, ensuring your piece is not just beautiful but truly one of a kind.",
+    "button": "Learn more"
+  },
+  "aboutUsPage": {
+    "heroLabel": "Cindy Handmade",
+    "heroTitle": "Handcrafted",
+    "heroTitleItalic": "with Soul",
+    "heroSub": "Every thread woven with purpose. Every piece made with love.",
+    "introQuote": "We don't just sell products — we pour our hearts into every stitch, creating crochet pieces that bring warmth into your everyday life.",
+    "storyEyebrow": "Our Story",
+    "valuesLabel": "What We Believe",
+    "value1Title": "Handcrafted with Care",
+    "value1Desc": "Every single stitch is made with steady, patient hands — never rushed, never outsourced. Only slow, intentional craft.",
+    "value2Title": "Premium Natural Yarns",
+    "value2Desc": "We source only the softest, highest-quality cotton and acrylic yarns to ensure your piece feels wonderful and lasts beautifully.",
+    "value3Title": "Made to Order",
+    "value3Desc": "Each item is made especially for you after your order — so you always receive something truly fresh and personal.",
+    "processSubtitle": "The Journey of Creation",
+    "processTitle": "Our Process",
+    "step1Title": "Choosing the Finest Yarns",
+    "step1Desc": "Every piece begins with carefully selecting premium yarns — soft to the touch, rich in colour, and built to last.",
+    "step2Title": "Crocheting with Intention",
+    "step2Desc": "Stitch by stitch, each product is handcrafted with patience and attention to detail, ensuring every curve and texture is just right.",
+    "step3Title": "Finishing with Love",
+    "step3Desc": "Before reaching you, every piece is inspected, cleaned, and carefully packaged — wrapped with the same love that made it."
   }
 }
