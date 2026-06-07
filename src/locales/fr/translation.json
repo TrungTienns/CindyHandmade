@@ -134,5 +134,24 @@
       "title": "Éco-Responsable",
       "desc": "Des pratiques durables et des matériaux biologiques qui préservent notre planète."
     }
+  },
+  "productCommitments": {
+    "title": "Nos Engagements",
+    "material": {
+      "title": "Matériaux Premium",
+      "desc": "Fil naturel de haute qualité et doux pour la peau."
+    },
+    "handmade": {
+      "title": "100% Fait Main",
+      "desc": "Méticuleusement crocheté maille par maille avec amour."
+    },
+    "warranty": {
+      "title": "Support 30 Jours",
+      "desc": "Réparation gratuite des petits défauts de fil sous 30 jours."
+    },
+    "shipping": {
+      "title": "Livraison Sécurisée",
+      "desc": "Emballé avec soin pour préserver la forme d'origine."
+    }
   }
 }

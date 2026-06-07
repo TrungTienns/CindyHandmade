@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { fetchProductById } from '../../services/productService';
 import { CartContext } from '../../context/CartContext';
 import { useCurrency } from '../../hooks/useCurrency';
+import { useProductTranslation } from '../../hooks/useProductTranslation';
+import ProductCommitments from '../ProductCommitments/ProductCommitments';
 import './ProductDetail.scss';
 
 const ProductDetail = () => {
@@ -11,7 +13,8 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { formatPrice } = useCurrency();
-  const [product, setProduct] = useState(null);
+  const { getTranslatedProduct } = useProductTranslation();
+  const [productRaw, setProductRaw] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
 
@@ -19,7 +22,7 @@ const ProductDetail = () => {
     const loadProduct = async () => {
       try {
         const data = await fetchProductById(id);
-        setProduct(data);
+        setProductRaw(data);
       } catch (error) {
         console.error('Failed to load product details', error);
       } finally {
@@ -39,6 +42,17 @@ const ProductDetail = () => {
     }
   };
 
+  const isNewProduct = createdAt => {
+    if (!createdAt) return false;
+    const createdDate = new Date(createdAt);
+    const now = new Date();
+    const diffTime = Math.abs(now - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 7;
+  };
+
+  const product = getTranslatedProduct(productRaw);
+
   return (
     <div className="product-detail-page">
       <div className="container">
@@ -47,8 +61,12 @@ const ProductDetail = () => {
         ) : !product ? (
           <div className="error-message">{t('productDetail.notFound')}</div>
         ) : (
+          <>
           <div className="product-detail-wrapper">
             <div className="product-detail-image-section">
+              {isNewProduct(product.createdAt) && (
+                <div className="new-badge">New</div>
+              )}
               <img src={product.imageUrl} alt={product.name} className="main-image" />
             </div>
 
@@ -71,6 +89,8 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+          <ProductCommitments />
+          </>
         )}
       </div>
     </div>

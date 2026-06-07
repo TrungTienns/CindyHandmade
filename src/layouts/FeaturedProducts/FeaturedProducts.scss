@@ -76,6 +76,30 @@
     aspect-ratio: 16 / 10;
     overflow: hidden;
     background-color: #f0f0f0;
+    position: relative;
+
+    .new-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: #ff4d4f;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 12px;
+      border-radius: 20px; /* Hình oval mượt mà giống circle bọc chữ */
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(255, 77, 79, 0.4);
+      animation: pulse-red 2s infinite;
+    }
+  }
+
+  @keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 77, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
   }
 
   .product-image {

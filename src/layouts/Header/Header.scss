@@ -95,7 +95,7 @@
 }
 
 .hamburger-btn {
-  @apply hidden max-md:flex bg-transparent border-none text-[#555] cursor-pointer p-1;
+  @apply md:hidden flex bg-transparent border-none text-[#555] cursor-pointer p-1;
   svg {
     width: 24px;
     height: 24px;

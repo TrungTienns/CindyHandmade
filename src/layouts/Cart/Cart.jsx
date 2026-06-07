@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../common/path';
@@ -7,6 +7,7 @@ import { FiTrash2, FiMinus, FiPlus, FiShoppingBag } from 'react-icons/fi';
 import './Cart.scss';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../../hooks/useCurrency';
+import { useProductTranslation } from '../../hooks/useProductTranslation';
 
 const Cart = () => {
   const { cart, cartTotal, updateQuantity, removeFromCart, loading } = useContext(CartContext);
@@ -14,6 +15,11 @@ const Cart = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { formatPrice } = useCurrency();
+  const { getTranslatedProduct } = useProductTranslation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!user) {
     return (
@@ -52,52 +58,54 @@ const Cart = () => {
 
         <div className="cart-content">
           <div className="cart-items">
-            {cart.map(item => (
+            {cart.map(item => {
+              const product = getTranslatedProduct(item.product);
+              return (
               <div key={item.id} className="cart-item">
                 <div className="item-image">
-                  {item.product?.image_url ? (
-                    <img src={item.product.image_url} alt={item.product.name} />
+                  {product?.imageUrl ? (
+                    <img src={product.imageUrl} alt={product.name} />
                   ) : (
                     <div className="placeholder-image">No Image</div>
                   )}
                 </div>
 
                 <div className="item-details">
-                  <h3 className="item-name">{item.product?.name}</h3>
-                  <p className="item-price">{formatPrice(item.product?.price)}</p>
+                  <h3 className="item-name">{product?.name}</h3>
+                  <p className="item-price">{formatPrice(product?.price)}</p>
                 </div>
 
                 <div className="item-actions">
                   <div className="quantity-controls">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                     >
                       <FiMinus />
                     </button>
                     <span className="quantity">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      disabled={item.quantity >= item.product?.stock}
+                      onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                      disabled={item.quantity >= product?.stock}
                     >
                       <FiPlus />
                     </button>
                   </div>
 
                   <div className="item-subtotal">
-                    {formatPrice(item.quantity * item.product?.price)}
+                    {formatPrice(item.quantity * product?.price)}
                   </div>
 
                   <button
                     className="remove-btn"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item.productId)}
                     title="Remove item"
                   >
                     <FiTrash2 />
                   </button>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
 
           <div className="cart-summary">

@@ -1,0 +1,90 @@
+.product-commitments {
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+  .commitments-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #2c2c2c;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: #c9a96e;
+      border-radius: 2px;
+    }
+  }
+
+  .commitments-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .commitment-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 169, 110, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(201, 169, 110, 0.15);
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(201, 169, 110, 0.5);
+
+      .commitment-icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 5px 15px rgba(201, 169, 110, 0.3);
+      }
+    }
+
+    .commitment-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #dfc698 0%, #c9a96e 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(201, 169, 110, 0.2);
+    }
+
+    .commitment-content {
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+        margin: 0;
+      }
+    }
+  }
+}

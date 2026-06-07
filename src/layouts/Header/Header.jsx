@@ -33,7 +33,8 @@ const Header = () => {
       <div className="header-container">
         <div className="logo-section">
           <Link to={PATHS.HOME} className="logo-text">
-            Cindy Handmade
+            <span className="hidden md:inline">Cindy Handmade</span>
+            <span className="inline md:hidden">Cindy</span>
           </Link>
         </div>
         <nav className={`navigation ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
@@ -80,7 +81,6 @@ const Header = () => {
             <button
               className="btn-user"
               onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-              onBlur={() => setTimeout(() => setIsUserDropdownOpen(false), 200)}
             >
               <SlUser size={24} strokeWidth={20} />
             </button>

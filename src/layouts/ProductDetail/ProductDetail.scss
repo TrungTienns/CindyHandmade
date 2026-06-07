@@ -37,6 +37,24 @@
     background-color: #f0f0f0;
     opacity: 0;
     animation: slideInLeft 0.8s ease-out 0.2s forwards;
+    position: relative;
+
+    .new-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #ff4d4f;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(255, 77, 79, 0.4);
+      animation: pulse-red-detail 2s infinite;
+    }
 
     .main-image {
       width: 100%;
@@ -156,6 +174,12 @@
   }
 
   /* Animations */
+  @keyframes pulse-red-detail {
+    0% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.6); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 77, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 77, 79, 0); }
+  }
+
   @keyframes fadeUp {
     from {
       opacity: 0;

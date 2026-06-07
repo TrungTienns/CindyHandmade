@@ -134,5 +134,24 @@
       "title": "Eco-Friendly",
       "desc": "Sustainable practices and organic materials that care for our planet."
     }
+  },
+  "productCommitments": {
+    "title": "Our Guarantees",
+    "material": {
+      "title": "Premium Material",
+      "desc": "100% skin-friendly and high quality natural yarn."
+    },
+    "handmade": {
+      "title": "100% Handmade",
+      "desc": "Meticulously crocheted stitch by stitch with love."
+    },
+    "warranty": {
+      "title": "30-Day Support",
+      "desc": "Free repair for minor yarn defects within 30 days."
+    },
+    "shipping": {
+      "title": "Secure Delivery",
+      "desc": "Carefully packaged to preserve the original shape."
+    }
   }
 }
