@@ -39,5 +39,100 @@
     "step2Desc": "Stitch by stitch, each product is handcrafted with patience and attention to detail, ensuring every curve and texture is just right.",
     "step3Title": "Finishing with Love",
     "step3Desc": "Before reaching you, every piece is inspected, cleaned, and carefully packaged — wrapped with the same love that made it."
+  },
+  "featuredProducts": {
+    "title": "Featured Products",
+    "subtitle": "Discover our finest handcrafted products",
+    "loading": "Loading data...",
+    "addToCart": "Add to cart",
+    "buyNow": "Buy Now"
+  },
+  "footer": {
+    "brandDesc": "Premium handcrafted knitwear for you and your loved ones. Made with love, care, and the finest materials.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About Us",
+    "contact": "Contact",
+    "customerCare": "Customer Care",
+    "faq": "FAQ",
+    "shipping": "Shipping & Returns",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "followUs": "Follow Us",
+    "findUs": "Find Us",
+    "copyright": "All rights reserved."
+  },
+  "productDetail": {
+    "loading": "Loading product information...",
+    "notFound": "Product not found.",
+    "description": "Product description",
+    "noDescription": "No detailed description available for this product.",
+    "buyNow": "Buy Now",
+    "addToCart": "Add to cart"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our products, shipping, and more.",
+    "items": [
+      {
+        "question": "Are all your products handmade?",
+        "answer": "Yes, absolutely! Every single item at Cindy Handmade is 100% hand-crocheted with love, care, and attention to detail. We do not use any machines in our crafting process."
+      },
+      {
+        "question": "What kind of yarns do you use?",
+        "answer": "We carefully select premium-quality yarns for all our products. We primarily use soft organic cotton, milk cotton, and high-quality acrylic blends to ensure our items are safe, durable, and gentle on the skin, especially for babies."
+      },
+      {
+        "question": "How long does it take to receive my order?",
+        "answer": "Since our items are made-to-order, it typically takes 3-7 days to craft your piece depending on the complexity. Shipping usually takes an additional 2-5 business days within the country."
+      },
+      {
+        "question": "Do you accept custom orders?",
+        "answer": "Yes, we love bringing your unique ideas to life! You can contact us directly via our social media pages or email to discuss custom colors, sizes, or completely new designs."
+      },
+      {
+        "question": "How should I wash and care for my crochet items?",
+        "answer": "We recommend hand washing your crochet items in cold water with a mild detergent. Gently squeeze out excess water (do not wring) and lay it flat to dry. This helps maintain the shape and softness of the yarn."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're always here to help. Reach out through any of the channels below.",
+    "infoTitle": "Get In Touch",
+    "infoDesc": "We would love to hear from you. Whether you have a question about products, pricing, or anything else, our team is ready to answer all your questions.",
+    "addressTitle": "Address",
+    "phoneTitle": "Phone",
+    "emailTitle": "Email",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Your Email",
+    "emailPlaceholder": "john@example.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "How can we help?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Write your message here...",
+    "submitBtn": "Send Message"
+  },
+  "benefits": {
+    "welcome": "Welcome to",
+    "subtitle": "Experience the difference with our curated selection and dedicated service.",
+    "quality": {
+      "title": "Premium Quality",
+      "desc": "We source only the finest yarns from around the world for your projects."
+    },
+    "handmade": {
+      "title": "Hand-dyed Colors",
+      "desc": "Unique, vibrant colors created by artisan dyers in small batches."
+    },
+    "shipping": {
+      "title": "Fast Shipping",
+      "desc": "Quick and reliable delivery to get your yarn to you when you need it."
+    },
+    "eco": {
+      "title": "Eco-Friendly",
+      "desc": "Sustainable practices and organic materials that care for our planet."
+    }
   }
 }

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import bannerImg from '../../assets/images/banner.png';
-import logoIcon from '../../assets/images/logo.svg';
+import bannerImg from '../../assets/images/Banner/banner.png';
+import logoIcon from '../../assets/Icons/logo.svg';
 import './Banner.scss';
 
 const Banner = () => {
   const { t } = useTranslation();
 
-  // Tách tiêu đề để nhét logo vào chữ Cindy (từ đầu tiên)
   const title = t('banner.title') || 'Cindy Handmade';
   const words = title.split(' ');
   const firstWord = words[0]; // Cindy
@@ -37,11 +36,11 @@ const Banner = () => {
 
   return (
     <section className="banner">
-      <div 
+      <div
         className="banner-container"
         style={{
           opacity: opacity,
-          transform: `translateY(${translateY}px)`
+          transform: `translateY(${translateY}px)`,
         }}
       >
         <div className="banner-content">

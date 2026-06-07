@@ -22,7 +22,7 @@ const AboutUs = () => {
       },
       {
         threshold: 0.2, // Kích hoạt khi 20% section lọt vào màn hình
-      }
+      },
     );
 
     if (sectionRef.current) {
@@ -35,11 +35,7 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <section 
-      className={`about-us ${isVisible ? 'visible' : ''}`} 
-      ref={sectionRef}
-      id="about-us"
-    >
+    <section className={`about-us ${isVisible ? 'visible' : ''}`} ref={sectionRef} id="about-us">
       <div className="about-container">
         {/* Tiêu đề hiển thị riêng trên Mobile (Nằm trên ảnh) */}
         <div className="about-text-header mobile-only">
@@ -62,7 +58,7 @@ const AboutUs = () => {
             <span className="section-subtitle">{t('aboutUs.subtitle')}</span>
             <h2>{t('aboutUs.title')}</h2>
           </div>
-          
+
           <p>{t('aboutUs.paragraph1')}</p>
           <p>{t('aboutUs.paragraph2')}</p>
           <button className="btn-secondary" onClick={() => navigate('/about')}>

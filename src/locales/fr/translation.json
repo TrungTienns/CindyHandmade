@@ -39,5 +39,100 @@
     "step2Desc": "Maille par maille, chaque produit est confectionné à la main avec patience et souci du détail, pour que chaque courbe et texture soit parfaite.",
     "step3Title": "Finition avec Amour",
     "step3Desc": "Avant de vous parvenir, chaque pièce est inspectée, nettoyée et soigneusement emballée — avec le même amour qui l'a créée."
+  },
+  "featuredProducts": {
+    "title": "Produits Vedettes",
+    "subtitle": "Découvrez nos meilleurs produits artisanaux",
+    "loading": "Chargement des données...",
+    "addToCart": "Ajouter au panier",
+    "buyNow": "Acheter"
+  },
+  "footer": {
+    "brandDesc": "Tricots artisanaux de qualité supérieure pour vous et vos proches. Fabriqués avec amour, soin et les meilleurs matériaux.",
+    "quickLinks": "Liens Rapides",
+    "home": "Accueil",
+    "shop": "Boutique",
+    "about": "À Propos",
+    "contact": "Contact",
+    "customerCare": "Service Client",
+    "faq": "FAQ",
+    "shipping": "Livraison et Retours",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "followUs": "Suivez-nous",
+    "findUs": "Nous Trouver",
+    "copyright": "Tous droits réservés."
+  },
+  "productDetail": {
+    "loading": "Chargement des informations du produit...",
+    "notFound": "Produit introuvable.",
+    "description": "Description du produit",
+    "noDescription": "Aucune description détaillée disponible pour ce produit.",
+    "buyNow": "Acheter",
+    "addToCart": "Ajouter au panier"
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "subtitle": "Trouvez des réponses aux questions courantes concernant nos produits, la livraison et plus encore.",
+    "items": [
+      {
+        "question": "Tous vos produits sont-ils faits à la main ?",
+        "answer": "Oui, absolument ! Chaque article chez Cindy Handmade est 100 % crocheté à la main avec amour, soin et attention aux détails. Nous n'utilisons aucune machine dans notre processus de création."
+      },
+      {
+        "question": "Quel type de fils utilisez-vous ?",
+        "answer": "Nous sélectionnons soigneusement des fils de qualité supérieure pour tous nos produits. Nous utilisons principalement du coton biologique doux, du coton de lait et des mélanges acryliques de haute qualité pour garantir que nos articles sont sûrs, durables et doux pour la peau, en particulier pour les bébés."
+      },
+      {
+        "question": "Combien de temps faut-il pour recevoir ma commande ?",
+        "answer": "Comme nos articles sont fabriqués sur commande, il faut généralement 3 à 7 jours pour confectionner votre pièce selon la complexité. La livraison prend généralement de 2 à 5 jours ouvrables supplémentaires dans le pays."
+      },
+      {
+        "question": "Acceptez-vous les commandes personnalisées ?",
+        "answer": "Oui, nous adorons donner vie à vos idées uniques ! Vous pouvez nous contacter directement via nos réseaux sociaux ou par e-mail pour discuter de couleurs, de tailles ou de designs complètement nouveaux personnalisés."
+      },
+      {
+        "question": "Comment dois-je laver et entretenir mes articles en crochet ?",
+        "answer": "Nous vous recommandons de laver vos articles en crochet à la main à l'eau froide avec un détergent doux. Essorez doucement l'excédent d'eau (ne pas tordre) et posez-le à plat pour le faire sécher. Cela aide à maintenir la forme et la douceur du fil."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Nous Contacter",
+    "subtitle": "Nous sommes toujours là pour vous aider. Contactez-nous via l'un des canaux ci-dessous.",
+    "infoTitle": "Entrer En Contact",
+    "infoDesc": "Nous serions ravis d'avoir de vos nouvelles. Que vous ayez une question sur les produits, les prix ou autre chose, notre équipe est prête à répondre à toutes vos questions.",
+    "addressTitle": "Adresse",
+    "phoneTitle": "Téléphone",
+    "emailTitle": "E-mail",
+    "nameLabel": "Votre Nom",
+    "namePlaceholder": "Jean Dupont",
+    "emailLabel": "Votre E-mail",
+    "emailPlaceholder": "jean@exemple.com",
+    "subjectLabel": "Sujet",
+    "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Écrivez votre message ici...",
+    "submitBtn": "Envoyer le message"
+  },
+  "benefits": {
+    "welcome": "Bienvenue chez",
+    "subtitle": "Découvrez la différence avec notre sélection soignée et notre service dédié.",
+    "quality": {
+      "title": "Qualité Premium",
+      "desc": "Nous sélectionnons uniquement les fils de la plus haute qualité du monde entier pour vos projets."
+    },
+    "handmade": {
+      "title": "Couleurs Teintes à la Main",
+      "desc": "Des couleurs uniques et vibrantes créées par des teinturiers artisans en petits lots."
+    },
+    "shipping": {
+      "title": "Livraison Rapide",
+      "desc": "Une livraison rapide et fiable pour que vous receviez votre fil au moment où vous en avez besoin."
+    },
+    "eco": {
+      "title": "Éco-Responsable",
+      "desc": "Des pratiques durables et des matériaux biologiques qui préservent notre planète."
+    }
   }
 }

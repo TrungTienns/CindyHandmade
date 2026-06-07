@@ -1,0 +1,263 @@
+/* ─── Mask-Reveal animation ─── */
+.mr {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.mi {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.delay1 .mi {
+  transition-delay: 0.2s;
+}
+.delay2 .mi {
+  transition-delay: 0.4s;
+}
+
+/* ═════════════════════════════════════════
+   1. HERO
+═════════════════════════════════════════ */
+.ap-hero {
+  position: relative;
+  min-height: 55vh;
+  background: linear-gradient(160deg, #f5ebe6 0%, #d5efeb 55%, #b2dbd4 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 140px 60px 70px;
+
+  &.ready .mi {
+    transform: translateY(0);
+  }
+  &.ready .ap-hero__strip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &.ready .scroll-bar {
+    animation: scrollDrop 1.8s ease-in-out infinite 1s;
+  }
+}
+
+/* Large decorative background text */
+.ap-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Ccircle cx='700' cy='120' r='260' fill='rgba(178,219,212,0.18)'/%3E%3Ccircle cx='100' cy='500' r='180' fill='rgba(245,235,230,0.3)'/%3E%3C/svg%3E");
+  background-size: cover;
+  pointer-events: none;
+}
+
+.ap-hero__body {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.ap-hero__label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #8abeb4;
+  margin-bottom: 24px;
+}
+
+.ap-hero__h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.8rem, 8vw, 6.5rem);
+  font-weight: 700;
+  color: #2e3d39;
+  line-height: 1.1;
+  margin-bottom: 28px;
+
+  .italic {
+    font-style: italic;
+    color: #4a5d58;
+  }
+}
+
+.ap-hero__sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.7;
+  max-width: 460px;
+}
+
+/* ── Mosaic ảnh 3 khối so le ── */
+.ap-hero__mosaic {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: clamp(260px, 32vw, 420px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 0;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 1.2s ease 0.4s,
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+  will-change: opacity, transform;
+
+  &.ready {
+    opacity: 1;
+    transform: translateX(0);
+    will-change: auto;
+  }
+}
+
+.mosaic-item {
+  overflow: hidden;
+  border-radius: 14px;
+  flex-shrink: 0;
+  /* Tạo stacking context riêng cho mỗi ảnh */
+  isolation: isolate;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  &:hover img {
+    transform: scale(1.07);
+  }
+  &:not(:hover) img {
+    will-change: auto;
+  }
+}
+
+/* Ảnh 1: chiều cao lớn, căn phải */
+.mosaic-item--1 {
+  height: clamp(140px, 18vw, 220px);
+  width: 90%;
+  margin-left: auto;
+  box-shadow: -8px 16px 40px rgba(0, 0, 0, 0.13);
+  transform: rotate(1.5deg);
+  transition: transform 0.5s ease;
+  will-change: transform;
+  &:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+}
+
+/* Ảnh 2: chiều cao trung bình, lệch trái */
+.mosaic-item--2 {
+  height: clamp(100px, 14vw, 170px);
+  width: 75%;
+  margin-left: 10px;
+  box-shadow: -6px 12px 30px rgba(0, 0, 0, 0.1);
+  transform: rotate(-1deg);
+  transition: transform 0.5s ease;
+  will-change: transform;
+  &:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+}
+
+/* Ảnh 3: chiều cao vừa, căn phải lại */
+.mosaic-item--3 {
+  height: clamp(120px, 16vw, 200px);
+  width: 82%;
+  margin-left: auto;
+  box-shadow: -8px 14px 36px rgba(0, 0, 0, 0.12);
+  transform: rotate(0.8deg);
+  transition: transform 0.5s ease;
+  will-change: transform;
+  &:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+}
+
+/* Scroll indicator */
+.ap-hero__scroll {
+  position: absolute;
+  left: 60px;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 3;
+}
+.scroll-bar {
+  display: block;
+  width: 1px;
+  height: 70px;
+  background: linear-gradient(to bottom, #4a5d58, transparent);
+}
+@keyframes scrollDrop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+  }
+}
+
+/* -- Tablet (<= 1024px) -- */
+@media (max-width: 1024px) {
+  .ap-hero {
+    padding: 120px 32px 70px;
+    min-height: 50vh;
+  }
+  .ap-hero__body {
+    max-width: 100%;
+  }
+  .ap-hero__mosaic {
+    display: none;
+  }
+}
+
+/* -- Large phone (<= 768px) -- */
+@media (max-width: 768px) {
+  .ap-hero {
+    padding: 100px 20px 60px;
+    min-height: auto;
+  }
+  .ap-hero__h1 {
+    font-size: clamp(2.4rem, 10vw, 3.5rem);
+  }
+  .ap-hero__sub {
+    font-size: 1rem;
+  }
+  .ap-hero__scroll {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+
+/* -- Small phone (<= 480px) -- */
+@media (max-width: 480px) {
+  .ap-hero {
+    padding: 90px 16px 50px;
+  }
+  .ap-hero__h1 {
+    font-size: 2.2rem;
+  }
+  .ap-hero__sub {
+    font-size: 0.95rem;
+  }
+  .ap-hero__label {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+}

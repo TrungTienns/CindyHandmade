@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+.benefits-section {
+  padding: 4rem 1.5rem;
+  background-color: #fcfdfc;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  position: relative;
+
+  .benefits-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+
+    /* LEFT SIDE: TEXT CONTENT */
+    .benefits-content {
+      flex: 1;
+      max-width: 450px;
+
+      .benefits-header {
+        margin-bottom: 2rem;
+
+        .subtitle {
+          font-size: 0.9rem;
+          color: #81c784;
+          font-weight: 600;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+
+        h2 {
+          font-size: 2.25rem;
+          font-weight: 700;
+          color: #1a1a1a;
+          margin-bottom: 0.75rem;
+          line-height: 1.2;
+        }
+
+        p {
+          font-size: 0.95rem;
+          color: #6b7280;
+          line-height: 1.5;
+        }
+      }
+
+      .benefits-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .benefit-item {
+          padding-left: 1.25rem;
+          border-left: 3px solid #e8f5e9;
+          transition: all 0.3s ease;
+
+          &:hover {
+            border-left-color: #81c784;
+            transform: translateX(10px) !important;
+          }
+
+          .benefit-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.35rem;
+          }
+
+          .benefit-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+
+    /* RIGHT SIDE: PINTEREST GALLERY */
+    .benefits-gallery {
+      flex: 1;
+
+      .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        align-items: start;
+
+        .masonry-item {
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+
+          &.item-2 {
+            margin-top: 2.5rem;
+          }
+          &.item-4 {
+            margin-top: 2.5rem;
+          }
+
+          .img-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 130%; /* Aspect ratio */
+            overflow: hidden;
+
+            img {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            }
+
+            .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.3) 100%);
+              opacity: 0;
+              transition: opacity 0.4s ease;
+            }
+          }
+
+          &:hover {
+            .img-wrapper img {
+              transform: scale(1.08);
+            }
+            .img-wrapper .overlay {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .benefits-section {
+    padding: 5rem 1.5rem;
+
+    .benefits-container {
+      flex-direction: column;
+      gap: 4rem;
+
+      .benefits-content {
+        max-width: 100%;
+        text-align: center;
+
+        .benefits-header h2 {
+          font-size: 2.5rem;
+        }
+
+        .benefits-list {
+          .benefit-item {
+            text-align: left;
+          }
+        }
+      }
+
+      .benefits-gallery {
+        width: 100%;
+
+        .masonry-grid {
+          gap: 1rem;
+
+          .masonry-item {
+            border-radius: 16px;
+
+            &.item-2,
+            &.item-4 {
+              margin-top: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

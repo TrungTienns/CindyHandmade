@@ -6,22 +6,20 @@ import translationFR from './locales/fr/translation.json';
 
 const resources = {
   en: {
-    translation: translationEN
+    translation: translationEN,
   },
   fr: {
-    translation: translationFR
-  }
+    translation: translationFR,
+  },
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: localStorage.getItem('appLanguage') || 'en', // Lấy từ localStorage hoặc mặc định
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false // React already escapes values safely
-    }
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: localStorage.getItem('appLanguage') || 'en', // Lấy từ localStorage hoặc mặc định
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false, // React already escapes values safely
+  },
+});
 
 export default i18n;

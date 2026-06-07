@@ -28,10 +28,10 @@
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     padding: 20px 0;
     z-index: 999;
-    
+
     /* Cấu hình animation */
     display: flex;
     justify-content: center;
@@ -39,7 +39,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease-in-out;
-    
+
     &.mobile-open {
       opacity: 1;
       visibility: visible;
@@ -60,7 +60,7 @@
 .navigation a {
   /* Dùng SCSS nesting thay vì group của Tailwind để tránh lỗi */
   @apply relative no-underline text-[#555] text-[1.1rem] font-medium font-outfit transition-colors duration-300 hover:text-brand-pink block;
-  
+
   &::after {
     @apply content-[''] absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-pink transition-all duration-300;
   }
@@ -80,7 +80,7 @@
 
 .lang-btn {
   @apply bg-transparent border-none cursor-pointer font-outfit text-[0.8rem] font-semibold p-0 transition-colors duration-300 hover:text-[#555];
-  
+
   &.active {
     @apply text-brand-green;
   }
@@ -99,5 +99,21 @@
   svg {
     width: 24px;
     height: 24px;
+  }
+}
+
+.user-menu-container {
+  @apply relative;
+}
+
+.btn-user {
+  @apply bg-transparent border-none text-[#555] cursor-pointer p-2 rounded-full transition-colors duration-300 hover:bg-gray-100 flex items-center justify-center;
+}
+
+.user-dropdown {
+  @apply absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-100 py-2 min-w-[150px] z-50 flex flex-col;
+
+  .dropdown-item {
+    @apply px-4 py-2 text-sm text-gray-700 hover:bg-brand-pink hover:text-white transition-colors duration-300 no-underline font-outfit;
   }
 }

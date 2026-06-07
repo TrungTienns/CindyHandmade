@@ -1,23 +1,24 @@
 import axios from 'axios';
 
-// Khởi tạo instance axios với cấu hình mặc định
 const http = axios.create({
-  baseURL: 'http://localhost:8080/api', // Địa chỉ BE của bạn
+  baseURL: 'http://localhost:8080/api',
   timeout: 10000,
 });
 
-// Bạn có thể thêm Interceptor ở đây nếu cần truyền Token sau này
 http.interceptors.request.use(
-  (config) => {
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+  config => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.token) {
+        config.headers.Authorization = `Bearer ${user.token}`;
+      }
+    }
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default http;
