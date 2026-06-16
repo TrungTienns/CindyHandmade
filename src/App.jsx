@@ -8,8 +8,10 @@ import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 import FaqPage from './pages/FaqPage/FaqPage';
 import ContactPage from './pages/ContactPage/ContactPage';
 import LoginPage from './pages/LoginPage/LoginPage';
+import SignUpPage from './pages/SignUpPage/SignUpPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import CartPage from './pages/CartPage/CartPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 import { CartProvider } from './context/CartContext';
 import { PATHS } from './common/path';
 
@@ -28,11 +30,13 @@ function App() {
         <Router>
           <Routes>
             <Route path={PATHS.HOME} element={<HomePage />} />
+            <Route path={PATHS.SHOP} element={<ShopPage />} />
             <Route path={PATHS.ABOUT} element={<AboutUsPage />} />
             <Route path={PATHS.FAQ} element={<FaqPage />} />
             <Route path={PATHS.CONTACT} element={<ContactPage />} />
             <Route path={PATHS.PRODUCT_DETAIL} element={<ProductDetailPage />} />
             <Route path={PATHS.LOGIN} element={<LoginPage />} />
+            <Route path={PATHS.REGISTER} element={<SignUpPage />} />
             <Route path={PATHS.CART} element={<CartPage />} />
 
             {/* Admin Protected Route */}

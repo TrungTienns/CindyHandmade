@@ -1,33 +1,40 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import './AdminPage.scss';
+import React, { useState } from 'react';
+import AdminLayout from '../../layouts/AdminLayout/AdminLayout';
+import ProductManager from '../../layouts/ProductManager/ProductManager';
+import Dashboard from '../../layouts/Dashboard/Dashboard';
 
 const AdminPage = () => {
-  const { user } = useContext(AuthContext);
+  const [activeTab, setActiveTab] = useState('dashboard');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'products':
+        return <ProductManager />;
+      case 'orders':
+        return (
+          <div className="admin-card">
+            <h2>Đơn hàng</h2>
+            <p>Tính năng quản lý đơn hàng đang được xây dựng.</p>
+          </div>
+        );
+      case 'users':
+        return (
+          <div className="admin-card">
+            <h2>Người dùng</h2>
+            <p>Tính năng quản lý người dùng đang được xây dựng.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
-        <h1>Bảng điều khiển Quản trị viên</h1>
-        <p>
-          Xin chào, {user?.username}! Bạn đang truy cập với quyền {user?.role}.
-        </p>
-      </div>
-
-      <div className="admin-content">
-        <div className="admin-card">
-          <h3>Quản lý người dùng</h3>
-          <p>Khu vực dành riêng cho admin để quản lý thông tin người dùng.</p>
-          <button>Xem chi tiết</button>
-        </div>
-
-        <div className="admin-card">
-          <h3>Thống kê doanh thu</h3>
-          <p>Xem báo cáo doanh thu và tình hình kinh doanh.</p>
-          <button>Xem chi tiết</button>
-        </div>
-      </div>
-    </div>
+    <AdminLayout activeTab={activeTab} setActiveTab={setActiveTab}>
+      {renderContent()}
+    </AdminLayout>
   );
 };
 

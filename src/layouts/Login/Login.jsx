@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { PATHS } from '../../common/path';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
+
 import './Login.scss';
 
 const Login = () => {
@@ -15,15 +14,42 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  React.useEffect(() => {
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
+
+    if (!email.trim() || !password.trim()) {
+      setError(t('login.empty_fields', 'Vui lòng điền đầy đủ thông tin.'));
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError(t('login.invalid_email', 'Email không hợp lệ.'));
+      return;
+    }
+
     setLoading(true);
 
     try {
+      if (rememberMe) {
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+      
       const user = await login(email, password);
       if (user.role === 'admin') {
         navigate(PATHS.ADMIN || '/admin');
@@ -47,7 +73,7 @@ const Login = () => {
       <div className="glass-card">
         <div className="card-left">
           <div className="brand-section">
-            <h1 className="brand-logo">KnitWorkshop.</h1>
+            <h1 className="brand-logo">Cindy Handmade</h1>
             <p className="brand-tagline">
               {t('login.tagline', 'Crafting beautiful moments, one stitch at a time.')}
             </p>
@@ -105,7 +131,11 @@ const Login = () => {
 
             <div className="form-options">
               <label className="remember-me">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={e => setRememberMe(e.target.checked)}
+                />
                 <span>{t('login.remember', 'Remember me')}</span>
               </label>
               <a href="#" className="forgot-password">
@@ -121,20 +151,7 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="separator">
-            <span>{t('login.or_continue', 'Or continue with')}</span>
-          </div>
 
-          <div className="social-buttons">
-            <button type="button" className="social-btn">
-              <FcGoogle className="s-icon" />
-              <span>Google</span>
-            </button>
-            <button type="button" className="social-btn">
-              <FaFacebook className="s-icon fb-icon" />
-              <span>Facebook</span>
-            </button>
-          </div>
 
           <p className="signup-link">
             {t('login.no_account', "Don't have an account?")}{' '}

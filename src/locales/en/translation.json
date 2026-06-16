@@ -153,5 +153,37 @@
       "title": "Secure Delivery",
       "desc": "Carefully packaged to preserve the original shape."
     }
+  },
+  "signup": {
+    "password_mismatch": "Confirm password does not match.",
+    "tagline": "Join our community of craft lovers and start your journey today.",
+    "create_account": "Create Account",
+    "subtitle": "Please enter your details to sign up.",
+    "name": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "email": "Email Address",
+    "email_placeholder": "Enter your email",
+    "password": "Password",
+    "password_placeholder": "Create a password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Confirm your password",
+    "processing": "Processing...",
+    "sign_up": "Sign Up",
+    "or_continue": "Or continue with",
+    "already_have_account": "Already have an account?",
+    "sign_in": "Sign in"
+  },
+  "checkout": {
+    "stepCart": "Cart",
+    "stepDetails": "Details",
+    "stepPayment": "Payment"
+  },
+  "shop": {
+    "bannerTitle": "Our Shop",
+    "bannerSubtitle": "Discover our handcrafted products",
+    "slogan": "Crafting memories, one stitch at a time",
+    "allProducts": "All Products",
+    "filters": "Filters",
+    "loadingProducts": "Loading products..."
   }
 }

@@ -1,0 +1,212 @@
+import React, { useState, useEffect, useContext } from 'react';
+import './Shop.scss';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { fetchProducts, fetchCategories } from '../../services/productService';
+import { useCurrency } from '../../hooks/useCurrency';
+import { useProductTranslation } from '../../hooks/useProductTranslation';
+import { CartContext } from '../../context/CartContext';
+
+const Shop = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { formatPrice } = useCurrency();
+  const { getTranslatedProduct } = useProductTranslation();
+  const { addToCart } = useContext(CartContext);
+  
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [maxProductPrice, setMaxProductPrice] = useState(100);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data);
+        if (data.length > 0) {
+          let maxP = Math.ceil(Math.max(...data.map(p => p.price)));
+          maxP = Math.ceil(maxP / 100) * 100 + 100; 
+          if (maxP < 500) maxP = 500; 
+          setMaxProductPrice(maxP);
+          setPriceRange([0, maxP]);
+        }
+      } catch (error) {
+        console.error('Failed to load products', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error('Failed to load categories', error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    loadProducts();
+    loadCategories();
+  }, []);
+
+  const handleBuyNow = (e, product) => {
+    e.stopPropagation();
+    addToCart(product);
+    navigate('/cart');
+  };
+
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
+
+  const goToProductDetail = productId => {
+    navigate(`/product/${productId}`);
+  };
+
+  const isNewProduct = createdAt => {
+    if (!createdAt) return false;
+    const createdDate = new Date(createdAt);
+    const now = new Date();
+    const diffTime = Math.abs(now - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 7;
+  };
+
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategories((prev) => {
+      if (prev.includes(categoryId)) {
+        return prev.filter(id => id !== categoryId);
+      } else {
+        return [...prev, categoryId];
+      }
+    });
+  };
+
+  const handleMinPriceChange = (e) => {
+    const value = Math.min(Number(e.target.value), priceRange[1] - 1);
+    setPriceRange([value, priceRange[1]]);
+  };
+
+  const handleMaxPriceChange = (e) => {
+    const value = Math.max(Number(e.target.value), priceRange[0] + 1);
+    setPriceRange([priceRange[0], value]);
+  };
+
+  const displayedProducts = products.filter(p => {
+    const inCategory = selectedCategories.length === 0 || selectedCategories.includes(p.categoryId);
+    const inPriceRange = p.price >= priceRange[0] && p.price <= priceRange[1];
+    return inCategory && inPriceRange;
+  });
+
+  return (
+    <div className="shop-layout">
+      <div className="shop-container">
+        <h2 className="shop-title">{t('shop.allProducts', 'All Products')}</h2>
+        
+        <div className="shop-content">
+          <div className="shop-filters">
+            <h3>{t('shop.filters', 'Filters')}</h3>
+            <div className="categories-list">
+              <h4>{t('shop.categories', 'Categories')}</h4>
+              {categoriesLoading ? (
+                <p>{t('shop.loadingCategories', 'Loading...')}</p>
+              ) : (
+                <div className="checkbox-list">
+                  {categories.map(category => (
+                    <label key={category.id} className="checkbox-item">
+                      <input 
+                        type="checkbox" 
+                        checked={selectedCategories.includes(category.id)}
+                        onChange={() => handleCategoryChange(category.id)}
+                      />
+                      <span className="checkmark"></span>
+                      <span className="label-text">{category.name}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="price-filter">
+              <h4>{t('shop.price', 'Price')}</h4>
+              <p className="price-label">
+                {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
+              </p>
+              <div className="range-slider">
+                <span 
+                  className="slider-track"
+                  style={{
+                    left: `${(priceRange[0] / maxProductPrice) * 100}%`,
+                    width: `${((priceRange[1] - priceRange[0]) / maxProductPrice) * 100}%`
+                  }}
+                ></span>
+                <input 
+                  type="range" 
+                  min={0} 
+                  max={maxProductPrice} 
+                  value={priceRange[0]} 
+                  onChange={handleMinPriceChange}
+                />
+                <input 
+                  type="range" 
+                  min={0} 
+                  max={maxProductPrice} 
+                  value={priceRange[1]} 
+                  onChange={handleMaxPriceChange}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="shop-products">
+            {loading ? (
+              <p className="loading-text">{t('shop.loadingProducts', 'Loading products...')}</p>
+            ) : (
+              displayedProducts.map(p => {
+                const product = getTranslatedProduct(p);
+                return (
+                  <div
+                    className="shop-product-card product-card"
+                    key={product.id}
+                    onClick={() => goToProductDetail(product.id)}
+                  >
+                    <div className="product-image-container">
+                      {isNewProduct(product.createdAt) && (
+                        <div className="new-badge">New</div>
+                      )}
+                      <img src={product.imageUrl} alt={product.name} className="product-image" />
+                    </div>
+                    <div className="product-info">
+                      <h3 className="product-name">{product.name}</h3>
+                      <div className="product-price-row">
+                        <p className="product-price">{formatPrice(product.price)}</p>
+                      </div>
+                      <div className="action-buttons">
+                        <button className="btn-buy-now" onClick={e => handleBuyNow(e, product)}>
+                          {t('featuredProducts.buyNow', 'Buy Now')}
+                        </button>
+                        <button className="btn-add-to-cart" onClick={e => handleAddToCart(e, product)}>
+                          {t('featuredProducts.addToCart', 'Add to Cart')}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Shop;

@@ -160,23 +160,23 @@
 .banner-image-wrapper {
   flex: 1 1 auto;
   display: flex;
-  justify-content: flex-end; /* Đẩy sát lề phải */
-  align-items: center; /* Trả ảnh về lại căn giữa theo chiều dọc (middle right) */
+  justify-content: flex-end; 
+  width: 1000px;
+  align-items: center; 
   height: auto;
-  /* Kéo mép phải chạm sát mép màn hình */
   margin-right: calc(50% - 50vw);
   margin-top: 0;
   opacity: 0;
-  transform-origin: right center; /* Canh mốc chuyển động từ giữa cạnh phải */
+  transform-origin: right center;
   animation: slideAndZoom 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   animation-delay: 0.1s;
 }
 
 .banner-image {
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: 48vw;
-  max-height: 85vh;
+  max-width: 50vw;
+  max-height: 75vh;
   object-fit: contain;
 
   border-radius: 0;
@@ -260,11 +260,11 @@
   }
 
   .banner-image {
-    width: auto;
+    width: 100%;
     height: auto;
-    max-width: 200vw;
-    max-height: 200vh;
-    border-radius: 20;
+    max-width: 90vw;
+    max-height: 60vh;
+    object-fit: contain;
   }
 }
 
@@ -291,12 +291,13 @@
   }
 
   .banner-image-wrapper {
-    height: 45vh; /* Tăng độ lớn của ảnh trên điện thoại để lấp đầy màn hình */
-    margin-top: -10px; /* Bám sát cụm chữ */
+    height: auto;
+    margin-top: 20px;
   }
 
   .banner-image {
-    border-radius: 30px;
+    max-width: 95vw;
+    max-height: 50vh;
   }
 }
 
@@ -315,7 +316,8 @@
   }
 
   .banner-image-wrapper {
-    height: 30vh;
+    height: auto;
+    margin-top: 10px;
   }
 
   .btn-primary {

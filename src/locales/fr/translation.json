@@ -153,5 +153,37 @@
       "title": "Livraison Sécurisée",
       "desc": "Emballé avec soin pour préserver la forme d'origine."
     }
+  },
+  "signup": {
+    "password_mismatch": "Le mot de passe de confirmation ne correspond pas.",
+    "tagline": "Rejoignez notre communauté de passionnés de tricot et commencez votre voyage aujourd'hui.",
+    "create_account": "Créer un compte",
+    "subtitle": "Veuillez saisir vos informations pour vous inscrire.",
+    "name": "Nom complet",
+    "name_placeholder": "Entrez votre nom complet",
+    "email": "Adresse e-mail",
+    "email_placeholder": "Entrez votre adresse e-mail",
+    "password": "Mot de passe",
+    "password_placeholder": "Créez un mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "confirm_password_placeholder": "Confirmez votre mot de passe",
+    "processing": "Traitement en cours...",
+    "sign_up": "S'inscrire",
+    "or_continue": "Ou continuer avec",
+    "already_have_account": "Vous avez déjà un compte ?",
+    "sign_in": "Se connecter"
+  },
+  "checkout": {
+    "stepCart": "Panier",
+    "stepDetails": "Détails",
+    "stepPayment": "Paiement"
+  },
+  "shop": {
+    "bannerTitle": "Notre Boutique",
+    "bannerSubtitle": "Découvrez nos produits faits main",
+    "slogan": "Façonner des souvenirs, un point à la fois",
+    "allProducts": "Tous les Produits",
+    "filters": "Filtres",
+    "loadingProducts": "Chargement des produits..."
   }
 }

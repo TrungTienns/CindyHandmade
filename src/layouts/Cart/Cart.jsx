@@ -8,6 +8,7 @@ import './Cart.scss';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../../hooks/useCurrency';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
+import CheckoutStepper from '../../components/CheckoutStepper/CheckoutStepper';
 
 const Cart = () => {
   const { cart, cartTotal, updateQuantity, removeFromCart, loading } = useContext(CartContext);
@@ -55,6 +56,7 @@ const Cart = () => {
     <div className="cart-page">
       <div className="cart-container">
         <h1 className="cart-title">{t('cart.title', 'Your Cart')}</h1>
+        <CheckoutStepper currentStep={1} />
 
         <div className="cart-content">
           <div className="cart-items">

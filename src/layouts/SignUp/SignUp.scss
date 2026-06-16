@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-.premium-login-page {
+.premium-signup-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,7 +64,7 @@
     display: flex;
     width: 100%;
     max-width: 1000px;
-    min-height: 600px;
+    min-height: 700px; /* Slightly taller for signup fields */
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -156,14 +156,14 @@
     /* Right Form Side */
     .card-right {
       flex: 1;
-      padding: 4rem;
+      padding: 3rem 4rem;
       background: rgba(255, 255, 255, 0.4);
       display: flex;
       flex-direction: column;
       justify-content: center;
 
       .form-header {
-        margin-bottom: 2.5rem;
+        margin-bottom: 1.5rem; /* Reduced slightly to fit extra input */
 
         h2 {
           font-size: 2.2rem;
@@ -187,7 +187,7 @@
         color: #ef4444;
         padding: 0.8rem 1rem;
         border-radius: 12px;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         font-size: 0.9rem;
         animation: slideIn 0.3s ease-out;
 
@@ -220,7 +220,7 @@
       .premium-form {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.1rem; /* Compact layout for 4 fields */
 
         .input-group {
           label {
@@ -228,7 +228,7 @@
             font-size: 0.9rem;
             font-weight: 500;
             color: #374151;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             margin-left: 4px;
           }
 
@@ -258,7 +258,7 @@
               flex: 1;
               border: none;
               background: transparent;
-              padding: 1rem 0;
+              padding: 0.8rem 0; /* Slightly thinner padding */
               font-size: 1rem;
               color: #1f2937;
               outline: none;
@@ -280,39 +280,6 @@
           }
         }
 
-        .form-options {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 0.9rem;
-
-          .remember-me {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: #4b5563;
-
-            input {
-              margin-right: 8px;
-              accent-color: #66bb6a;
-              width: 16px;
-              height: 16px;
-            }
-          }
-
-          .forgot-password {
-            color: #66bb6a;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s;
-
-            &:hover {
-              color: #43a047;
-              text-decoration: underline;
-            }
-          }
-        }
-
         .submit-btn {
           display: flex;
           justify-content: center;
@@ -320,13 +287,13 @@
           background: #1a1a1a;
           color: white;
           border: none;
-          padding: 1.1rem;
+          padding: 1rem;
           border-radius: 14px;
           font-size: 1.05rem;
           font-weight: 500;
           cursor: pointer;
           transition: all 0.3s ease;
-          margin-top: 1rem;
+          margin-top: 0.5rem;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
           .arrow-icon {
@@ -356,7 +323,7 @@
         display: flex;
         align-items: center;
         text-align: center;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
         color: #9ca3af;
         font-size: 0.85rem;
 
@@ -384,7 +351,7 @@
           justify-content: center;
           background: white;
           border: 1.5px solid #e5e7eb;
-          padding: 0.9rem;
+          padding: 0.8rem;
           border-radius: 12px;
           font-size: 0.95rem;
           font-weight: 500;
@@ -410,9 +377,9 @@
         }
       }
 
-      .signup-link {
+      .login-link {
         text-align: center;
-        margin-top: 2.5rem;
+        margin-top: 1.5rem;
         font-size: 0.95rem;
         color: #4b5563;
 
@@ -433,7 +400,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
-  .premium-login-page .glass-card {
+  .premium-signup-page .glass-card {
     flex-direction: column;
 
     .card-left {

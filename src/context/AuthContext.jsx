@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { loginApi } from '../services/authService';
+import { loginApi, registerApi } from '../services/authService';
 
 export const AuthContext = createContext();
 
@@ -29,12 +29,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (name, email, password) => {
+    try {
+      const userData = await registerApi(name, email, password);
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      return userData;
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        'Đăng ký thất bại. Vui lòng kiểm tra lại thông tin và thử lại.';
+      throw new Error(message);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, login, logout, register }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
+

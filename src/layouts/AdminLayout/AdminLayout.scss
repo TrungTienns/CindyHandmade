@@ -1,0 +1,215 @@
+@import '../../index.scss';
+
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f5f9; // Light grey background like TailAdmin
+  font-family: 'Inter', sans-serif;
+  color: #64748b; // Muted text for main content
+
+  .admin-sidebar {
+    width: 280px;
+    background: #1c2434; // Dark theme sidebar
+    color: #8a99af;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+
+    .sidebar-header {
+      margin-bottom: 2rem;
+      padding: 0 0.5rem;
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        .logo-icon {
+          background: #3c50e0;
+          color: white;
+          padding: 0.3rem;
+          border-radius: 8px;
+        }
+      }
+    }
+
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        border: none;
+        background: transparent;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #8a99af;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        svg {
+          font-size: 1.25rem;
+        }
+
+        &:hover {
+          background: #333a48;
+          color: #ffffff;
+        }
+
+        &.active {
+          background: #333a48;
+          color: #ffffff;
+        }
+      }
+
+      .menu-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #8a99af;
+        margin: 1.5rem 0 0.5rem 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  .admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
+      .header-search {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        
+        svg {
+          font-size: 1.2rem;
+        }
+
+        input {
+          border: none;
+          outline: none;
+          font-size: 1rem;
+          padding: 0.5rem;
+          background: transparent;
+          color: #1e293b;
+          width: 250px;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+        }
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+
+        .icon-btn {
+          position: relative;
+          background: #f1f5f9;
+          border: none;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #64748b;
+          cursor: pointer;
+          transition: background 0.2s;
+
+          &:hover {
+            background: #e2e8f0;
+          }
+
+          .badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+          }
+        }
+
+        .user-info {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          cursor: pointer;
+
+          .user-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            span {
+              font-weight: 600;
+              color: #1e293b;
+              font-size: 0.95rem;
+            }
+            
+            small {
+              color: #64748b;
+              font-size: 0.8rem;
+            }
+          }
+
+          .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+
+    .content-area {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+}
