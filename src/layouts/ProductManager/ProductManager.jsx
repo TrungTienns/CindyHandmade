@@ -72,18 +72,14 @@ const ProductManager = () => {
       <div className="manager-header">
         <h2>Tất cả sản phẩm</h2>
         
-        <div className="manager-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <div className="header-search" style={{ 
-            display: 'flex', alignItems: 'center', background: '#f4f7fe', 
-            padding: '0.5rem 1rem', borderRadius: '30px', color: '#a3aed1'
-          }}>
-            <FiSearch style={{ marginRight: '0.5rem' }} />
+        <div className="manager-actions">
+          <div className="header-search">
+            <FiSearch className="search-icon" />
             <input 
               type="text" 
               placeholder="Tìm kiếm sản phẩm..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ border: 'none', background: 'transparent', outline: 'none', color: '#2b3674' }}
             />
           </div>
           <button className="btn-add" onClick={() => setIsAdding(true)}>
