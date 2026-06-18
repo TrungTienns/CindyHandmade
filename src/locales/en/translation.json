@@ -45,7 +45,9 @@
     "subtitle": "Discover our finest handcrafted products",
     "loading": "Loading data...",
     "addToCart": "Add to cart",
-    "buyNow": "Buy Now"
+    "buyNow": "Buy Now",
+    "error": "Failed to load products. Please try again.",
+    "new": "new"
   },
   "footer": {
     "brandDesc": "Premium handcrafted knitwear for you and your loved ones. Made with love, care, and the finest materials.",
@@ -185,5 +187,17 @@
     "allProducts": "All Products",
     "filters": "Filters",
     "loadingProducts": "Loading products..."
+  },
+  "alerts": {
+    "loginRequiredBuy": "Please login to buy this product.",
+    "loginRequiredCart": "Please login to add this to your cart.",
+    "cartSuccess": "Product added to cart successfully.",
+    "errorTitle": "Error",
+    "successTitle": "Success",
+    "infoTitle": "Information",
+    "confirmTitle": "Confirmation",
+    "cancelBtn": "Cancel",
+    "confirmBtn": "Confirm",
+    "closeBtn": "Close"
   }
 }

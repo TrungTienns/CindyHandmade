@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import AdminLayout from '../../layouts/AdminLayout/AdminLayout';
 import ProductManager from '../../layouts/ProductManager/ProductManager';
 import Dashboard from '../../layouts/Dashboard/Dashboard';
+import UserManager from '../../layouts/UserManager/UserManager';
+import CategoryManager from '../../layouts/CategoryManager/CategoryManager';
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -12,6 +14,8 @@ const AdminPage = () => {
         return <Dashboard />;
       case 'products':
         return <ProductManager />;
+      case 'categories':
+        return <CategoryManager />;
       case 'orders':
         return (
           <div className="admin-card">
@@ -20,12 +24,7 @@ const AdminPage = () => {
           </div>
         );
       case 'users':
-        return (
-          <div className="admin-card">
-            <h2>Người dùng</h2>
-            <p>Tính năng quản lý người dùng đang được xây dựng.</p>
-          </div>
-        );
+        return <UserManager />;
       default:
         return null;
     }

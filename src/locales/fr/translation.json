@@ -45,7 +45,9 @@
     "subtitle": "Découvrez nos meilleurs produits artisanaux",
     "loading": "Chargement des données...",
     "addToCart": "Ajouter au panier",
-    "buyNow": "Acheter"
+    "buyNow": "Acheter",
+    "error": "Échec du chargement des produits. Veuillez réessayer.",
+    "new": "Nouveau"
   },
   "footer": {
     "brandDesc": "Tricots artisanaux de qualité supérieure pour vous et vos proches. Fabriqués avec amour, soin et les meilleurs matériaux.",
@@ -185,5 +187,17 @@
     "allProducts": "Tous les Produits",
     "filters": "Filtres",
     "loadingProducts": "Chargement des produits..."
+  },
+  "alerts": {
+    "loginRequiredBuy": "Veuillez vous connecter pour acheter ce produit.",
+    "loginRequiredCart": "Veuillez vous connecter pour ajouter au panier.",
+    "cartSuccess": "Produit ajouté au panier avec succès.",
+    "errorTitle": "Erreur",
+    "successTitle": "Succès",
+    "infoTitle": "Information",
+    "confirmTitle": "Confirmation",
+    "cancelBtn": "Annuler",
+    "confirmBtn": "Confirmer",
+    "closeBtn": "Fermer"
   }
 }

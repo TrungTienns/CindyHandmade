@@ -13,7 +13,8 @@ import {
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
 import { FiBox, FiList, FiDollarSign, FiShoppingCart } from 'react-icons/fi';
-import { fetchProducts, fetchCategories } from '../../services/productService';
+import { fetchProducts } from '../../services/productService';
+import { fetchCategories } from '../../services/categoryService';
 import { fetchMonthlyRevenue, fetchYearlyRevenue } from '../../services/dashboardService';
 import './Dashboard.scss';
 

@@ -1,0 +1,142 @@
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.alert-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  .alert-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #a3aed1;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ff3b3b;
+    }
+  }
+
+  .alert-icon {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .alert-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #2b3674;
+  }
+
+  .alert-message {
+    color: #718096;
+    margin: 0 0 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .alert-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel {
+      background: #f4f7fe;
+      color: #718096;
+
+      &:hover {
+        background: #e2e8f0;
+        color: #2b3674;
+      }
+    }
+
+    .btn-confirm {
+      flex: 1;
+      color: #fff;
+
+      &.confirm, &.info {
+        background: #4318ff;
+        &:hover {
+          background: #3311cc;
+        }
+      }
+
+      &.error {
+        background: #ff3b3b;
+        &:hover {
+          background: #e53935;
+        }
+      }
+
+      &.success {
+        background: #43a047;
+        &:hover {
+          background: #388e3c;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rotateTick {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.success-icon {
+  animation: rotateTick 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}

@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { fetchProductById } from '../../services/productService';
 import { CartContext } from '../../context/CartContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useAlert } from '../../context/AlertContext';
 import { useCurrency } from '../../hooks/useCurrency';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
 import ProductCommitments from '../ProductCommitments/ProductCommitments';
@@ -17,6 +19,8 @@ const ProductDetail = () => {
   const [productRaw, setProductRaw] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -36,9 +40,24 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleBuyNow = () => {
+    if (!user) {
+      showAlert(t('alerts.loginRequiredBuy', 'Vui lòng đăng nhập để mua sản phẩm này.'), t('alerts.infoTitle', 'Thông báo'), 'info');
+      return;
+    }
     if (product) {
       addToCart(product);
       navigate('/cart');
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (!user) {
+      showAlert(t('alerts.loginRequiredCart', 'Vui lòng đăng nhập để thêm vào giỏ hàng.'), t('alerts.infoTitle', 'Thông báo'), 'info');
+      return;
+    }
+    if (product) {
+      addToCart(product);
+      showAlert(t('alerts.cartSuccess', 'Đã thêm sản phẩm vào giỏ hàng.'), t('alerts.successTitle', 'Thành công'), 'success');
     }
   };
 
@@ -83,7 +102,7 @@ const ProductDetail = () => {
                 <button className="btn-buy-now" onClick={handleBuyNow}>
                   {t('productDetail.buyNow')}
                 </button>
-                <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
+                <button className="btn-add-to-cart" onClick={handleAddToCart}>
                   {t('productDetail.addToCart')}
                 </button>
               </div>

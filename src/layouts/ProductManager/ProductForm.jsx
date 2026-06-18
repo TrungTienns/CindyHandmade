@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { fetchCategories, createProduct } from '../../services/productService';
+import { createProduct, updateProduct } from '../../services/productService';
+import { fetchCategories } from '../../services/categoryService';
 import { FiArrowLeft } from 'react-icons/fi';
 
-const ProductForm = ({ onBack, onSuccess }) => {
+const ProductForm = ({ initialData, onBack, onSuccess }) => {
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    stock: '',
-    categoryId: '',
+    name: initialData?.name || '',
+    name_fr: initialData?.translations?.fr?.name || '',
+    description: initialData?.description || '',
+    description_fr: initialData?.translations?.fr?.description || '',
+    price: initialData?.price ? String(initialData.price).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '',
+    stock: initialData?.stock || '',
+    categoryId: initialData?.categoryId || '',
   });
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,13 @@ const ProductForm = ({ onBack, onSuccess }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === 'price') {
+      const rawValue = value.replace(/\D/g, '');
+      const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      setFormData((prev) => ({ ...prev, price: formattedValue }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleFileChange = (e) => {
@@ -48,15 +57,27 @@ const ProductForm = ({ onBack, onSuccess }) => {
       const submitData = new FormData();
       submitData.append('name', formData.name);
       submitData.append('description', formData.description);
-      submitData.append('price', formData.price);
+      submitData.append('price', formData.price.replace(/\./g, ''));
       submitData.append('stock', formData.stock);
       submitData.append('categoryId', formData.categoryId);
+      
+      const translations = { fr: {} };
+      if (formData.name_fr) translations.fr.name = formData.name_fr;
+      if (formData.description_fr) translations.fr.description = formData.description_fr;
+      if (Object.keys(translations.fr).length > 0) {
+        submitData.append('translations', JSON.stringify(translations));
+      }
       
       if (imageFile) {
         submitData.append('image', imageFile); // 'image' phải khớp với uploadCloud.single('image') ở Backend
       }
 
-      await createProduct(submitData);
+      if (initialData) {
+        await updateProduct(initialData.id, submitData);
+      } else {
+        await createProduct(submitData);
+      }
+      
       setLoading(false);
       onSuccess(); // Trở về danh sách và báo thành công
     } catch (err) {
@@ -71,34 +92,46 @@ const ProductForm = ({ onBack, onSuccess }) => {
         <button className="btn-back" onClick={onBack}>
           <FiArrowLeft size={20} />
         </button>
-        <h2>Thêm sản phẩm mới</h2>
+        <h2>{initialData ? 'Sửa sản phẩm' : 'Thêm sản phẩm mới'}</h2>
       </div>
 
       {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Tên sản phẩm *</label>
-          <input 
-            type="text" 
-            name="name" 
-            value={formData.name} 
-            onChange={handleChange} 
-            required 
-            placeholder="Nhập tên sản phẩm..."
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Tên sản phẩm *</label>
+            <input 
+              type="text" 
+              name="name" 
+              value={formData.name} 
+              onChange={handleChange} 
+              required 
+              placeholder="Nhập tên sản phẩm..."
+            />
+          </div>
+          <div className="form-group">
+            <label>Tên sản phẩm (Tiếng Pháp)</label>
+            <input 
+              type="text" 
+              name="name_fr" 
+              value={formData.name_fr} 
+              onChange={handleChange} 
+              placeholder="Nhập tên sản phẩm bằng tiếng Pháp..."
+            />
+          </div>
         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label>Giá (VND) *</label>
             <input 
-              type="number" 
+              type="text" 
               name="price" 
               value={formData.price} 
               onChange={handleChange} 
               required 
-              min="0"
+              placeholder="0"
             />
           </div>
           <div className="form-group">
@@ -136,19 +169,30 @@ const ProductForm = ({ onBack, onSuccess }) => {
           </div>
         </div>
 
-        <div className="form-group">
-          <label>Mô tả chi tiết *</label>
-          <textarea 
-            name="description" 
-            value={formData.description} 
-            onChange={handleChange} 
-            required 
-            placeholder="Nhập mô tả sản phẩm..."
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Mô tả chi tiết *</label>
+            <textarea 
+              name="description" 
+              value={formData.description} 
+              onChange={handleChange} 
+              required 
+              placeholder="Nhập mô tả sản phẩm..."
+            />
+          </div>
+          <div className="form-group">
+            <label>Mô tả chi tiết (Tiếng Pháp)</label>
+            <textarea 
+              name="description_fr" 
+              value={formData.description_fr} 
+              onChange={handleChange} 
+              placeholder="Nhập mô tả bằng tiếng Pháp..."
+            />
+          </div>
         </div>
 
         <button type="submit" className="btn-submit" disabled={loading}>
-          {loading ? 'Đang tải ảnh và lưu trữ...' : 'Lưu Sản Phẩm'}
+          {loading ? 'Đang tải ảnh và lưu trữ...' : (initialData ? 'Cập Nhật Sản Phẩm' : 'Lưu Sản Phẩm')}
         </button>
       </form>
     </div>

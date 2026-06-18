@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProducts, deleteProduct } from '../../services/productService';
 import ProductForm from './ProductForm';
-import { FiPlus, FiTrash2 } from 'react-icons/fi';
+import { useAlert } from '../../context/AlertContext';
+import { FiPlus, FiTrash2, FiEdit2, FiSearch } from 'react-icons/fi';
 import './ProductManager.scss';
 
 const ProductManager = () => {
+  const { showConfirm, showAlert } = useAlert();
   const [products, setProducts] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const loadProducts = async () => {
     setLoading(true);
@@ -25,23 +29,39 @@ const ProductManager = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+    const isConfirmed = await showConfirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');
+    if (isConfirmed) {
       try {
         await deleteProduct(id);
         setProducts(products.filter(p => p.id !== id));
+        showAlert('Đã xóa sản phẩm thành công', 'Thành công', 'success');
       } catch (error) {
-        alert('Có lỗi xảy ra khi xóa!');
+        showAlert('Có lỗi xảy ra khi xóa!', 'Lỗi', 'error');
       }
     }
   };
 
+  const handleEdit = (product) => {
+    setEditingProduct(product);
+    setIsAdding(true);
+  };
+
+  const filteredProducts = products.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (isAdding) {
     return (
       <ProductForm 
-        onBack={() => setIsAdding(false)} 
+        initialData={editingProduct}
+        onBack={() => {
+          setIsAdding(false);
+          setEditingProduct(null);
+        }} 
         onSuccess={() => {
           setIsAdding(false);
-          loadProducts(); // Load lại danh sách sau khi thêm thành công
+          setEditingProduct(null);
+          loadProducts(); // Load lại danh sách sau khi thêm/sửa thành công
         }} 
       />
     );
@@ -50,10 +70,26 @@ const ProductManager = () => {
   return (
     <div className="product-manager">
       <div className="manager-header">
-        <h2>Danh sách sản phẩm</h2>
-        <button className="btn-add" onClick={() => setIsAdding(true)}>
-          <FiPlus size={20} /> Thêm Sản Phẩm Mới
-        </button>
+        <h2>Tất cả sản phẩm</h2>
+        
+        <div className="manager-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div className="header-search" style={{ 
+            display: 'flex', alignItems: 'center', background: '#f4f7fe', 
+            padding: '0.5rem 1rem', borderRadius: '30px', color: '#a3aed1'
+          }}>
+            <FiSearch style={{ marginRight: '0.5rem' }} />
+            <input 
+              type="text" 
+              placeholder="Tìm kiếm sản phẩm..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ border: 'none', background: 'transparent', outline: 'none', color: '#2b3674' }}
+            />
+          </div>
+          <button className="btn-add" onClick={() => setIsAdding(true)}>
+            <FiPlus size={20} /> Thêm Sản Phẩm Mới
+          </button>
+        </div>
       </div>
 
       <div className="table-container">
@@ -72,12 +108,12 @@ const ProductManager = () => {
               </tr>
             </thead>
             <tbody>
-              {products.length === 0 ? (
+              {filteredProducts.length === 0 ? (
                 <tr>
                   <td colSpan="6" style={{ textAlign: 'center' }}>Chưa có sản phẩm nào.</td>
                 </tr>
               ) : (
-                products.map((product) => (
+                filteredProducts.map((product) => (
                   <tr key={product.id}>
                     <td>
                       <img 
@@ -91,13 +127,22 @@ const ProductManager = () => {
                     <td>{product.stock}</td>
                     <td>{product.category?.name || '---'}</td>
                     <td>
-                      <button 
-                        className="btn-delete" 
-                        onClick={() => handleDelete(product.id)}
-                        title="Xóa sản phẩm"
-                      >
-                        <FiTrash2 size={18} />
-                      </button>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button 
+                          className="btn-edit" 
+                          onClick={() => handleEdit(product)}
+                          title="Sửa sản phẩm"
+                        >
+                          <FiEdit2 size={18} />
+                        </button>
+                        <button 
+                          className="btn-delete" 
+                          onClick={() => handleDelete(product.id)}
+                          title="Xóa sản phẩm"
+                        >
+                          <FiTrash2 size={18} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Shop.scss';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { fetchProducts, fetchCategories } from '../../services/productService';
+import { fetchProducts } from '../../services/productService';
+import { fetchCategories } from '../../services/categoryService';
 import { useCurrency } from '../../hooks/useCurrency';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
 import { CartContext } from '../../context/CartContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useAlert } from '../../context/AlertContext';
 
 const Shop = () => {
   const { t } = useTranslation();
@@ -13,6 +16,8 @@ const Shop = () => {
   const { formatPrice } = useCurrency();
   const { getTranslatedProduct } = useProductTranslation();
   const { addToCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const { showAlert } = useAlert();
   
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -58,13 +63,22 @@ const Shop = () => {
 
   const handleBuyNow = (e, product) => {
     e.stopPropagation();
+    if (!user) {
+      showAlert(t('alerts.loginRequiredBuy', 'Vui lòng đăng nhập để mua sản phẩm này.'), t('alerts.infoTitle', 'Thông báo'), 'info');
+      return;
+    }
     addToCart(product);
     navigate('/cart');
   };
 
   const handleAddToCart = (e, product) => {
     e.stopPropagation();
+    if (!user) {
+      showAlert(t('alerts.loginRequiredCart', 'Vui lòng đăng nhập để thêm vào giỏ hàng.'), t('alerts.infoTitle', 'Thông báo'), 'info');
+      return;
+    }
     addToCart(product);
+    showAlert(t('alerts.cartSuccess', 'Đã thêm sản phẩm vào giỏ hàng.'), t('alerts.successTitle', 'Thành công'), 'success');
   };
 
   const goToProductDetail = productId => {

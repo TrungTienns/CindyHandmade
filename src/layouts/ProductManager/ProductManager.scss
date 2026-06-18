@@ -1,4 +1,3 @@
-@import '../../index.scss';
 
 // Product Manager Styles
 .product-manager {
@@ -69,14 +68,27 @@
           object-fit: cover;
         }
 
-        .btn-delete {
-          background: #ffe3e3;
-          color: #ff3b3b;
+        .btn-edit, .btn-delete {
           border: none;
           padding: 0.5rem;
           border-radius: 8px;
           cursor: pointer;
           transition: all 0.2s;
+        }
+
+        .btn-edit {
+          background: #e3f2fd;
+          color: #1e88e5;
+
+          &:hover {
+            background: #1e88e5;
+            color: #fff;
+          }
+        }
+
+        .btn-delete {
+          background: #ffe3e3;
+          color: #ff3b3b;
 
           &:hover {
             background: #ff3b3b;

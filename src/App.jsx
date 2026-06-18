@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { AlertProvider } from './context/AlertContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import HomePage from './pages/HomePage/HomePage';
 import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
@@ -25,8 +26,9 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <CartProvider>
+    <AlertProvider>
+      <AuthProvider>
+        <CartProvider>
         <Router>
           <Routes>
             <Route path={PATHS.HOME} element={<HomePage />} />
@@ -50,8 +52,9 @@ function App() {
             />
           </Routes>
         </Router>
-      </CartProvider>
-    </AuthProvider>
+        </CartProvider>
+      </AuthProvider>
+    </AlertProvider>
   );
 }
 

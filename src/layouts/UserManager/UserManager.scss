@@ -1,0 +1,105 @@
+.user-manager {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+  .manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      th {
+        font-weight: 600;
+        color: #a3aed1;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        vertical-align: middle;
+
+        .role-badge {
+          display: inline-block;
+          padding: 0.35rem 0.75rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          text-transform: capitalize;
+
+          &.admin {
+            background: #e3f2fd;
+            color: #1e88e5;
+          }
+
+          &.customer {
+            background: #f4f7fe;
+            color: #718096;
+          }
+        }
+
+        .btn-toggle-role, .btn-delete {
+          border: none;
+          padding: 0.5rem;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-toggle-role {
+          background: #e8f5e9;
+          color: #43a047;
+
+          &:hover {
+            background: #43a047;
+            color: #fff;
+          }
+
+          &.is-admin {
+            background: #fff3e0;
+            color: #fb8c00;
+
+            &:hover {
+              background: #fb8c00;
+              color: #fff;
+            }
+          }
+        }
+
+        .btn-delete {
+          background: #ffe3e3;
+          color: #ff3b3b;
+
+          &:hover {
+            background: #ff3b3b;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { 
-  FiHome, FiBox, FiShoppingCart, FiUsers, FiLogOut, 
-  FiSearch, FiBell, FiMessageSquare, FiMenu 
+  FiHome, FiBox, FiShoppingCart, FiUsers, FiLogOut, FiList,
+  FiMenu 
 } from 'react-icons/fi';
 import './AdminLayout.scss';
 
@@ -19,8 +20,7 @@ const AdminLayout = ({ children, activeTab, setActiveTab }) => {
       <aside className="admin-sidebar">
         <div className="sidebar-header">
           <h2>
-            <span className="logo-icon"><FiBox size={24} /></span> 
-            Cindy Handmade
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Cindy Handmade</Link>
           </h2>
         </div>
         
@@ -37,6 +37,12 @@ const AdminLayout = ({ children, activeTab, setActiveTab }) => {
             onClick={() => setActiveTab('products')}
           >
             <FiBox /> Products
+          </button>
+          <button 
+            className={activeTab === 'categories' ? 'active' : ''} 
+            onClick={() => setActiveTab('categories')}
+          >
+            <FiList /> Danh mục
           </button>
           <button 
             className={activeTab === 'orders' ? 'active' : ''} 
@@ -59,20 +65,8 @@ const AdminLayout = ({ children, activeTab, setActiveTab }) => {
 
       <main className="admin-main">
         <header className="main-header">
-          <div className="header-search">
-            <FiSearch />
-            <input type="text" placeholder="Type to search..." />
-          </div>
-
+          <div></div> {/* Empty div to push user-info to the right since we use justify-content: space-between */}
           <div className="header-actions">
-            <button className="icon-btn">
-              <FiBell />
-              <span className="badge"></span>
-            </button>
-            <button className="icon-btn">
-              <FiMessageSquare />
-              <span className="badge"></span>
-            </button>
 
             <div className="user-info">
               <div className="user-text">

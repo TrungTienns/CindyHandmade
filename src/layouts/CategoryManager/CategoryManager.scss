@@ -1,0 +1,151 @@
+.category-manager {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+  .manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #1e293b;
+    }
+
+    .btn-add {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #4318ff;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover:not(:disabled) {
+        background: #3311cc;
+      }
+
+      &:disabled {
+        background: #a3aed1;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 1.2rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      th {
+        font-weight: 600;
+        color: #a3aed1;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        vertical-align: middle;
+        color: #2b3674;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+
+        button {
+          border: none;
+          padding: 0.5rem;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+
+        .btn-edit {
+          background: #e3f2fd;
+          color: #1e88e5;
+
+          &:hover:not(:disabled) {
+            background: #1e88e5;
+            color: #fff;
+          }
+        }
+
+        .btn-delete {
+          background: #ffe3e3;
+          color: #ff3b3b;
+
+          &:hover:not(:disabled) {
+            background: #ff3b3b;
+            color: #fff;
+          }
+        }
+
+        .btn-save {
+          background: #e8f5e9;
+          color: #43a047;
+
+          &:hover {
+            background: #43a047;
+            color: #fff;
+          }
+        }
+
+        .btn-cancel-edit {
+          background: #f1f5f9;
+          color: #64748b;
+
+          &:hover {
+            background: #94a3b8;
+            color: #fff;
+          }
+        }
+      }
+
+      .editing-row {
+        background-color: #f8fafc;
+
+        input {
+          width: 100%;
+          padding: 0.6rem;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-family: inherit;
+          color: #1e293b;
+          background: #ffffff;
+          outline: none;
+
+          &:focus {
+            border-color: #4318ff;
+            box-shadow: 0 0 0 2px rgba(67, 24, 255, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
