@@ -5,6 +5,18 @@
   background-color: #f1f5f9; // Light grey background like TailAdmin
   font-family: 'Inter', sans-serif;
   color: #64748b; // Muted text for main content
+  position: relative;
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+  }
 
   .admin-sidebar {
     width: 280px;
@@ -17,24 +29,36 @@
     top: 0;
     height: 100vh;
     overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
 
     .sidebar-header {
       margin-bottom: 2rem;
       padding: 0 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
       h2 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #ffffff;
         margin: 0;
         display: flex;
         align-items: center;
         gap: 0.5rem;
+      }
+
+      .close-sidebar-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #8a99af;
+        cursor: pointer;
+        padding: 0.5rem;
         
-        .logo-icon {
-          background: #3c50e0;
+        &:hover {
           color: white;
-          padding: 0.3rem;
-          border-radius: 8px;
         }
       }
     }
@@ -43,6 +67,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      flex: 1;
 
       button {
         display: flex;
@@ -89,6 +114,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    width: calc(100% - 280px);
 
     .main-header {
       display: flex;
@@ -100,6 +126,24 @@
       position: sticky;
       top: 0;
       z-index: 10;
+
+      .header-left {
+        display: flex;
+        align-items: center;
+
+        .mobile-menu-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.5rem;
+          margin-left: -0.5rem;
+          
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
 
       .header-actions {
         display: flex;
@@ -138,6 +182,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            flex-shrink: 0;
             
             img {
               width: 100%;
@@ -154,6 +199,67 @@
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+// Mobile Responsive Media Queries
+@media (max-width: 992px) {
+  .admin-dashboard {
+    .admin-sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      transform: translateX(-100%);
+      
+      &.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-header {
+        .close-sidebar-btn {
+          display: block;
+        }
+      }
+    }
+
+    .sidebar-overlay {
+      display: block;
+    }
+
+    .admin-main {
+      width: 100%;
+
+      .main-header {
+        padding: 1rem;
+        
+        .header-left {
+          .mobile-menu-btn {
+            display: block;
+          }
+        }
+      }
+
+      .content-area {
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-dashboard {
+    .admin-main {
+      .main-header {
+        .header-actions {
+          .user-info {
+            .user-text {
+              display: none; // Hide user text on very small screens to save space
+            }
+          }
+        }
+      }
     }
   }
 }
