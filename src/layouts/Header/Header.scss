@@ -1,5 +1,10 @@
 .header {
-  @apply fixed top-0 left-0 right-0 z-[1000] w-full bg-white/70 backdrop-blur-[15px] border-b border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.05)];
+  @apply fixed top-0 left-0 right-0 z-[1000] w-full bg-[#aad6de]/90 backdrop-blur-[15px] border-b border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.05)];
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
 }
 
 .header-container {
@@ -59,7 +64,7 @@
 
 .navigation a {
   /* Dùng SCSS nesting thay vì group của Tailwind để tránh lỗi */
-  @apply relative no-underline text-[#555] text-[1.1rem] font-medium font-outfit transition-colors duration-300 hover:text-brand-pink block;
+  @apply relative no-underline text-[#555] text-[1.25rem] font-medium font-outfit transition-colors duration-300 hover:text-brand-pink block;
 
   &::after {
     @apply content-[''] absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-pink transition-all duration-300;

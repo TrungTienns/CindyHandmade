@@ -6,6 +6,7 @@ import { fetchProducts } from '../../services/productService';
 import { fetchCategories } from '../../services/categoryService';
 import { useCurrency } from '../../hooks/useCurrency';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
+import { useCategoryTranslation } from '../../hooks/useCategoryTranslation';
 import { CartContext } from '../../context/CartContext';
 import { AuthContext } from '../../context/AuthContext';
 import { useAlert } from '../../context/AlertContext';
@@ -15,6 +16,7 @@ const Shop = () => {
   const navigate = useNavigate();
   const { formatPrice } = useCurrency();
   const { getTranslatedProduct } = useProductTranslation();
+  const { getTranslatedCategory } = useCategoryTranslation();
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   const { showAlert } = useAlert();
@@ -134,7 +136,9 @@ const Shop = () => {
                 <p>{t('shop.loadingCategories', 'Loading...')}</p>
               ) : (
                 <div className="checkbox-list">
-                  {categories.map(category => (
+                  {categories.map(category => {
+                    const translatedCategory = getTranslatedCategory(category);
+                    return (
                     <label key={category.id} className="checkbox-item">
                       <input 
                         type="checkbox" 
@@ -142,9 +146,9 @@ const Shop = () => {
                         onChange={() => handleCategoryChange(category.id)}
                       />
                       <span className="checkmark"></span>
-                      <span className="label-text">{category.name}</span>
+                      <span className="label-text">{translatedCategory.name}</span>
                     </label>
-                  ))}
+                  )})}
                 </div>
               )}
             </div>

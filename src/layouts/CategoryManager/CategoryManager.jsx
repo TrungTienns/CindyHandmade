@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchCategories, createCategory, updateCategory, deleteCategory } from '../../services/categoryService';
 import { useAlert } from '../../context/AlertContext';
-import { FiPlus, FiTrash2, FiEdit2, FiCheck, FiX } from 'react-icons/fi';
+import { FiPlus, FiTrash2, FiEdit2, FiCheck, FiX, FiSearch } from 'react-icons/fi';
 import './CategoryManager.scss';
 
 const CategoryManager = () => {
@@ -12,7 +12,9 @@ const CategoryManager = () => {
   // States for adding/editing
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [formData, setFormData] = useState({ name: '', description: '' });
+  const [formData, setFormData] = useState({ name: '', description: '', nameFr: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   const loadCategories = async () => {
     setLoading(true);
@@ -45,20 +47,20 @@ const CategoryManager = () => {
 
   const handleEdit = (category) => {
     setEditingId(category.id);
-    setFormData({ name: category.name, description: category.description || '' });
+    setFormData({ name: category.name, description: category.description || '', nameFr: category.nameFr || '' });
     setIsAdding(false);
   };
 
   const handleAddNew = () => {
     setIsAdding(true);
     setEditingId(null);
-    setFormData({ name: '', description: '' });
+    setFormData({ name: '', description: '', nameFr: '' });
   };
 
   const handleCancel = () => {
     setIsAdding(false);
     setEditingId(null);
-    setFormData({ name: '', description: '' });
+    setFormData({ name: '', description: '', nameFr: '' });
   };
 
   const handleSave = async () => {
@@ -84,14 +86,36 @@ const CategoryManager = () => {
       showAlert('Có lỗi xảy ra khi lưu danh mục.', 'Lỗi', 'error');
     }
   };
+  
+  // Lọc danh sách: Kiểm tra xem tên danh mục có chứa từ khóa không
+  const filteredCategories = categories.filter((category) => {
+    // Chuyển cả tên danh mục và từ khóa về chữ thường để tìm kiếm không phân biệt hoa thường
+    const categoryName = category.name.toLowerCase();
+    const searchWord = searchTerm.toLowerCase();
+    
+    return categoryName.includes(searchWord);
+  });
+
 
   return (
     <div className="category-manager">
       <div className="manager-header">
         <h2>Quản lý Danh mục</h2>
-        <button className="btn-add" onClick={handleAddNew} disabled={isAdding || editingId}>
-          <FiPlus size={20} /> Thêm Danh Mục
-        </button>
+        <div className="header-actions" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+          <div className="search-bar" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FiSearch style={{ position: 'absolute', left: '12px', color: '#888' }} size={16} />
+            <input 
+              type="text" 
+              placeholder="Tìm kiếm danh mục..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ padding: '8px 12px 8px 36px', width: '250px', borderRadius: '20px', border: '1px solid #ddd', outline: 'none', backgroundColor: '#f4f4f5' }}
+            />
+          </div>
+          <button className="btn-add" onClick={handleAddNew} disabled={isAdding || editingId}>
+            <FiPlus size={20} /> Thêm Danh Mục
+          </button>
+        </div>
       </div>
 
       <div className="table-container">
@@ -103,6 +127,7 @@ const CategoryManager = () => {
               <tr>
                 <th style={{ width: '80px' }}>ID</th>
                 <th style={{ width: '250px' }}>Tên danh mục</th>
+                <th style={{ width: '400px' }}>Tên Danh Mục (Tiếng Pháp)</th>
                 <th>Mô tả</th>
                 <th style={{ width: '120px' }}>Hành động</th>
               </tr>
@@ -124,6 +149,14 @@ const CategoryManager = () => {
                   <td>
                     <input 
                       type="text" 
+                      value={formData.nameFr} 
+                      onChange={(e) => setFormData({...formData, nameFr: e.target.value})} 
+                      placeholder="Tên tiếng Pháp (không bắt buộc)..."
+                    />
+                  </td>
+                  <td>
+                    <input 
+                      type="text" 
                       value={formData.description} 
                       onChange={(e) => setFormData({...formData, description: e.target.value})} 
                       placeholder="Mô tả..."
@@ -138,12 +171,12 @@ const CategoryManager = () => {
                 </tr>
               )}
 
-              {categories.length === 0 && !isAdding ? (
-                <tr>
-                  <td colSpan="4" style={{ textAlign: 'center' }}>Chưa có danh mục nào.</td>
-                </tr>
-              ) : (
-                categories.map((category) => (
+            {filteredCategories.length === 0 && !isAdding ? (
+            <tr>
+              <td colSpan="5" style={{ textAlign: 'center' }}>Không tìm thấy danh mục nào.</td>
+            </tr>
+            ) : (
+                filteredCategories.map((category) => (
                   <React.Fragment key={category.id}>
                     {editingId === category.id ? (
                       <tr className="editing-row">
@@ -153,6 +186,14 @@ const CategoryManager = () => {
                             type="text" 
                             value={formData.name} 
                             onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                          />
+                        </td>
+                        <td>
+                          <input 
+                            type="text" 
+                            value={formData.nameFr} 
+                            onChange={(e) => setFormData({...formData, nameFr: e.target.value})} 
+                            placeholder="Tên tiếng Pháp (không bắt buộc)..."
                           />
                         </td>
                         <td>
@@ -173,6 +214,7 @@ const CategoryManager = () => {
                       <tr>
                         <td>#{category.id}</td>
                         <td style={{ fontWeight: 500 }}>{category.name}</td>
+                        <td style={{ color: '#4a5568' }}>{category.nameFr || '---'}</td>
                         <td style={{ color: '#718096' }}>{category.description || '---'}</td>
                         <td>
                           <div className="action-buttons">

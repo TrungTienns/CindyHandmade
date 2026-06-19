@@ -25,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 20px;
 
   .shop-hero-overlay {
     position: absolute;
@@ -42,13 +43,19 @@
     z-index: 2;
     text-align: center;
     color: #ffffff;
-    padding: 0 20px;
+    padding: 0;
+    max-width: 900px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
+      font-size: clamp(2.4rem, 7vw, 3.5rem);
       font-weight: 700;
-      margin-bottom: 15px;
+      line-height: 1.08;
+      margin: 0;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       letter-spacing: 1px;
       opacity: 0;
@@ -58,7 +65,9 @@
 
     p {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.2rem;
+      font-size: clamp(1.45rem, 4.8vw, 2.2rem);
+      line-height: 1.2;
+      margin: 0;
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       color: #f2f8f4;
       opacity: 0;
@@ -253,12 +262,72 @@
 }
 
 @media (max-width: 992px) {
+  .shop-hero-banner {
+    height: 44vh;
+
+    .shop-hero-content {
+      gap: 10px;
+
+      h1 {
+        font-size: clamp(2rem, 5.2vw, 2.9rem);
+        line-height: 1.12;
+        letter-spacing: 0.6px;
+      }
+
+      p {
+        font-size: clamp(1.15rem, 3.8vw, 1.8rem);
+        line-height: 1.22;
+      }
+    }
+  }
+
   .shop-container {
     .shop-content {
       flex-direction: column;
 
       .shop-filters {
         width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .shop-hero-banner {
+    height: 38vh;
+    min-height: 320px;
+
+    .shop-hero-content {
+      gap: 8px;
+
+      h1 {
+        font-size: clamp(1.75rem, 11vw, 2.35rem);
+        line-height: 1.14;
+        letter-spacing: 0.5px;
+      }
+
+      p {
+        font-size: clamp(1rem, 5vw, 1.35rem);
+        line-height: 1.18;
+      }
+    }
+  }
+
+  .shop-layout {
+    padding: 40px 16px;
+  }
+
+  .shop-container {
+    .shop-title {
+      font-size: 2rem;
+      margin-bottom: 28px;
+    }
+
+    .shop-content {
+      gap: 24px;
+
+      .shop-filters {
+        padding: 16px;
       }
     }
   }

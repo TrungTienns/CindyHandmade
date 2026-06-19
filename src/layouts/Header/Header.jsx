@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLottie } from 'lottie-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,6 +14,8 @@ const Header = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = React.useRef(0);
   const { cartCount } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
 
@@ -23,13 +25,35 @@ const Header = () => {
   };
   const { View: CatAnimation } = useLottie(lottieOptions);
 
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+            setIsHidden(true);
+          } else {
+            setIsHidden(false);
+          }
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const changeLanguage = lng => {
     i18n.changeLanguage(lng);
     localStorage.setItem('appLanguage', lng);
   };
 
   return (
-    <header className="header">
+    <header className={`header ${isHidden ? 'header-hidden' : ''}`}>
       <div className="header-container">
         <div className="logo-section">
           <Link to={PATHS.HOME} className="logo-text">

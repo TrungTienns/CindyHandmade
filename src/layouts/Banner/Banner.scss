@@ -1,24 +1,15 @@
 .banner {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh; 
+  margin-top: 80px; 
   display: flex;
-  align-items: stretch;
+  align-items: center; 
   overflow: hidden;
-  background: linear-gradient(135deg, #f5ebe6 0%, #d5efeb 40%, #b2dbd4 100%);
-}
-.banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 55%;
-  height: 100%;
-  z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L80,0 C100,35 70,65 85,100 L0,100 Z' fill='%23ffffff' /%3E%3C/svg%3E");
-  background-size: 100% 100%;
+  background-image: url('../../assets/images/banner/bannerImage4.jpg');
+  background-size: cover; 
+  background-position: center;
   background-repeat: no-repeat;
-  pointer-events: none;
 }
 
 /* ── Main layout ── */
@@ -38,180 +29,90 @@
 .banner-content {
   flex: 0 0 auto;
   max-width: 650px;
-  padding-left: 0;
-  margin-left: -50px; /* Dịch chuyển toàn bộ khối chữ sang trái để cách xa viền xanh */
+  padding-left: 20px; /* Để chữ cách mép màn hình một khoảng vừa đủ */
+  margin-left: -30px; /* Nhích nhẹ toàn bộ cụm chữ sang trái một chút */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Trả lại căn giữa để tách biệt hoàn toàn với Header */
   align-items: flex-start;
+  margin-top: -60px; /* Xích toàn bộ khối chữ lên trên một chút */
 }
 
 .banner-content h1 {
-  margin-bottom: 20px;
+  margin-bottom: 0px; /* Bỏ khoảng cách dưới h1 để nút bấm sát lên */
   line-height: 1;
   text-align: left;
 
   .title-first-line {
-    font-family: 'Playfair Display', serif;
-    font-size: 6rem;
-    font-weight: 700;
-    color: #333333;
-    text-transform: uppercase;
+    font-family: 'Great Vibes', cursive;
+    font-size: 8rem; /* Tăng cỡ chữ Cindy */
+    font-weight: 400;
+    color: #ffffff; /* Đổi sang màu trắng như ảnh mẫu */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Thêm bóng nhẹ để dễ đọc trên nền ảnh */
+    text-transform: capitalize;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    transform: translateX(-8px);
+    gap: 2px; /* Sát logo vào chữ Cindy nhưng không đụng */
+    transform: translateX(0); /* Bỏ transform âm */
   }
 
   .title-icon {
-    height: 1.3em;
+    height: 2.0em;
     width: auto;
     object-fit: contain;
     transform: translateY(-4px);
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); /* Đổi bóng sang đen để hạp với logo trắng */
   }
 
   .title-second-line {
     font-family: 'Great Vibes', cursive;
-    font-size: 6rem;
+    font-size: 10rem; /* Tăng cỡ chữ Handmade */
     font-weight: 400;
-    color: #4a5d58;
+    color: #ffffff; /* Đổi sang màu trắng như ảnh mẫu */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     text-transform: lowercase;
     display: inline-block;
-    margin-top: -20px;
-    padding-left: 20px;
+    margin-top: -65px;
+    padding-left: 70px; /* Giảm độ xéo để cân bằng lại với chữ Handmade siêu bự */
   }
 }
 
-.banner-content p {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
-  color: #666;
-  margin-bottom: 40px;
-  line-height: 1.6;
-  max-width: 100%;
-  white-space: nowrap;
-}
-
-/* ── Button với hover animation ── */
+/* ── Button đơn giản giống ảnh mẫu ── */
 .btn-primary {
-  position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: linear-gradient(90deg, #fce6db 0%, #e2f2ef 100%);
-  color: #5b554e;
+  justify-content: center;
+  background: #fdf6e9; /* Màu nền kem nhạt như ảnh */
+  color: #4a3e35; /* Màu chữ nâu đen */
   border: none;
-  padding: 15px 38px;
+  padding: 12px 30px;
   font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 20px; /* Góc hơi vuông */
   cursor: pointer;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  /* Shimmer overlay */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.55) 50%,
-      transparent 100%
-    );
-    transition: left 0.55s ease;
-  }
-
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 5px; /* Kéo nút xích lại gần dòng chữ handmade */
+  
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
-
-    &::before {
-      left: 140%;
-    }
+    background: #eadecc;
+    transform: translateY(-2px);
   }
 
   &:active {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-  }
-}
-
-/* ── Image block ── */
-@keyframes slideAndZoom {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
     transform: translateY(0);
   }
 }
 
-.banner-image-wrapper {
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: flex-end; 
-  width: 1000px;
-  align-items: center; 
-  height: auto;
-  margin-right: calc(50% - 50vw);
-  margin-top: 0;
-  opacity: 0;
-  transform-origin: right center;
-  animation: slideAndZoom 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  animation-delay: 0.1s;
-}
-
-.banner-image {
-  width: 100%;
-  height: auto;
-  max-width: 50vw;
-  max-height: 75vh;
-  object-fit: contain;
-
-  border-radius: 0;
-  border: none;
-  background: none;
-  box-shadow: none;
-
-  filter: drop-shadow(-15px 25px 35px rgba(0, 0, 0, 0.12));
-
-  transition:
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    filter 0.4s ease;
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-10px);
-    filter: drop-shadow(-20px 30px 45px rgba(0, 0, 0, 0.16));
-  }
-}
+/* Hình ảnh cũ đã được xóa */
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .banner {
     min-height: auto;
     padding-bottom: 40px;
-  }
-
-  .banner::before {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L100,0 L100,80 C65,100 35,70 0,85 Z' fill='%23ffffff' /%3E%3C/svg%3E");
-    background-color: transparent;
-    border-radius: 0;
   }
 
   .banner-container {
@@ -230,14 +131,14 @@
 
     h1 {
       .title-first-line {
-        font-size: 5rem;
+        font-size: 6rem; /* Sửa lỗi 500rem thành 6rem */
         justify-content: center;
         transform: translateX(0);
       }
       .title-second-line {
-        font-size: 4.5rem;
+        font-size: 5.5rem;
         margin-top: -10px;
-        padding-left: 0;
+        padding-left: 80px;
       }
     }
 
@@ -247,31 +148,9 @@
       white-space: normal; /* Trả lại khả năng xuống dòng trên thiết bị nhỏ */
     }
   }
-
-  .banner-image-wrapper {
-    height: auto;
-    margin-right: 0;
-    margin-top: -20px; /* Kéo ảnh trồi lên, đè nhẹ vào phần chữ/nút bấm để tạo sự liên kết */
-    padding-bottom: 20px;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    z-index: 1; /* Nằm dưới chữ một chút nếu đè vào */
-  }
-
-  .banner-image {
-    width: 100%;
-    height: auto;
-    max-width: 90vw;
-    max-height: 60vh;
-    object-fit: contain;
-  }
 }
 
 @media (max-width: 768px) {
-  .banner::before {
-    height: 55%;
-  }
 
   .banner-container {
     padding: 80px 20px 0; /* Kéo toàn bộ layout lên cao hơn trên điện thoại */
@@ -279,45 +158,32 @@
 
   .banner-content h1 {
     .title-first-line {
-      font-size: 4rem;
+      font-size: 5rem; /* Tăng kích thước chữ cho tablet */
     }
     .title-second-line {
-      font-size: 3.5rem;
+      font-size: 4.5rem; /* Tăng kích thước chữ cho tablet */
+      padding-left: 60px; /* Giảm padding trái trên mobile/tablet */
     }
   }
 
   .banner-content p {
     font-size: 0.95rem;
   }
-
-  .banner-image-wrapper {
-    height: auto;
-    margin-top: 20px;
-  }
-
-  .banner-image {
-    max-width: 95vw;
-    max-height: 50vh;
-  }
 }
 
 @media (max-width: 480px) {
   .banner-content h1 {
     .title-first-line {
-      font-size: 3.2rem;
+      font-size: 4.2rem; /* Tăng mạnh kích thước chữ cho điện thoại */
     }
     .title-second-line {
-      font-size: 2.8rem;
+      font-size: 3.8rem; /* Tăng mạnh kích thước chữ cho điện thoại */
+      padding-left: 30px; /* Căn chỉnh lại khoảng cách trên màn hình nhỏ */
     }
   }
 
   .banner-content p {
     font-size: 0.9rem;
-  }
-
-  .banner-image-wrapper {
-    height: auto;
-    margin-top: 10px;
   }
 
   .btn-primary {

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import bannerImg from '../../assets/images/Banner/banner.png';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../common/path';
+
 import logoIcon from '../../assets/Icons/logo.svg';
 import './Banner.scss';
 
 const Banner = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const title = t('banner.title') || 'Cindy Handmade';
   const words = title.split(' ');
@@ -52,11 +55,9 @@ const Banner = () => {
             <br />
             <span className="title-second-line">{remainingWords}</span>
           </h1>
-          <p>{t('banner.subtitle')}</p>
-          <button className="btn-primary">{t('banner.button')}</button>
-        </div>
-        <div className="banner-image-wrapper">
-          <img src={bannerImg} alt="Cindy Handmade" className="banner-image" />
+          <button className="btn-primary" onClick={() => navigate(PATHS.SHOP)}>
+            {t('banner.button')}
+          </button>
         </div>
       </div>
     </section>

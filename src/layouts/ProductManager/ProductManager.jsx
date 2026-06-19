@@ -70,16 +70,17 @@ const ProductManager = () => {
   return (
     <div className="product-manager">
       <div className="manager-header">
-        <h2>Tất cả sản phẩm</h2>
+        <h2 style={{ color: '#2b3674' }}>Tất cả sản phẩm</h2>
         
-        <div className="manager-actions">
-          <div className="header-search">
-            <FiSearch className="search-icon" />
+        <div className="manager-actions" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+          <div className="search-bar" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <FiSearch style={{ position: 'absolute', left: '12px', color: '#888' }} size={16} />
             <input 
               type="text" 
               placeholder="Tìm kiếm sản phẩm..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ padding: '8px 12px 8px 36px', width: '250px', borderRadius: '20px', border: '1px solid #ddd', outline: 'none', backgroundColor: '#f4f4f5' }}
             />
           </div>
           <button className="btn-add" onClick={() => setIsAdding(true)}>
