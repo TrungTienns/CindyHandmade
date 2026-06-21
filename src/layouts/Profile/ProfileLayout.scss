@@ -1,0 +1,348 @@
+.profile-dashboard-wrapper {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.profile-dashboard-container {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 40px;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* Sidebar Styles */
+.dashboard-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  .sidebar-title {
+    color: #0f172a;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding-left: 15px;
+  }
+
+  .dashboard-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .nav-item {
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 12px 15px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #64748b;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(226, 232, 240, 0.5);
+        color: #334155;
+      }
+
+      &.active {
+        background: #eef2ff;
+        color: #3b82f6;
+      }
+
+      &.logout-text {
+        color: #ef4444;
+        margin-top: 20px;
+
+        &:hover {
+          background: #fef2f2;
+        }
+      }
+    }
+  }
+}
+
+/* Main Content Styles */
+.dashboard-content {
+  flex: 1;
+
+  .fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  .page-title {
+    color: #0f172a;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .dashboard-card {
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  /* Profile Overview Card (Top) */
+  .profile-overview-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    .avatar-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #64748b;
+      object-fit: cover;
+    }
+
+    .profile-brief {
+      h2 {
+        color: #0f172a;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .role-text {
+        color: #3b82f6;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .location-text {
+        color: #94a3b8;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  /* Detail Card (Personal Info, Address) */
+  .detail-card {
+    .card-title {
+      color: #0f172a;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 25px;
+      column-gap: 40px;
+
+      @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .label {
+          color: #8b95a5;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+
+        .value {
+          color: #0f172a;
+          font-size: 0.95rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  /* Order History Tab */
+  .order-item-card {
+    padding: 20px 25px;
+    
+    .order-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 20px;
+      }
+      
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .label {
+          color: #8b95a5;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+
+        .value {
+          color: #0f172a;
+          font-size: 0.95rem;
+          font-weight: 600;
+
+          &.highlight {
+            color: #059669; /* Green color for money */
+          }
+        }
+      }
+    }
+
+    .order-details-dropdown {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .details-section {
+        flex: 1;
+
+        h4 {
+          color: #334155;
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        p {
+          color: #475569;
+          font-size: 0.9rem;
+          margin-bottom: 6px;
+          line-height: 1.4;
+
+          strong {
+            color: #1e293b;
+            font-weight: 500;
+          }
+        }
+
+        .order-items-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .order-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #f1f5f9;
+
+            .item-name {
+              flex: 2;
+              color: #0f172a;
+              font-size: 0.9rem;
+              font-weight: 500;
+            }
+
+            .item-qty {
+              flex: 1;
+              color: #64748b;
+              font-size: 0.85rem;
+              text-align: center;
+            }
+
+            .item-price {
+              flex: 1;
+              color: #059669;
+              font-size: 0.9rem;
+              font-weight: 600;
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: fit-content;
+
+    &.status-warning { background: #fef3c7; color: #d97706; }
+    &.status-info { background: #e0f2fe; color: #0284c7; }
+    &.status-primary { background: #dbeafe; color: #2563eb; }
+    &.status-success { background: #dcfce7; color: #16a34a; }
+    &.status-danger { background: #fee2e2; color: #dc2626; }
+    &.status-default { background: #f1f5f9; color: #475569; }
+  }
+
+  .btn-primary {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #2563eb;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    
+    p {
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

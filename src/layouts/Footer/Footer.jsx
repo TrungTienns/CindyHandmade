@@ -1,5 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
+import { SiZalo } from 'react-icons/si';
+import './Footer.scss';
 import { Link } from 'react-router-dom';
 import { PATHS } from '../../common/path';
 import BackToTop from '../../components/BackToTop/BackToTop';
@@ -58,12 +61,12 @@ const Footer = () => {
         </div>
 
         <div className="footer-column map-column">
-          <h3>{t('footer.findUs', 'Find Us')}</h3>
+          <h3>{t('footer.visitUs', 'Visit Us')}</h3>
           <div className="map-container">
             <iframe
-              src="https://maps.google.com/maps?q=619%20%C4%90.%20%C4%90%E1%BB%97%20Xu%C3%A2n%20H%E1%BB%A3p,%20Ph%C6%B0%E1%BB%9Bc%20Long,%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000,%20Vietnam&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.6896263889154!2d106.63845893845942!3d10.782245203309914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ea11b8b21ed%3A0x633d9943d002a281!2zMjEgxJAuIFPhu5EgNywgUGjGsOG7nW5nIDExLCBRdeG6rW4gNiwgSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1731511267568!5m2!1svi!2s"
               width="100%"
-              height="180"
+              height="200"
               style={{ border: 0, borderRadius: '12px', marginBottom: '15px' }}
               allowFullScreen=""
               loading="lazy"
@@ -76,17 +79,28 @@ const Footer = () => {
               href="https://www.facebook.com/profile.php?id=61561704558006"
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className="social-icon"
+              title="Facebook"
             >
-              Facebook
+              <FaFacebook size={22} />
             </a>
             <a
               href="https://www.instagram.com/cindyy.handmade/"
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className="social-icon"
+              title="Instagram"
             >
-              Instagram
+              <FaInstagram size={22} />
+            </a>
+            <a
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon"
+              title="Zalo"
+            >
+              <SiZalo size={22} />
             </a>
           </div>
         </div>

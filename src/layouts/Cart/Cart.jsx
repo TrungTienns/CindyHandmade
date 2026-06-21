@@ -65,11 +65,7 @@ const Cart = () => {
               return (
               <div key={item.id} className="cart-item">
                 <div className="item-image">
-                  {product?.imageUrl ? (
-                    <img src={product.imageUrl} alt={product.name} />
-                  ) : (
-                    <div className="placeholder-image">No Image</div>
-                  )}
+                  <img src={product?.images?.[0] || 'https://via.placeholder.com/500'} alt={product?.name} />
                 </div>
 
                 <div className="item-details">
@@ -124,7 +120,9 @@ const Cart = () => {
               <span>{t('cart.total', 'Total')}:</span>
               <span>{formatPrice(cartTotal)}</span>
             </div>
-            <button className="checkout-btn">{t('cart.checkout', 'Proceed to Checkout')}</button>
+            <button className="checkout-btn" onClick={() => navigate(PATHS.CHECKOUT)}>
+              {t('cart.checkout', 'Proceed to Checkout')}
+            </button>
             <button className="continue-shopping" onClick={() => navigate(PATHS.SHOP)}>
               {t('cart.continueShopping', 'Continue Shopping')}
             </button>

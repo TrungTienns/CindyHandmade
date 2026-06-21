@@ -4,6 +4,7 @@ import ProductManager from '../../layouts/ProductManager/ProductManager';
 import Dashboard from '../../layouts/Dashboard/Dashboard';
 import UserManager from '../../layouts/UserManager/UserManager';
 import CategoryManager from '../../layouts/CategoryManager/CategoryManager';
+import OrderManager from '../../layouts/OrderManager/OrderManager';
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -17,12 +18,7 @@ const AdminPage = () => {
       case 'categories':
         return <CategoryManager />;
       case 'orders':
-        return (
-          <div className="admin-card">
-            <h2>Đơn hàng</h2>
-            <p>Tính năng quản lý đơn hàng đang được xây dựng.</p>
-          </div>
-        );
+        return <OrderManager />;
       case 'users':
         return <UserManager />;
       default:

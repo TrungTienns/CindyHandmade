@@ -1,0 +1,138 @@
+.image-scroll-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 60px 0;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+
+  .title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 3;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700; 
+      color: #1e293b;
+      line-height: 1.5;
+      margin: 0;
+    }
+  }
+  /* Subtle gradient masks on the left and right edges for a fade effect */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, #fafafa 0%, transparent 100%);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, #fafafa 0%, transparent 100%);
+  }
+
+  .track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    /* Default animation moving left */
+    animation: scrollLeft 40s linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+
+    &.track-3 {
+      animation-duration: 45s; /* Slightly different speed */
+    }
+  }
+
+  .track:nth-child(2) {
+    animation: scrollRight 45s linear infinite;
+    animation-direction: reverse;
+  }
+
+  .track-item {
+    width: 280px;
+    height: 200px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+      img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-280px * 7 - 20px * 7)); 
+    }
+  }
+
+  @keyframes scrollRight {
+    0% {
+      transform: translateX(calc(-280px * 7 - 20px * 7));
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .track-item {
+      width: 200px;
+      height: 150px;
+    }
+
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-200px * 7 - 20px * 7));
+      }
+    }
+
+    @keyframes scrollRight {
+      0% {
+        transform: translateX(calc(-200px * 7 - 20px * 7));
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  }
+}

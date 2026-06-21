@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { AlertProvider } from './context/AlertContext';
+import { AlertProvider } from './context/Alert/AlertContext';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import HomePage from './pages/HomePage/HomePage';
 import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
@@ -12,7 +12,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import CartPage from './pages/CartPage/CartPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import ShopPage from './pages/ShopPage/ShopPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import { CartProvider } from './context/CartContext';
 import { PATHS } from './common/path';
 
@@ -40,6 +42,26 @@ function App() {
             <Route path={PATHS.LOGIN} element={<LoginPage />} />
             <Route path={PATHS.REGISTER} element={<SignUpPage />} />
             <Route path={PATHS.CART} element={<CartPage />} />
+            
+            {/* Checkout Route - Protected */}
+            <Route
+              path={PATHS.CHECKOUT}
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Profile Route - Protected */}
+            <Route
+              path={PATHS.PROFILE}
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Admin Protected Route */}
             <Route

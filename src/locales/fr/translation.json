@@ -178,7 +178,34 @@
   "checkout": {
     "stepCart": "Panier",
     "stepDetails": "Détails",
-    "stepPayment": "Paiement"
+    "stepPayment": "Paiement",
+    "selectFullAddressError": "Veuillez sélectionner la province/district/commune",
+    "orderSuccess": "Commande passée avec succès !",
+    "orderError": "Erreur lors de la commande",
+    "generalError": "Une erreur s'est produite, veuillez réessayer plus tard.",
+    "shippingInfo": "Informations de livraison",
+    "fullName": "Nom complet *",
+    "fullNamePlaceholder": "Entrez votre nom complet",
+    "phone": "Numéro de téléphone *",
+    "phonePlaceholder": "Entrez votre numéro de téléphone",
+    "province": "Province/Ville *",
+    "selectProvince": "-- Sélectionnez la province/ville --",
+    "district": "District *",
+    "selectDistrict": "-- Sélectionnez le district --",
+    "ward": "Commune/Quartier *",
+    "selectWard": "-- Sélectionnez la commune/quartier --",
+    "specificAddress": "Adresse spécifique (N° de maison, rue) *",
+    "addressPlaceholder": "Ex. : N° 10, ruelle 20, rue ABC",
+    "paymentMethod": "Mode de paiement",
+    "cod": "Paiement à la livraison (COD)",
+    "yourOrder": "Votre commande",
+    "quantity": "Quantité : ",
+    "subtotal": "Sous-total :",
+    "shippingFee": "Frais de livraison :",
+    "free": "Gratuit",
+    "total": "Total :",
+    "processing": "Traitement en cours...",
+    "placeOrder": "Passer la commande"
   },
   "shop": {
     "bannerTitle": "Notre Boutique",
@@ -195,9 +222,41 @@
     "errorTitle": "Erreur",
     "successTitle": "Succès",
     "infoTitle": "Information",
+    "warningTitle": "Avertissement",
     "confirmTitle": "Confirmation",
     "cancelBtn": "Annuler",
     "confirmBtn": "Confirmer",
     "closeBtn": "Fermer"
+  },
+  "profile": {
+    "personalInfo": "Informations personnelles",
+    "orderHistory": "Historique des commandes",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "role": "Rôle",
+    "loading": "Chargement...",
+    "noOrders": "Vous n'avez pas encore de commandes.",
+    "shopNow": "Acheter maintenant",
+    "orderId": "ID de commande",
+    "date": "Date",
+    "total": "Total",
+    "shippingInfo": "Informations de livraison",
+    "receiver": "Destinataire:",
+    "phoneNumber": "Téléphone:",
+    "addressDetails": "Adresse:",
+    "paymentMethod": "Moyen de paiement:",
+    "productDetails": "Détails du produit",
+    "productNameFallback": "Produit",
+    "myProfile": "Mon Profil"
+  },
+  "status": {
+    "pending": "En attente de confirmation",
+    "processing": "En cours",
+    "shipped": "En livraison",
+    "delivered": "Terminé",
+    "cancelled": "Annulé"
+  },
+  "loopImage": {
+    "title": "Nos Produits"
   }
 }

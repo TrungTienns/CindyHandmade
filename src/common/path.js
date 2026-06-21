@@ -9,4 +9,6 @@ export const PATHS = {
   REGISTER: '/register',
   ADMIN: '/admin',
   CART: '/cart',
+  CHECKOUT: '/checkout',
+  PROFILE: '/profile',
 };

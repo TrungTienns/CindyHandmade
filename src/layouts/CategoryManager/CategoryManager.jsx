@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchCategories, createCategory, updateCategory, deleteCategory } from '../../services/categoryService';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 import { FiPlus, FiTrash2, FiEdit2, FiCheck, FiX, FiSearch } from 'react-icons/fi';
 import './CategoryManager.scss';
 

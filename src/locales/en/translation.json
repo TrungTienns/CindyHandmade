@@ -178,7 +178,34 @@
   "checkout": {
     "stepCart": "Cart",
     "stepDetails": "Details",
-    "stepPayment": "Payment"
+    "stepPayment": "Payment",
+    "selectFullAddressError": "Please select Province/District/Ward",
+    "orderSuccess": "Order placed successfully!",
+    "orderError": "Error placing order",
+    "generalError": "An error occurred, please try again later.",
+    "shippingInfo": "Shipping Information",
+    "fullName": "Full Name *",
+    "fullNamePlaceholder": "Enter your full name",
+    "phone": "Phone Number *",
+    "phonePlaceholder": "Enter your phone number",
+    "province": "Province/City *",
+    "selectProvince": "-- Select Province/City --",
+    "district": "District *",
+    "selectDistrict": "-- Select District --",
+    "ward": "Ward *",
+    "selectWard": "-- Select Ward --",
+    "specificAddress": "Specific Address (House number, Street) *",
+    "addressPlaceholder": "E.g., No 10, Alley 20, ABC Street",
+    "paymentMethod": "Payment Method",
+    "cod": "Cash on Delivery (COD)",
+    "yourOrder": "Your Order",
+    "quantity": "Quantity: ",
+    "subtotal": "Subtotal:",
+    "shippingFee": "Shipping Fee:",
+    "free": "Free",
+    "total": "Total:",
+    "processing": "Processing...",
+    "placeOrder": "Place Order"
   },
   "shop": {
     "bannerTitle": "Our Shop",
@@ -195,9 +222,41 @@
     "errorTitle": "Error",
     "successTitle": "Success",
     "infoTitle": "Information",
+    "warningTitle": "Warning",
     "confirmTitle": "Confirmation",
     "cancelBtn": "Cancel",
     "confirmBtn": "Confirm",
     "closeBtn": "Close"
+  },
+  "profile": {
+    "personalInfo": "Personal Information",
+    "orderHistory": "Order History",
+    "username": "Username",
+    "email": "Email",
+    "role": "Role",
+    "loading": "Loading...",
+    "noOrders": "You don't have any orders yet.",
+    "shopNow": "Shop Now",
+    "orderId": "Order ID",
+    "date": "Date",
+    "total": "Total",
+    "shippingInfo": "Delivery Information",
+    "receiver": "Receiver:",
+    "phoneNumber": "Phone Number:",
+    "addressDetails": "Address:",
+    "paymentMethod": "Payment Method:",
+    "productDetails": "Product Details",
+    "productNameFallback": "Product",
+    "myProfile": "My Profile"
+  },
+  "status": {
+    "pending": "Waiting for Confirm",
+    "processing": "Processing",
+    "shipped": "Delivering",
+    "delivered": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "loopImage": {
+    "title": "Products"
   }
 }

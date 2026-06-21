@@ -56,11 +56,88 @@
       animation: pulse-red-detail 2s infinite;
     }
 
-    .main-image {
+    .main-image-container {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
       aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      position: relative;
+
+      .main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        animation: slideInCarousel 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+
+      .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #3b4d3d;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+        &:hover {
+          background-color: #ffffff;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        &.prev-button {
+          left: 10px;
+        }
+
+        &.next-button {
+          right: 10px;
+        }
+      }
+    }
+
+    .thumbnail-gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      
+      /* Ẩn thanh cuộn trên webkit */
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 4px;
+      }
+
+      .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        opacity: 0.6;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &.active {
+          opacity: 1;
+          border-color: #3b4d3d;
+        }
+      }
     }
   }
 
@@ -206,6 +283,17 @@
     from {
       opacity: 0;
       transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInCarousel {
+    from {
+      opacity: 0.3;
+      transform: translateX(20px);
     }
     to {
       opacity: 1;

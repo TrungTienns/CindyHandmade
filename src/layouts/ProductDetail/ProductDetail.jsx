@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { fetchProductById } from '../../services/productService';
 import { CartContext } from '../../context/CartContext';
 import { AuthContext } from '../../context/AuthContext';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 import { useCurrency } from '../../hooks/useCurrency';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
 import ProductCommitments from '../ProductCommitments/ProductCommitments';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import './ProductDetail.scss';
 
 const ProductDetail = () => {
@@ -17,6 +18,7 @@ const ProductDetail = () => {
   const { formatPrice } = useCurrency();
   const { getTranslatedProduct } = useProductTranslation();
   const [productRaw, setProductRaw] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
@@ -27,6 +29,11 @@ const ProductDetail = () => {
       try {
         const data = await fetchProductById(id);
         setProductRaw(data);
+        if (data.images && data.images.length > 0) {
+          setSelectedImage(data.images[0]);
+        } else {
+          setSelectedImage('https://via.placeholder.com/500');
+        }
       } catch (error) {
         console.error('Failed to load product details', error);
       } finally {
@@ -38,6 +45,32 @@ const ProductDetail = () => {
     window.scrollTo(0, 0);
     loadProduct();
   }, [id]);
+
+  const product = getTranslatedProduct(productRaw);
+
+  useEffect(() => {
+    let interval;
+    if (product?.images && product.images.length > 1) {
+      interval = setInterval(() => {
+        handleNext();
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [product, selectedImage]);
+
+  const handleNext = () => {
+    if (!product?.images) return;
+    const currentIndex = product.images.indexOf(selectedImage);
+    const nextIndex = (currentIndex + 1) % product.images.length;
+    setSelectedImage(product.images[nextIndex]);
+  };
+
+  const handlePrev = () => {
+    if (!product?.images) return;
+    const currentIndex = product.images.indexOf(selectedImage);
+    const prevIndex = (currentIndex - 1 + product.images.length) % product.images.length;
+    setSelectedImage(product.images[prevIndex]);
+  };
 
   const handleBuyNow = () => {
     if (!user) {
@@ -70,8 +103,6 @@ const ProductDetail = () => {
     return diffDays <= 7;
   };
 
-  const product = getTranslatedProduct(productRaw);
-
   return (
     <div className="product-detail-page">
       <div className="container">
@@ -86,7 +117,38 @@ const ProductDetail = () => {
               {isNewProduct(product.createdAt) && (
                 <div className="new-badge">New</div>
               )}
-              <img src={product.imageUrl} alt={product.name} className="main-image" />
+              <div className="main-image-container">
+                {product.images && product.images.length > 1 && (
+                  <button className="nav-button prev-button" onClick={handlePrev}>
+                    <FiChevronLeft size={24} />
+                  </button>
+                )}
+                <img 
+                  key={selectedImage}
+                  src={selectedImage || product.images?.[0] || 'https://via.placeholder.com/500'} 
+                  alt={product.name} 
+                  className="main-image" 
+                />
+                {product.images && product.images.length > 1 && (
+                  <button className="nav-button next-button" onClick={handleNext}>
+                    <FiChevronRight size={24} />
+                  </button>
+                )}
+              </div>
+              
+              {product.images && product.images.length > 1 && (
+                <div className="thumbnail-gallery">
+                  {product.images.map((imgUrl, index) => (
+                    <img 
+                      key={index} 
+                      src={imgUrl} 
+                      alt={`${product.name} ${index + 1}`} 
+                      className={`thumbnail ${selectedImage === imgUrl ? 'active' : ''}`}
+                      onClick={() => setSelectedImage(imgUrl)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="product-detail-info-section">

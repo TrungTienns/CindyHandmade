@@ -9,7 +9,7 @@ import { useProductTranslation } from '../../hooks/useProductTranslation';
 import { fetchProducts } from '../../services/productService';
 import { CartContext } from '../../context/CartContext';
 import { AuthContext } from '../../context/AuthContext';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 import { useLottie } from 'lottie-react';
 import loadingProductAnimation from '../../assets/animations/loadingProduct.json';
 import './FeaturedProducts.scss';
@@ -50,7 +50,7 @@ const ProductCard = memo(({ product, onBuyNow, onAddToCart, onDetail }) => {
       <div className="product-image-container">
         {isNew && <div className="new-badge">{t('featuredProducts.new')}</div>}
         <img
-          src={product.imageUrl}
+          src={product.images?.[0] || 'https://via.placeholder.com/500'}
           alt={product.name}
           className="product-image"
           loading="lazy"

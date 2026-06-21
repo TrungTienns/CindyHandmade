@@ -50,7 +50,7 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
       
-      const user = await login(email, password);
+      const user = await login(email, password, rememberMe);
       if (user.role === 'admin') {
         navigate(PATHS.ADMIN || '/admin');
       } else {
@@ -138,9 +138,6 @@ const Login = () => {
                 />
                 <span>{t('login.remember', 'Remember me')}</span>
               </label>
-              <a href="#" className="forgot-password">
-                {t('login.forgot', 'Forgot password?')}
-              </a>
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading}>

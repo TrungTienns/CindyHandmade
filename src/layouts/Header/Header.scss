@@ -116,9 +116,45 @@
 }
 
 .user-dropdown {
-  @apply absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-100 py-2 min-w-[150px] z-50 flex flex-col;
+  @apply absolute top-[120%] right-0 bg-white/95 backdrop-blur-xl rounded-2xl border border-white/60 min-w-[220px] z-50 flex flex-col p-2;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transform-origin: top right;
+  animation: dropdownFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 22px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    transform: rotate(45deg);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    border-left: 1px solid rgba(255, 255, 255, 0.6);
+  }
 
   .dropdown-item {
-    @apply px-4 py-2 text-sm text-gray-700 hover:bg-brand-pink hover:text-white transition-colors duration-300 no-underline font-outfit;
+    @apply px-4 py-2.5 text-[0.95rem] text-gray-600 transition-all duration-300 no-underline font-outfit rounded-xl font-medium block w-full text-left;
+
+    &:hover {
+      @apply bg-[#fdf2f8] text-brand-pink;
+      transform: translateX(4px);
+    }
+  }
+
+  div.dropdown-item {
+    @apply border-b border-gray-100 mb-2 pb-3 hover:bg-transparent hover:transform-none hover:text-brand-green text-brand-green cursor-default rounded-none;
+  }
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

@@ -14,7 +14,7 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
     stock: initialData?.stock || '',
     categoryId: initialData?.categoryId || '',
   });
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -42,8 +42,8 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
   };
 
   const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0]);
+    if (e.target.files) {
+      setImageFiles(Array.from(e.target.files));
     }
   };
 
@@ -68,8 +68,10 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
         submitData.append('translations', JSON.stringify(translations));
       }
       
-      if (imageFile) {
-        submitData.append('image', imageFile); // 'image' phải khớp với uploadCloud.single('image') ở Backend
+      if (imageFiles && imageFiles.length > 0) {
+        imageFiles.forEach(file => {
+          submitData.append('images', file);
+        });
       }
 
       if (initialData) {
@@ -160,12 +162,18 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
             </select>
           </div>
           <div className="form-group">
-            <label>Ảnh đại diện (Cloudinary)</label>
+            <label>Ảnh sản phẩm (Có thể chọn nhiều ảnh)</label>
             <input 
               type="file" 
               accept="image/*" 
+              multiple
               onChange={handleFileChange} 
             />
+            {imageFiles.length > 0 && (
+              <div style={{ marginTop: '8px', fontSize: '0.85rem', color: '#666' }}>
+                Đã chọn {imageFiles.length} ảnh
+              </div>
+            )}
           </div>
         </div>
 

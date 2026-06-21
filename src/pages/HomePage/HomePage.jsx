@@ -5,12 +5,14 @@ import AboutUs from '../../layouts/AboutUs/AboutUs';
 import Benefits from '../../layouts/Benefits/Benefits';
 import FeaturedProducts from '../../layouts/FeaturedProducts/FeaturedProducts';
 import './HomePage.scss';
+import LoopImage  from '../../layouts/LoopImage/LoopImage';
 
 const HomePage = () => {
   return (
     <MainLayout>
       <div className="home-page">
         <Banner />
+        <LoopImage />
         <AboutUs />
         <Benefits />
         <FeaturedProducts />

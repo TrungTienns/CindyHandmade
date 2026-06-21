@@ -95,14 +95,17 @@
     color: #8abeb4;
     font-size: 0.95rem;
 
-    .social-link {
+    .social-icon {
       color: #aebdb1;
       text-decoration: none;
       transition: all 0.3s ease;
-      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:hover {
         color: #ffffff;
+        transform: scale(1.1);
       }
     }
   }

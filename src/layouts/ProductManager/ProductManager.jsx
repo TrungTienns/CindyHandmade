@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProducts, deleteProduct } from '../../services/productService';
 import ProductForm from './ProductForm';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 import { FiPlus, FiTrash2, FiEdit2, FiSearch } from 'react-icons/fi';
 import './ProductManager.scss';
 
@@ -114,9 +114,9 @@ const ProductManager = () => {
                   <tr key={product.id}>
                     <td>
                       <img 
-                        src={product.imageUrl} 
+                        src={product.images?.[0] || 'https://via.placeholder.com/500'} 
                         alt={product.name} 
-                        className="product-img" 
+                        className="product-thumbnail" 
                       />
                     </td>
                     <td style={{ fontWeight: 500 }}>{product.name}</td>

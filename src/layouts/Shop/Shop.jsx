@@ -9,7 +9,7 @@ import { useProductTranslation } from '../../hooks/useProductTranslation';
 import { useCategoryTranslation } from '../../hooks/useCategoryTranslation';
 import { CartContext } from '../../context/CartContext';
 import { AuthContext } from '../../context/AuthContext';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 
 const Shop = () => {
   const { t } = useTranslation();
@@ -200,7 +200,7 @@ const Shop = () => {
                       {isNewProduct(product.createdAt) && (
                         <div className="new-badge">New</div>
                       )}
-                      <img src={product.imageUrl} alt={product.name} className="product-image" />
+                      <img src={product.images?.[0] || 'https://via.placeholder.com/500'} alt={product.name} className="product-image" />
                     </div>
                     <div className="product-info">
                       <h3 className="product-name">{product.name}</h3>

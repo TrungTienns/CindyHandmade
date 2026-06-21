@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { fetchUsers, updateUserRole, deleteUser } from '../../services/userService';
 import { AuthContext } from '../../context/AuthContext';
-import { useAlert } from '../../context/AlertContext';
+import { useAlert } from '../../context/Alert/AlertContext';
 import { FiTrash2, FiUser, FiShield } from 'react-icons/fi';
 import './UserManager.scss';
 

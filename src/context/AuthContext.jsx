@@ -8,18 +8,24 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email, password, rememberMe = true) => {
     try {
       const userData = await loginApi(email, password);
       setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
+      
+      if (rememberMe) {
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(userData));
+      }
+      
       return userData;
     } catch (error) {
       const message =
@@ -33,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const userData = await registerApi(name, email, password);
       setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify(userData)); // Default remember on register
       return userData;
     } catch (error) {
       const message =
@@ -46,6 +52,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   };
 
   return (

@@ -113,12 +113,26 @@ const Header = () => {
               <div className="user-dropdown">
                 {user ? (
                   <>
-                    <div className="dropdown-item" style={{ fontWeight: 'bold' }}>
-                      Xin chào, {user.username}
-                    </div>
-                    {user.role === 'admin' && (
+                    <button 
+                      className="dropdown-item" 
+                      style={{ 
+                        fontWeight: 'bold', 
+                        width: '100%', 
+                        textAlign: 'left', 
+                        background: 'none', 
+                        border: 'none', 
+                        cursor: 'pointer' 
+                      }}
+                      onClick={() => {
+                        setIsUserDropdownOpen(false);
+                        navigate(PATHS.PROFILE);
+                      }}
+                    >
+                      {t('header.hello', 'Xin chào')}, {user.name || user.username}
+                    </button>
+                    {user?.role === 'admin' && (
                       <Link to={PATHS.ADMIN} className="dropdown-item">
-                        Trang quản trị
+                        {t('header.admin', 'Trang quản trị')}
                       </Link>
                     )}
                     <button
@@ -135,7 +149,7 @@ const Header = () => {
                         navigate(PATHS.HOME);
                       }}
                     >
-                      Đăng xuất
+                      {t('header.logout', 'Đăng xuất')}
                     </button>
                   </>
                 ) : (
@@ -143,7 +157,7 @@ const Header = () => {
                     <Link to={PATHS.LOGIN} className="dropdown-item">
                       {t('header.login', 'Đăng nhập')}
                     </Link>
-                    <Link to={PATHS.LOGIN} className="dropdown-item">
+                    <Link to={PATHS.REGISTER} className="dropdown-item">
                       {t('header.register', 'Đăng ký')}
                     </Link>
                   </>
