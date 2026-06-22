@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useProductTranslation } from '../../hooks/useProductTranslation';
 import CheckoutStepper from '../../components/CheckoutStepper/CheckoutStepper';
 import './Checkout.scss';
+import http from '../../services/http';
 
 const Checkout = () => {
   const { cart, cartTotal, fetchCart } = useContext(CartContext);
@@ -120,26 +121,19 @@ const Checkout = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/orders/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          phone: formData.phone,
-          province: formData.provinceName,
-          district: formData.districtName,
-          ward: formData.wardName,
-          address: formData.address,
-          paymentMethod: formData.paymentMethod
-        }),
+      const response = await http.post('/orders/checkout', {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        province: formData.provinceName,
+        district: formData.districtName,
+        ward: formData.wardName,
+        address: formData.address,
+        paymentMethod: formData.paymentMethod
       });
 
-      const data = await response.json();
+      const data = response.data;
 
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         setIsSuccess(true);
         await fetchCart(); // Refresh cart (will be empty)
         if (formData.paymentMethod === 'BANK_TRANSFER') {
@@ -148,12 +142,11 @@ const Checkout = () => {
           showAlert(t('checkout.orderSuccess', 'Order placed successfully!'), t('alerts.successTitle', 'Success'), 'success');
           navigate(PATHS.SHOP); // Redirect to shop or a success page
         }
-      } else {
-        showAlert(data.message || t('checkout.orderError', 'Error placing order'), t('alerts.errorTitle', 'Error'), 'error');
       }
     } catch (error) {
       console.error('Checkout error:', error);
-      showAlert(t('checkout.generalError', 'An error occurred, please try again later.'), t('alerts.errorTitle', 'Error'), 'error');
+      const errorMessage = error.response?.data?.message || t('checkout.generalError', 'An error occurred, please try again later.');
+      showAlert(errorMessage, t('alerts.errorTitle', 'Error'), 'error');
     } finally {
       setIsSubmitting(false);
     }

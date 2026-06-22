@@ -6,4 +6,24 @@ const http = axios.create({
   withCredentials: true, // Send HttpOnly cookies with every request
 });
 
+http.interceptors.request.use(
+  config => {
+    const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        if (user.token) {
+          config.headers.Authorization = `Bearer ${user.token}`;
+        }
+      } catch (e) {
+        // Ignore parse error
+      }
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
 export default http;
