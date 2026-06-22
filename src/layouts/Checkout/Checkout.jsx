@@ -37,13 +37,14 @@ const Checkout = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Redirect if cart is empty
   useEffect(() => {
-    if (cart.length === 0 && !isSubmitting) {
+    if (cart.length === 0 && !isSubmitting && !isSuccess) {
       navigate(PATHS.CART);
     }
-  }, [cart, navigate, isSubmitting]);
+  }, [cart, navigate, isSubmitting, isSuccess]);
 
   // Fetch Provinces
   useEffect(() => {
@@ -119,7 +120,7 @@ const Checkout = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/orders/checkout', {
+      const response = await fetch('http://localhost:8080/api/orders/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -139,9 +140,14 @@ const Checkout = () => {
       const data = await response.json();
 
       if (response.ok) {
-        showAlert(t('checkout.orderSuccess', 'Order placed successfully!'), t('alerts.successTitle', 'Success'), 'success');
+        setIsSuccess(true);
         await fetchCart(); // Refresh cart (will be empty)
-        navigate(PATHS.SHOP); // Redirect to shop or a success page
+        if (formData.paymentMethod === 'BANK_TRANSFER') {
+          navigate(PATHS.PAYMENT_QR.replace(':id', data.order.id));
+        } else {
+          showAlert(t('checkout.orderSuccess', 'Order placed successfully!'), t('alerts.successTitle', 'Success'), 'success');
+          navigate(PATHS.SHOP); // Redirect to shop or a success page
+        }
       } else {
         showAlert(data.message || t('checkout.orderError', 'Error placing order'), t('alerts.errorTitle', 'Error'), 'error');
       }
@@ -259,7 +265,17 @@ const Checkout = () => {
                 />
                 <label htmlFor="cod">{t('checkout.cod', 'Cash on Delivery (COD)')}</label>
               </div>
-              {/* Thêm các phương thức khác ở đây nếu cần */}
+              <div className={`payment-option ${formData.paymentMethod === 'BANK_TRANSFER' ? 'active' : ''}`}>
+                <input 
+                  type="radio" 
+                  id="bank" 
+                  name="paymentMethod" 
+                  value="BANK_TRANSFER" 
+                  checked={formData.paymentMethod === 'BANK_TRANSFER'} 
+                  onChange={handleChange} 
+                />
+                <label htmlFor="bank">{t('checkout.bankTransfer', 'Bank Transfer (QR Code)')}</label>
+              </div>
             </div>
           </div>
 
@@ -305,6 +321,7 @@ const Checkout = () => {
           </div>
         </form>
       </div>
+
     </div>
   );
 };

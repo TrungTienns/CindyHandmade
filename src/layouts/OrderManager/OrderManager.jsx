@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchOrders, updateOrderStatus } from '../../services/orderService';
+import { fetchOrders, updateOrderStatus, updatePaymentStatus } from '../../services/orderService';
 import { useAlert } from '../../context/Alert/AlertContext';
 import { FiSearch, FiEye, FiCheckCircle } from 'react-icons/fi';
 import './OrderManager.scss';
@@ -47,6 +47,20 @@ const OrderManager = () => {
     }
   };
 
+  const handlePaymentStatusChange = async (orderId, currentStatus) => {
+    const newStatus = currentStatus === 'PAID' ? 'UNPAID' : 'PAID';
+    const isConfirmed = await showConfirm(`Xác nhận đổi trạng thái thanh toán thành "${newStatus === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán'}"?`);
+    if (isConfirmed) {
+      try {
+        await updatePaymentStatus(orderId, newStatus);
+        setOrders(orders.map(order => order.id === orderId ? { ...order, paymentStatus: newStatus } : order));
+        showAlert('Cập nhật trạng thái thanh toán thành công', 'Thành công', 'success');
+      } catch (error) {
+        showAlert('Có lỗi xảy ra khi cập nhật!', 'Lỗi', 'error');
+      }
+    }
+  };
+
   const filteredOrders = orders.filter(o => 
     String(o.id).toLowerCase().includes(searchTerm.toLowerCase()) || 
     (o.fullName || '').toLowerCase().includes(searchTerm.toLowerCase())
@@ -82,6 +96,7 @@ const OrderManager = () => {
                 <th>Ngày đặt</th>
                 <th>Tổng tiền</th>
                 <th>Trạng thái</th>
+                <th>Thanh toán</th>
                 <th>Cập nhật trạng thái</th>
                 <th>Hành động</th>
               </tr>
@@ -104,6 +119,19 @@ const OrderManager = () => {
                       <span className={`status-badge ${STATUS_MAP[order.status]?.color || 'status-default'}`}>
                         {STATUS_MAP[order.status]?.label || order.status}
                       </span>
+                    </td>
+                    <td>
+                      {order.paymentMethod === 'COD' ? (
+                        <span style={{ color: '#64748b', fontWeight: 500 }}>(COD)</span>
+                      ) : (
+                        <button 
+                          className={`btn-primary ${order.paymentStatus === 'PAID' ? 'btn-success' : 'btn-warning'}`}
+                          style={{ padding: '6px 12px', fontSize: '0.85rem', width: '130px' }}
+                          onClick={() => handlePaymentStatusChange(order.id, order.paymentStatus)}
+                        >
+                          {order.paymentStatus === 'PAID' ? 'Đã thu tiền' : 'Xác nhận thu tiền'}
+                        </button>
+                      )}
                     </td>
                     <td>
                       <select 

@@ -19,3 +19,12 @@ export const registerApi = async (name, email, password) => {
     throw error;
   }
 };
+export const logoutApi = async () => {
+  try {
+    const response = await http.post('/auth/logout');
+    return response.data;
+  } catch (error) {
+    console.error('Error logging out:', error);
+    throw error;
+  }
+};

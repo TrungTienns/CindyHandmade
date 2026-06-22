@@ -29,3 +29,13 @@ export const updateOrderStatus = async (id, status) => {
     throw error;
   }
 };
+
+export const updatePaymentStatus = async (id, paymentStatus) => {
+  try {
+    const response = await http.put(`/orders/${id}/payment-status`, { paymentStatus });
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating payment status for ${id}:`, error);
+    throw error;
+  }
+};

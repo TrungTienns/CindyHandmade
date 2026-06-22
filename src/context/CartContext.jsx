@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
 
   // Load cart from DB when user changes
   useEffect(() => {
-    if (user && user.token) {
+    if (user) {
       fetchCart();
     } else {
       setCart([]); // Clear cart if logged out
@@ -38,17 +38,15 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (product, quantity = 1) => {
     if (!user) {
-      alert('Vui lòng đăng nhập để thêm vào giỏ hàng!');
-      return;
+      throw new Error('Vui lòng đăng nhập để thêm vào giỏ hàng!');
     }
 
     try {
-      // Optimistic Update (Tùy chọn, ở đây ta gọi API trước để lấy DB làm chuẩn)
       const updatedCart = await addToCartApi(product.id, quantity);
       setCart(updatedCart.items || []);
     } catch (error) {
       console.error('Failed to add to cart:', error);
-      alert('Lỗi thêm vào giỏ hàng');
+      throw error;
     }
   };
 

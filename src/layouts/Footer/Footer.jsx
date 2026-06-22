@@ -52,7 +52,7 @@ const Footer = () => {
               <a href="#">{t('footer.shipping', 'Shipping & Returns')}</a>
             </li>
             <li>
-              <a href="#">{t('footer.privacy', 'Privacy Policy')}</a>
+              <Link to={PATHS.PRIVACY_POLICY}>{t('footer.privacy', 'Privacy Policy')}</Link>
             </li>
             <li>
               <a href="#">{t('footer.terms', 'Terms of Service')}</a>

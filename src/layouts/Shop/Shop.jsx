@@ -26,8 +26,7 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 100]);
-  const [maxProductPrice, setMaxProductPrice] = useState(100);
+
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -35,11 +34,7 @@ const Shop = () => {
         const data = await fetchProducts();
         setProducts(data);
         if (data.length > 0) {
-          let maxP = Math.ceil(Math.max(...data.map(p => p.price)));
-          maxP = Math.ceil(maxP / 100) * 100 + 100; 
-          if (maxP < 500) maxP = 500; 
-          setMaxProductPrice(maxP);
-          setPriceRange([0, maxP]);
+
         }
       } catch (error) {
         console.error('Failed to load products', error);
@@ -106,20 +101,11 @@ const Shop = () => {
     });
   };
 
-  const handleMinPriceChange = (e) => {
-    const value = Math.min(Number(e.target.value), priceRange[1] - 1);
-    setPriceRange([value, priceRange[1]]);
-  };
 
-  const handleMaxPriceChange = (e) => {
-    const value = Math.max(Number(e.target.value), priceRange[0] + 1);
-    setPriceRange([priceRange[0], value]);
-  };
 
   const displayedProducts = products.filter(p => {
     const inCategory = selectedCategories.length === 0 || selectedCategories.includes(p.categoryId);
-    const inPriceRange = p.price >= priceRange[0] && p.price <= priceRange[1];
-    return inCategory && inPriceRange;
+    return inCategory;
   });
 
   return (
@@ -153,35 +139,7 @@ const Shop = () => {
               )}
             </div>
 
-            <div className="price-filter">
-              <h4>{t('shop.price', 'Price')}</h4>
-              <p className="price-label">
-                {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
-              </p>
-              <div className="range-slider">
-                <span 
-                  className="slider-track"
-                  style={{
-                    left: `${(priceRange[0] / maxProductPrice) * 100}%`,
-                    width: `${((priceRange[1] - priceRange[0]) / maxProductPrice) * 100}%`
-                  }}
-                ></span>
-                <input 
-                  type="range" 
-                  min={0} 
-                  max={maxProductPrice} 
-                  value={priceRange[0]} 
-                  onChange={handleMinPriceChange}
-                />
-                <input 
-                  type="range" 
-                  min={0} 
-                  max={maxProductPrice} 
-                  value={priceRange[1]} 
-                  onChange={handleMaxPriceChange}
-                />
-              </div>
-            </div>
+
           </div>
           
           <div className="shop-products">

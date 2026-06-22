@@ -194,6 +194,16 @@ const ProfileLayout = () => {
                             {formatPrice(order.totalAmount || order.totalPrice || 0)}
                           </span>
                         </div>
+                        <div className="grid-item">
+                          <span className="label">{t('payment.status', 'Payment')}</span>
+                          {order.paymentMethod === 'COD' ? (
+                            <span className="value" style={{ color: '#64748b' }}>(COD)</span>
+                          ) : (
+                            <span className={`status-badge ${order.paymentStatus === 'PAID' ? 'status-success' : 'status-warning'}`}>
+                              {order.paymentStatus === 'PAID' ? t('payment.paid', 'Paid') : t('payment.verifying', 'Đang xác minh')}
+                            </span>
+                          )}
+                        </div>
                         <div className="grid-item" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                           <div>
                             <span className="label" style={{ display: 'block' }}>Status</span>

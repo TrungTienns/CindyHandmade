@@ -187,7 +187,7 @@
     
     .order-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 15px;
 
       @media (max-width: 768px) {
@@ -307,6 +307,7 @@
     font-size: 0.8rem;
     font-weight: 600;
     width: fit-content;
+    white-space: nowrap;
 
     &.status-warning { background: #fef3c7; color: #d97706; }
     &.status-info { background: #e0f2fe; color: #0284c7; }

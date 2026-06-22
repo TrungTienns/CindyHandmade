@@ -11,4 +11,8 @@ export const PATHS = {
   CART: '/cart',
   CHECKOUT: '/checkout',
   PROFILE: '/profile',
+  PRIVACY_POLICY: '/privacy-policy',
+  PAYMENT_SUCCESS: '/payment-success',
+  PAYMENT_FAILED: '/payment-failed',
+  PAYMENT_QR: '/payment/:id',
 };

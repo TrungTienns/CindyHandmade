@@ -198,6 +198,7 @@
     "addressPlaceholder": "E.g., No 10, Alley 20, ABC Street",
     "paymentMethod": "Payment Method",
     "cod": "Cash on Delivery (COD)",
+    "bankTransfer": "Bank Transfer (QR Code)",
     "yourOrder": "Your Order",
     "quantity": "Quantity: ",
     "subtotal": "Subtotal:",
@@ -256,7 +257,68 @@
     "delivered": "Completed",
     "cancelled": "Cancelled"
   },
+  "payment": {
+    "status": "Payment",
+    "verifying": "Verifying",
+    "paid": "Paid",
+    "confirmPayment": "Confirm Paid"
+  },
+  "paymentQR": {
+    "loading": "Loading information...",
+    "orderNotFound": "Order not found",
+    "title": "Payment for Order #",
+    "subtitle": "Scan the QR code with your banking app to pay",
+    "bank": "Bank:",
+    "accountNo": "Account No:",
+    "accountName": "Account Name:",
+    "amount": "Amount:",
+    "description": "Description:",
+    "confirmBtn": "I have transferred",
+    "checkingBtn": "Checking transaction...",
+    "noteTitle": "⚠️ IMPORTANT NOTICE:",
+    "note1": "After transferring the money, please take a screenshot of the transaction as proof before clicking 'I have transferred'. If you click the button without transferring, the order will be cancelled.",
+    "note2": "After completing these steps, please go to the Order History page to check the status. The status will be updated within 5-15 minutes. If it hasn't updated, please contact our Hotline: 1900-000-000."
+  },
+  "paymentResult": {
+    "successTitle": "Payment successful!",
+    "successMessage1": "Thank you for shopping at Cindy Handmade.",
+    "successMessage2": "Your order has been received and is pending processing. We will verify the transaction and ship your order as soon as possible.",
+    "continueShopping": "Continue shopping",
+    "viewOrder": "View order",
+    "failedTitle": "Payment failed",
+    "failedMessage1": "Sorry, your payment transaction was unsuccessful or cancelled.",
+    "failedMessage2": "Please check your account balance or try again later.",
+    "retryPayment": "Retry payment",
+    "backToShop": "Back to shop"
+  },
   "loopImage": {
     "title": "Products"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: June 2026",
+    "section1": {
+      "title": "1. Information We Collect",
+      "content1": "We collect information you provide directly to us when you create an account, make a purchase, or communicate with us.",
+      "item1": "Contact information (name, email address, phone number)",
+      "item2": "Shipping and billing address",
+      "item3": "Payment information (processed securely by our payment partners)"
+    },
+    "section2": {
+      "title": "2. How We Use Your Information",
+      "content1": "We use the information we collect to provide, maintain, and improve our services, process transactions, and send related information."
+    },
+    "section3": {
+      "title": "3. Information Sharing",
+      "content1": "We do not share your personal information with third parties except as necessary to provide our services, comply with the law, or protect our rights."
+    },
+    "section4": {
+      "title": "4. Security",
+      "content1": "We take reasonable measures to help protect information about you from loss, theft, misuse, and unauthorized access."
+    },
+    "section5": {
+      "title": "5. Contact Us",
+      "content1": "If you have any questions about this Privacy Policy, please contact us at support@cindyhandmade.com."
+    }
   }
 }

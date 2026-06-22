@@ -198,6 +198,7 @@
     "addressPlaceholder": "Ex. : N° 10, ruelle 20, rue ABC",
     "paymentMethod": "Mode de paiement",
     "cod": "Paiement à la livraison (COD)",
+    "bankTransfer": "Virement bancaire (Code QR)",
     "yourOrder": "Votre commande",
     "quantity": "Quantité : ",
     "subtotal": "Sous-total :",
@@ -256,7 +257,68 @@
     "delivered": "Terminé",
     "cancelled": "Annulé"
   },
+  "payment": {
+    "status": "Paiement",
+    "verifying": "En cours de vérification",
+    "paid": "Payé",
+    "confirmPayment": "Confirmer le paiement"
+  },
+  "paymentQR": {
+    "loading": "Chargement des informations...",
+    "orderNotFound": "Commande introuvable",
+    "title": "Paiement de la commande #",
+    "subtitle": "Scannez le code QR avec votre application bancaire pour payer",
+    "bank": "Banque :",
+    "accountNo": "N° de compte :",
+    "accountName": "Titulaire :",
+    "amount": "Montant :",
+    "description": "Description :",
+    "confirmBtn": "J'ai transféré",
+    "checkingBtn": "Vérification de la transaction...",
+    "noteTitle": "⚠️ AVIS IMPORTANT :",
+    "note1": "Après avoir transféré l'argent, veuillez prendre une capture d'écran de la transaction comme preuve avant de cliquer sur 'J'ai transféré'. Si vous cliquez sur le bouton sans transférer, la commande sera annulée.",
+    "note2": "Après avoir terminé ces étapes, veuillez vous rendre sur la page Historique des commandes pour vérifier le statut. Le statut sera mis à jour dans les 5 à 15 minutes. S'il n'est pas mis à jour, veuillez contacter notre Hotline : 1900-000-000."
+  },
+  "paymentResult": {
+    "successTitle": "Paiement réussi !",
+    "successMessage1": "Merci pour vos achats chez Cindy Handmade.",
+    "successMessage2": "Votre commande a été reçue et est en attente de traitement. Nous vérifierons la transaction et expédierons votre commande dans les plus brefs délais.",
+    "continueShopping": "Continuer vos achats",
+    "viewOrder": "Voir la commande",
+    "failedTitle": "Échec du paiement",
+    "failedMessage1": "Désolé, votre transaction de paiement a échoué ou a été annulée.",
+    "failedMessage2": "Veuillez vérifier le solde de votre compte ou réessayer plus tard.",
+    "retryPayment": "Réessayer le paiement",
+    "backToShop": "Retour à la boutique"
+  },
   "loopImage": {
     "title": "Nos Produits"
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "lastUpdated": "Dernière mise à jour: Juin 2026",
+    "section1": {
+      "title": "1. Informations que nous collectons",
+      "content1": "Nous collectons les informations que vous nous fournissez directement lors de la création d'un compte, d'un achat ou d'une communication avec nous.",
+      "item1": "Coordonnées (nom, adresse e-mail, numéro de téléphone)",
+      "item2": "Adresse de livraison et de facturation",
+      "item3": "Informations de paiement (traitées de manière sécurisée par nos partenaires de paiement)"
+    },
+    "section2": {
+      "title": "2. Comment nous utilisons vos informations",
+      "content1": "Nous utilisons les informations que nous collectons pour fournir, maintenir et améliorer nos services, traiter les transactions et envoyer des informations connexes."
+    },
+    "section3": {
+      "title": "3. Partage d'informations",
+      "content1": "Nous ne partageons pas vos informations personnelles avec des tiers, sauf si cela est nécessaire pour fournir nos services, nous conformer à la loi ou protéger nos droits."
+    },
+    "section4": {
+      "title": "4. Sécurité",
+      "content1": "Nous prenons des mesures raisonnables pour aider à protéger les informations vous concernant contre la perte, le vol, une mauvaise utilisation et un accès non autorisé."
+    },
+    "section5": {
+      "title": "5. Nous contacter",
+      "content1": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter à support@cindyhandmade.com."
+    }
   }
 }
