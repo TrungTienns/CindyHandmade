@@ -56,7 +56,7 @@ const AdminLayout = ({ children, activeTab, setActiveTab }) => {
             className={activeTab === 'categories' ? 'active' : ''} 
             onClick={() => handleTabClick('categories')}
           >
-            <FiList /> Danh mục
+            <FiList /> Categories
           </button>
           <button 
             className={activeTab === 'orders' ? 'active' : ''} 

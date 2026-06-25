@@ -17,6 +17,7 @@ const OrderManager = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   const loadOrders = async () => {
     setLoading(true);
@@ -149,7 +150,7 @@ const OrderManager = () => {
                         <button 
                           className="btn-view" 
                           title="Xem chi tiết"
-                          onClick={() => showAlert('Tính năng xem chi tiết đang được phát triển.', 'Thông báo', 'info')}
+                          onClick={() => setSelectedOrder(order)}
                         >
                           <FiEye size={18} />
                         </button>
@@ -162,6 +163,80 @@ const OrderManager = () => {
           </table>
         )}
       </div>
+
+      {selectedOrder && (
+        <div className="modal-overlay" onClick={() => setSelectedOrder(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Chi tiết đơn hàng #{String(selectedOrder.id).padStart(4, '0')}</h3>
+              <button className="close-btn" onClick={() => setSelectedOrder(null)}>&times;</button>
+            </div>
+            <div className="modal-body">
+              <div className="order-info">
+                <h4>Thông tin giao hàng</h4>
+                <p><strong>Người nhận:</strong> {selectedOrder.fullName}</p>
+                <p><strong>Số điện thoại:</strong> {selectedOrder.phone}</p>
+                <p><strong>Địa chỉ:</strong> {selectedOrder.address}, {selectedOrder.ward}, {selectedOrder.district}, {selectedOrder.province}</p>
+                <p><strong>Phương thức thanh toán:</strong> {selectedOrder.paymentMethod === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : selectedOrder.paymentMethod === 'BANK_TRANSFER' ? 'Chuyển khoản ngân hàng' : selectedOrder.paymentMethod}</p>
+              </div>
+              <div className="order-items">
+                <h4>Sản phẩm đã mua</h4>
+                <table className="items-table">
+                  <thead>
+                    <tr>
+                      <th>Sản phẩm</th>
+                      <th>Đơn giá</th>
+                      <th>Số lượng</th>
+                      <th>Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedOrder.items && selectedOrder.items.length > 0 ? (
+                      selectedOrder.items.map(item => {
+                        let imageUrl = '/placeholder.jpg';
+                        if (item.product?.images) {
+                          try {
+                            const images = typeof item.product.images === 'string' ? JSON.parse(item.product.images) : item.product.images;
+                            if (images && images.length > 0) imageUrl = images[0];
+                          } catch (e) {
+                            console.error('Error parsing images', e);
+                          }
+                        }
+                        
+                        return (
+                          <tr key={item.id}>
+                            <td>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img 
+                                  src={imageUrl} 
+                                  alt={item.product?.name || 'Sản phẩm'} 
+                                  style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }}
+                                  onError={(e) => { e.target.src = '/placeholder.jpg' }}
+                                />
+                                <span>{item.product?.name || 'Sản phẩm không xác định'}</span>
+                              </div>
+                            </td>
+                            <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.priceAtPurchase || 0)}</td>
+                            <td>{item.quantity}</td>
+                            <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.priceAtPurchase || 0) * item.quantity)}</td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan="4" style={{ textAlign: 'center' }}>Không có thông tin sản phẩm.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+                <div style={{ textAlign: 'right', marginTop: '15px', fontSize: '1.1rem' }}>
+                  <strong>Tổng cộng: <span style={{ color: '#e53e3e' }}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(selectedOrder.totalAmount)}</span></strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
