@@ -50,7 +50,7 @@ const ProductCard = memo(({ product, onBuyNow, onAddToCart, onDetail }) => {
       <div className="product-image-container">
         {isNew && <div className="new-badge">{t('featuredProducts.new')}</div>}
         <img
-          src={product.images?.[0] || 'https://via.placeholder.com/500'}
+          src={product.images?.[0] || 'https://placehold.co/500x500?text=No+Image'}
           alt={product.name}
           className="product-image"
           loading="lazy"

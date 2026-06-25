@@ -114,7 +114,7 @@ const ProductManager = () => {
                   <tr key={product.id}>
                     <td>
                       <img 
-                        src={product.images?.[0] || 'https://via.placeholder.com/500'} 
+                        src={product.images?.[0] || 'https://placehold.co/500x500?text=No+Image'} 
                         alt={product.name} 
                         className="product-thumbnail" 
                       />

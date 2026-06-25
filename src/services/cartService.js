@@ -10,9 +10,9 @@ export const getCartApi = async () => {
   }
 };
 
-export const addToCartApi = async (productId, quantity = 1) => {
+export const addToCartApi = async (productId, quantity = 1, size = null) => {
   try {
-    const response = await http.post('/cart/add', { productId, quantity });
+    const response = await http.post('/cart/add', { productId, quantity, size });
     return response.data;
   } catch (error) {
     console.error('Error adding to cart:', error);
@@ -20,9 +20,9 @@ export const addToCartApi = async (productId, quantity = 1) => {
   }
 };
 
-export const updateCartItemApi = async (productId, quantity) => {
+export const updateCartItemApi = async (productId, quantity, size = null) => {
   try {
-    const response = await http.put('/cart/update', { productId, quantity });
+    const response = await http.put('/cart/update', { productId, quantity, size });
     return response.data;
   } catch (error) {
     console.error('Error updating cart:', error);
@@ -30,9 +30,10 @@ export const updateCartItemApi = async (productId, quantity) => {
   }
 };
 
-export const removeCartItemApi = async productId => {
+export const removeCartItemApi = async (productId, size = null) => {
   try {
-    const response = await http.delete(`/cart/remove/${productId}`);
+    const url = size ? `/cart/remove/${productId}?size=${encodeURIComponent(size)}` : `/cart/remove/${productId}`;
+    const response = await http.delete(url);
     return response.data;
   } catch (error) {
     console.error('Error removing from cart:', error);

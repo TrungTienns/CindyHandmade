@@ -233,7 +233,10 @@ const ProfileLayout = () => {
                             <div className="order-items-list">
                               {order.items && order.items.map((item, idx) => (
                                 <div key={idx} className="order-item-row">
-                                  <div className="item-name">{item.product?.name || t('profile.productNameFallback', 'Product')}</div>
+                                  <div className="item-name">
+                                    {item.product?.name || t('profile.productNameFallback', 'Product')}
+                                    {item.size && <span style={{ marginLeft: '8px', color: '#666', fontSize: '0.9em' }}>(Size: {item.size})</span>}
+                                  </div>
                                   <div className="item-qty">x{item.quantity}</div>
                                   <div className="item-price">
                                     {formatPrice((item.priceAtPurchase || item.price || item.product?.price || 0) * item.quantity)}

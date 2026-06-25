@@ -99,7 +99,7 @@ const OrderManager = () => {
                 <th>Trạng thái</th>
                 <th>Thanh toán</th>
                 <th>Cập nhật trạng thái</th>
-                <th>Hành động</th>
+                <th>Thông tin đơn hàng</th>
               </tr>
             </thead>
             <tbody>
@@ -213,7 +213,10 @@ const OrderManager = () => {
                                   style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }}
                                   onError={(e) => { e.target.src = '/placeholder.jpg' }}
                                 />
-                                <span>{item.product?.name || 'Sản phẩm không xác định'}</span>
+                                <span>
+                                  {item.product?.name || 'Sản phẩm không xác định'}
+                                  {item.size && <span style={{ display: 'block', color: '#666', fontSize: '0.85em' }}>Size: {item.size}</span>}
+                                </span>
                               </div>
                             </td>
                             <td>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.priceAtPurchase || 0)}</td>

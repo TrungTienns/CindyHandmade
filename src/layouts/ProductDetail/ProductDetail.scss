@@ -301,3 +301,40 @@
     }
   }
 }
+.product-sizes {
+  margin-bottom: 2rem;
+  
+  h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.8rem;
+    font-family: "Playfair Display", serif;
+  }
+
+  .size-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .size-btn {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        border-color: #fca5a5;
+        color: #fca5a5;
+      }
+
+      &.active {
+        background-color: #fca5a5;
+        color: white;
+        border-color: #fca5a5;
+      }
+    }
+  }
+}

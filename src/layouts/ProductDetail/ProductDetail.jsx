@@ -19,6 +19,7 @@ const ProductDetail = () => {
   const { getTranslatedProduct } = useProductTranslation();
   const [productRaw, setProductRaw] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const ProductDetail = () => {
         if (data.images && data.images.length > 0) {
           setSelectedImage(data.images[0]);
         } else {
-          setSelectedImage('https://via.placeholder.com/500');
+          setSelectedImage('https://placehold.co/500x500?text=No+Image');
         }
       } catch (error) {
         console.error('Failed to load product details', error);
@@ -77,9 +78,13 @@ const ProductDetail = () => {
       showAlert(t('alerts.loginRequiredBuy', 'Vui lòng đăng nhập để mua sản phẩm này.'), t('alerts.infoTitle', 'Thông báo'), 'info');
       return;
     }
+    if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
+      showAlert('Vui lòng chọn kích cỡ (size) trước khi mua', 'Thông báo', 'warning');
+      return;
+    }
     if (product) {
       try {
-        await addToCart(product);
+        await addToCart(product, 1, selectedSize);
         navigate('/cart');
       } catch (error) {
         showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
@@ -92,9 +97,13 @@ const ProductDetail = () => {
       showAlert(t('alerts.loginRequiredCart', 'Vui lòng đăng nhập để thêm vào giỏ hàng.'), t('alerts.infoTitle', 'Thông báo'), 'info');
       return;
     }
+    if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
+      showAlert('Vui lòng chọn kích cỡ (size) trước khi thêm vào giỏ', 'Thông báo', 'warning');
+      return;
+    }
     if (product) {
       try {
-        await addToCart(product);
+        await addToCart(product, 1, selectedSize);
         showAlert(t('alerts.cartSuccess', 'Đã thêm sản phẩm vào giỏ hàng.'), t('alerts.successTitle', 'Thành công'), 'success');
       } catch (error) {
         showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
@@ -133,7 +142,7 @@ const ProductDetail = () => {
                 )}
                 <img 
                   key={selectedImage}
-                  src={selectedImage || product.images?.[0] || 'https://via.placeholder.com/500'} 
+                  src={selectedImage || product.images?.[0] || 'https://placehold.co/500x500?text=No+Image'} 
                   alt={product.name} 
                   className="main-image" 
                 />
@@ -167,6 +176,23 @@ const ProductDetail = () => {
                 <h3>{t('productDetail.description')}</h3>
                 <p>{product.description || t('productDetail.noDescription')}</p>
               </div>
+
+              {product.sizes && product.sizes.length > 0 && (
+                <div className="product-sizes">
+                  <h3>Kích cỡ (Size)</h3>
+                  <div className="size-options">
+                    {product.sizes.map((size) => (
+                      <button
+                        key={size}
+                        className={`size-btn ${selectedSize === size ? 'active' : ''}`}
+                        onClick={() => setSelectedSize(size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="product-actions">
                 <button className="btn-buy-now" onClick={handleBuyNow}>

@@ -13,6 +13,7 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
     price: initialData?.price ? String(initialData.price).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '',
     stock: initialData?.stock || '',
     categoryId: initialData?.categoryId || '',
+    sizes: initialData?.sizes ? initialData.sizes.join(', ') : '',
   });
   const [imageFiles, setImageFiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,6 +61,9 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
       submitData.append('price', formData.price.replace(/\./g, ''));
       submitData.append('stock', formData.stock);
       submitData.append('categoryId', formData.categoryId);
+      if (formData.sizes.trim()) {
+        submitData.append('sizes', formData.sizes);
+      }
       
       const translations = { fr: {} };
       if (formData.name_fr) translations.fr.name = formData.name_fr;
@@ -174,6 +178,19 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
                 Đã chọn {imageFiles.length} ảnh
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group" style={{ width: '100%' }}>
+            <label>Kích cỡ (Sizes) - Tùy chọn</label>
+            <input 
+              type="text" 
+              name="sizes" 
+              value={formData.sizes} 
+              onChange={handleChange} 
+              placeholder="Nhập các kích cỡ cách nhau bởi dấu phẩy (VD: S, M, L, XL)..."
+            />
           </div>
         </div>
 

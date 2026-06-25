@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 import './Contact.scss';
 
 const Contact = () => {
@@ -29,26 +30,26 @@ const Contact = () => {
             </p>
 
             <div className="info-item">
-              <div className="icon">📍</div>
+              <div className="icon"><FiMapPin size={24} /></div>
               <div>
                 <h4>{t('contact.addressTitle', 'Address')}</h4>
-                <p>123 Knit Avenue, Craft City, 90210</p>
+                <p>Thôn đông hà ,Cẩm Kim , Phường Hội An , TP Đà Nẵng</p>
               </div>
             </div>
 
             <div className="info-item">
-              <div className="icon">📞</div>
+              <div className="icon"><FiPhone size={24} /></div>
               <div>
                 <h4>{t('contact.phoneTitle', 'Phone')}</h4>
-                <p>+1 (555) 123-4567</p>
+                <p>+84 77 8735 699</p>
               </div>
             </div>
 
             <div className="info-item">
-              <div className="icon">✉️</div>
+              <div className="icon"><FiMail size={24} /></div>
               <div>
                 <h4>{t('contact.emailTitle', 'Email')}</h4>
-                <p>hello@cindyhandmade.com</p>
+                <p>tuyetduongge.1993@gmail.com</p>
               </div>
             </div>
           </div>

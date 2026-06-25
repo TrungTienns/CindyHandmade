@@ -65,25 +65,26 @@ const Cart = () => {
               return (
               <div key={item.id} className="cart-item">
                 <div className="item-image">
-                  <img src={product?.images?.[0] || 'https://via.placeholder.com/500'} alt={product?.name} />
+                  <img src={product?.images?.[0] || 'https://placehold.co/500x500?text=No+Image'} alt={product?.name} />
                 </div>
 
                 <div className="item-details">
                   <h3 className="item-name">{product?.name}</h3>
+                  {item.size && <p className="item-size" style={{ color: '#666', fontSize: '0.9rem', margin: '4px 0' }}>Size: <strong>{item.size}</strong></p>}
                   <p className="item-price">{formatPrice(product?.price)}</p>
                 </div>
 
                 <div className="item-actions">
                   <div className="quantity-controls">
                     <button
-                      onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.productId, item.quantity - 1, item.size)}
                       disabled={item.quantity <= 1}
                     >
                       <FiMinus />
                     </button>
                     <span className="quantity">{item.quantity}</span>
                     <button
-                      onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.productId, item.quantity + 1, item.size)}
                       disabled={item.quantity >= product?.stock}
                     >
                       <FiPlus />
@@ -96,7 +97,7 @@ const Cart = () => {
 
                   <button
                     className="remove-btn"
-                    onClick={() => removeFromCart(item.productId)}
+                    onClick={() => removeFromCart(item.productId, item.size)}
                     title="Remove item"
                   >
                     <FiTrash2 />
