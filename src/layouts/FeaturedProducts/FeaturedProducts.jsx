@@ -184,12 +184,6 @@ const FeaturedProducts = () => {
       <div className="error-animation">
         <div className="error-lottie"><ErrorLottieView /></div>
         <p>{t('featuredProducts.error')}</p>
-        <button
-          className="btn-retry"
-          onClick={() => window.location.reload()} // hoặc gọi lại fetch
-        >
-          {t('featuredProducts.retry')}
-        </button>
       </div>
     );
   } else {

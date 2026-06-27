@@ -23,6 +23,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage/PrivacyPage'));
 const PaymentSuccessPage = lazy(() => import('./pages/PaymentResultPage/PaymentSuccessPage'));
 const PaymentQRPage = lazy(() => import('./pages/PaymentQRPage/PaymentQRPage'));
 const PaymentFailedPage = lazy(() => import('./pages/PaymentResultPage/PaymentFailedPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 function App() {
   // Prevent browser from restoring scroll position on reload (F5)
@@ -83,6 +84,8 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              {/* Catch all 404 Route */}
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
         </Router>

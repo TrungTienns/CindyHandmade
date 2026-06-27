@@ -3,7 +3,8 @@
     "home": "Home",
     "shop": "Shop",
     "about": "About Us",
-    "contact": "Contact"
+    "contact": "Contact",
+    "lookbook": "Lookbook"
   },
   "banner": {
     "title": "Cindy Handmade",
@@ -115,7 +116,8 @@
     "subjectPlaceholder": "How can we help?",
     "messageLabel": "Message",
     "messagePlaceholder": "Write your message here...",
-    "submitBtn": "Send Message"
+    "submitBtn": "Send Message",
+    "address": "Dong Ha Village, Cam Kim Ward, Da Nang City"
   },
   "benefits": {
     "welcome": "Welcome to",
@@ -320,5 +322,9 @@
       "title": "5. Contact Us",
       "content1": "If you have any questions about this Privacy Policy, please contact us at support@cindyhandmade.com."
     }
+  },
+  "lookbook": {
+    "title": "Our Lookbook",
+    "subtitle": "Discover the art of handmade crochet through our curated gallery."
   }
 }

@@ -6,6 +6,7 @@ import Benefits from '../../layouts/Benefits/Benefits';
 import FeaturedProducts from '../../layouts/FeaturedProducts/FeaturedProducts';
 import './HomePage.scss';
 import LoopImage  from '../../layouts/LoopImage/LoopImage';
+import LookPage from '../../layouts/Lookbook/Lookbook.jsx';
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
         <AboutUs />
         <Benefits />
         <FeaturedProducts />
+        <LookPage />
       </div>
     </MainLayout>
   );

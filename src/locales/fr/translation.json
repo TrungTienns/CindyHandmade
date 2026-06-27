@@ -3,7 +3,8 @@
     "home": "Accueil",
     "shop": "Boutique",
     "about": "À propos",
-    "contact": "Contact"
+    "contact": "Contact",
+    "lookbook": "Lookbook"
   },
   "banner": {
     "title": "Cindy Handmade",
@@ -115,7 +116,8 @@
     "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
     "messageLabel": "Message",
     "messagePlaceholder": "Écrivez votre message ici...",
-    "submitBtn": "Envoyer le message"
+    "submitBtn": "Envoyer le message",
+    "address": "Village de Dong Ha, Quartier de Cam Kim, Ville de Da Nang."
   },
   "benefits": {
     "welcome": "Bienvenue chez",
@@ -320,5 +322,9 @@
       "title": "5. Nous contacter",
       "content1": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter à support@cindyhandmade.com."
     }
+  },
+  "lookbook": {
+    "title": "Galerie de photos",
+    "subtitle": "Découvrez l'art du crochet fait main à travers notre collection."
   }
 }
