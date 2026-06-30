@@ -4,7 +4,12 @@
     "shop": "Boutique",
     "about": "À propos",
     "contact": "Contact",
-    "lookbook": "Lookbook"
+    "lookbook": "Lookbook",
+    "hello": "Bonjour",
+    "admin": "Tableau de Bord",
+    "logout": "Se déconnecter",
+    "login": "Se connecter",
+    "register": "S'inscrire"
   },
   "banner": {
     "title": "Cindy Handmade",
