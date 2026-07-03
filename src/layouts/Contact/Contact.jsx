@@ -23,7 +23,7 @@ const Contact = () => {
           'Accept': 'application/json'
         }
       });
-      
+
       if (response.ok) {
         setStatus('success');
         form.reset();
