@@ -20,6 +20,7 @@ const ProductDetail = () => {
   const [productRaw, setProductRaw] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState('');
   const [loading, setLoading] = useState(true);
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
@@ -84,7 +85,7 @@ const ProductDetail = () => {
     }
     if (product) {
       try {
-        await addToCart(product, 1, selectedSize);
+        await addToCart(product, 1, selectedSize, selectedColor);
         navigate('/cart');
       } catch (error) {
         showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
@@ -103,7 +104,7 @@ const ProductDetail = () => {
     }
     if (product) {
       try {
-        await addToCart(product, 1, selectedSize);
+        await addToCart(product, 1, selectedSize, selectedColor);
         showAlert(t('alerts.cartSuccess', 'Đã thêm sản phẩm vào giỏ hàng.'), t('alerts.successTitle', 'Thành công'), 'success');
       } catch (error) {
         showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
@@ -193,6 +194,17 @@ const ProductDetail = () => {
                   </div>
                 </div>
               )}
+
+              <div className="product-color">
+                <h3>Mã màu len (tuỳ chọn)</h3>
+                <input 
+                  type="text" 
+                  className="color-input" 
+                  placeholder="Nhập mã màu theo số (VD: 04, 12...)"
+                  value={selectedColor}
+                  onChange={(e) => setSelectedColor(e.target.value)}
+                />
+              </div>
 
               <div className="product-actions">
                 <button className="btn-buy-now" onClick={handleBuyNow}>

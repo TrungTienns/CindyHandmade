@@ -284,6 +284,8 @@ const Checkout = () => {
                     <div className="item-info">
                       <p>{product?.name}</p>
                       <span>{t('checkout.quantity', 'Quantity: ')}{item.quantity}</span>
+                      {item.size && <span style={{display:'block', fontSize:'0.85em', color:'#666'}}>Size: {item.size}</span>}
+                      {item.color && <span style={{display:'block', fontSize:'0.85em', color:'#666'}}>Màu: {item.color}</span>}
                     </div>
                     <div className="item-price">
                       {formatPrice(product?.price * item.quantity)}

@@ -36,13 +36,13 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const addToCart = async (product, quantity = 1, size = null) => {
+  const addToCart = async (product, quantity = 1, size = null, color = null) => {
     if (!user) {
       throw new Error('Vui lòng đăng nhập để thêm vào giỏ hàng!');
     }
 
     try {
-      const updatedCart = await addToCartApi(product.id, quantity, size);
+      const updatedCart = await addToCartApi(product.id, quantity, size, color);
       setCart(updatedCart.items || []);
     } catch (error) {
       console.error('Failed to add to cart:', error);
@@ -50,20 +50,20 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const updateQuantity = async (productId, quantity, size = null) => {
+  const updateQuantity = async (productId, quantity, size = null, color = null) => {
     if (!user) return;
     try {
-      const updatedCart = await updateCartItemApi(productId, quantity, size);
+      const updatedCart = await updateCartItemApi(productId, quantity, size, color);
       setCart(updatedCart.items || []);
     } catch (error) {
       console.error('Failed to update cart:', error);
     }
   };
 
-  const removeFromCart = async (productId, size = null) => {
+  const removeFromCart = async (productId, size = null, color = null) => {
     if (!user) return;
     try {
-      const updatedCart = await removeCartItemApi(productId, size);
+      const updatedCart = await removeCartItemApi(productId, size, color);
       setCart(updatedCart.items || []);
     } catch (error) {
       console.error('Failed to remove from cart:', error);
