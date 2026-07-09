@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import imageCompression from 'browser-image-compression';
 import { createProduct, updateProduct } from '../../services/productService';
 import { fetchCategories } from '../../services/categoryService';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -73,9 +74,20 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
       }
       
       if (imageFiles && imageFiles.length > 0) {
-        imageFiles.forEach(file => {
-          submitData.append('images', file);
-        });
+        const options = {
+          maxSizeMB: 5, // Tối đa 5MB để an toàn qua Cloudinary
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        };
+        for (const file of imageFiles) {
+          try {
+            const compressedFile = await imageCompression(file, options);
+            submitData.append('images', compressedFile, compressedFile.name);
+          } catch (error) {
+            console.error('Lỗi nén ảnh:', error);
+            submitData.append('images', file); // Nếu nén lỗi thì dùng ảnh gốc
+          }
+        }
       }
 
       if (initialData) {
