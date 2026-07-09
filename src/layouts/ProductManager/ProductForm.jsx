@@ -179,7 +179,7 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
               ))}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group" style={{ flex: 1 }}>
             <label>Ảnh sản phẩm (Có thể chọn nhiều ảnh)</label>
             <input 
               type="file" 
@@ -188,15 +188,24 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
               onChange={handleFileChange} 
             />
             {imageFiles.length > 0 && (
-              <div style={{ marginTop: '8px', fontSize: '0.85rem', color: '#666' }}>
-                Đã chọn {imageFiles.length} ảnh
-                <button 
-                  type="button" 
-                  onClick={() => setImageFiles([])} 
-                  style={{ marginLeft: '10px', color: 'red', border: 'none', background: 'none', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
-                >
-                  Xóa đã chọn
-                </button>
+              <div style={{ marginTop: '15px' }}>
+                <div style={{ fontSize: '0.9rem', color: '#333', marginBottom: '8px' }}>
+                  Đã chọn {imageFiles.length} ảnh
+                  <button 
+                    type="button" 
+                    onClick={() => setImageFiles([])} 
+                    style={{ marginLeft: '15px', color: 'red', border: 'none', background: 'none', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
+                  >
+                    Xóa tất cả
+                  </button>
+                </div>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  {imageFiles.map((file, idx) => (
+                    <div key={idx} style={{ position: 'relative', width: '60px', height: '60px', borderRadius: '4px', overflow: 'hidden', border: '1px solid #ddd' }}>
+                      <img src={URL.createObjectURL(file)} alt="preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
