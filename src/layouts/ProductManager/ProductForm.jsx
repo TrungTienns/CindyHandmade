@@ -46,6 +46,8 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
   const handleFileChange = (e) => {
     if (e.target.files) {
       setImageFiles((prev) => [...prev, ...Array.from(e.target.files)]);
+      // Reset value để người dùng có thể bấm chọn thêm ảnh (đặc biệt hữu ích cho đt Oppo/Android không cho chọn nhiều ảnh 1 lúc)
+      e.target.value = '';
     }
   };
 
