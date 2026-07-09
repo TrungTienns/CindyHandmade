@@ -44,7 +44,7 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
 
   const handleFileChange = (e) => {
     if (e.target.files) {
-      setImageFiles(Array.from(e.target.files));
+      setImageFiles((prev) => [...prev, ...Array.from(e.target.files)]);
     }
   };
 
@@ -176,6 +176,13 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
             {imageFiles.length > 0 && (
               <div style={{ marginTop: '8px', fontSize: '0.85rem', color: '#666' }}>
                 Đã chọn {imageFiles.length} ảnh
+                <button 
+                  type="button" 
+                  onClick={() => setImageFiles([])} 
+                  style={{ marginLeft: '10px', color: 'red', border: 'none', background: 'none', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
+                >
+                  Xóa đã chọn
+                </button>
               </div>
             )}
           </div>
