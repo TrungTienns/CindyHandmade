@@ -77,7 +77,14 @@
     "description": "Description du produit",
     "noDescription": "Aucune description détaillée disponible pour ce produit.",
     "buyNow": "Acheter",
-    "addToCart": "Ajouter au panier"
+    "addToCart": "Ajouter au panier",
+    "sizeTitle": "Taille",
+    "colorTitle": "Code couleur de fil (optionnel)",
+    "colorPlaceholder": "Entrez le code couleur (ex: 04, 12...)",
+    "orderingGuideTitle": "Comment Commander",
+    "guideStep1": "Choisissez la taille appropriée",
+    "guideStep2": "Regardez les images du produit pour trouver les codes de couleur et entrez votre code couleur de fil préféré dans le champ de saisie",
+    "guideStep3": "Cliquez sur Commander"
   },
   "faq": {
     "title": "Questions Fréquemment Posées",
@@ -234,7 +241,9 @@
     "confirmTitle": "Confirmation",
     "cancelBtn": "Annuler",
     "confirmBtn": "Confirmer",
-    "closeBtn": "Fermer"
+    "closeBtn": "Fermer",
+    "sizeRequiredBuy": "Veuillez sélectionner une taille avant d'acheter.",
+    "sizeRequiredCart": "Veuillez sélectionner une taille avant d'ajouter au panier."
   },
   "profile": {
     "personalInfo": "Informations personnelles",

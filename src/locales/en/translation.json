@@ -77,7 +77,14 @@
     "description": "Product description",
     "noDescription": "No detailed description available for this product.",
     "buyNow": "Buy Now",
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "sizeTitle": "Size",
+    "colorTitle": "Yarn Color Code (optional)",
+    "colorPlaceholder": "Enter color code (e.g., 04, 12...)",
+    "orderingGuideTitle": "How to Order",
+    "guideStep1": "Choose the suitable size",
+    "guideStep2": "Check the product images for color codes and enter your favorite yarn color code into the input field",
+    "guideStep3": "Click Order"
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -234,7 +241,9 @@
     "confirmTitle": "Confirmation",
     "cancelBtn": "Cancel",
     "confirmBtn": "Confirm",
-    "closeBtn": "Close"
+    "closeBtn": "Close",
+    "sizeRequiredBuy": "Please select a size before purchasing.",
+    "sizeRequiredCart": "Please select a size before adding to cart."
   },
   "profile": {
     "personalInfo": "Personal Information",

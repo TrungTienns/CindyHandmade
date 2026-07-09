@@ -34,7 +34,7 @@
     min-width: 300px;
     border-radius: 16px;
     overflow: hidden;
-    background-color: #f0f0f0;
+    background-color: transparent;
     opacity: 0;
     animation: slideInLeft 0.8s ease-out 0.2s forwards;
     position: relative;
@@ -63,6 +63,7 @@
       overflow: hidden;
       margin-bottom: 15px;
       position: relative;
+      background-color: transparent;
 
       .main-image {
         width: 100%;
@@ -370,6 +371,217 @@
       outline: none;
       border-color: #3b4d3d;
       box-shadow: 0 0 0 3px rgba(59, 77, 61, 0.1);
+    }
+  }
+}
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  padding: 20px;
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #e57399;
+    }
+  }
+
+  .lightbox-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 75vh;
+    flex: 1;
+
+    .lightbox-image {
+      max-width: 90%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      padding: 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      &.prev {
+        left: 20px;
+      }
+      &.next {
+        right: 20px;
+      }
+    }
+  }
+
+  .lightbox-thumbnails {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    overflow-x: auto;
+    max-width: 90%;
+    height: 100px;
+    flex-shrink: 0;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+
+    .lightbox-thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.active {
+        opacity: 1;
+        border-color: #e57399;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+/* Ordering Guide */
+.ordering-guide-section {
+  margin: 30px auto 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 4px 20px rgba(59, 77, 61, 0.05);
+  animation: fadeUp 0.8s ease-out 0.6s forwards;
+  opacity: 0;
+  max-width: 600px; /* Make it more compact */
+
+  .guide-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #3b4d3d;
+    margin-bottom: 20px;
+  }
+
+  .guide-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 auto;
+
+    li {
+      display: flex;
+      align-items: center;
+      background: #f9fbf9;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateX(5px);
+        background: #f0f5f1;
+      }
+
+      .step-number {
+        background: #e57399;
+        color: white;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      p {
+        margin: 0;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        color: #5c7060;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+    margin: 20px auto;
+    
+    .guide-title {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+
+    .guide-steps li {
+      padding: 10px;
+      
+      .step-number {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+        margin-right: 10px;
+      }
+      
+      p {
+        font-size: 0.9rem;
+      }
     }
   }
 }

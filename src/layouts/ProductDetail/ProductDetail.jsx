@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext);
   const { showAlert } = useAlert();
@@ -80,17 +81,16 @@ const ProductDetail = () => {
       return;
     }
     if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
-      showAlert('Vui lòng chọn kích cỡ (size) trước khi mua', 'Thông báo', 'warning');
+      showAlert(t('alerts.sizeRequiredBuy', 'Vui lòng chọn kích cỡ (size) trước khi mua'), t('alerts.warningTitle', 'Thông báo'), 'warning');
       return;
     }
-    if (product) {
       try {
         await addToCart(product, 1, selectedSize, selectedColor);
         navigate('/cart');
       } catch (error) {
-        showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
+        const errorMessage = error.response?.data?.message || error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng');
+        showAlert(errorMessage, t('alerts.errorTitle', 'Lỗi'), 'error');
       }
-    }
   };
 
   const handleAddToCart = async () => {
@@ -99,7 +99,7 @@ const ProductDetail = () => {
       return;
     }
     if (product?.sizes && product.sizes.length > 0 && !selectedSize) {
-      showAlert('Vui lòng chọn kích cỡ (size) trước khi thêm vào giỏ', 'Thông báo', 'warning');
+      showAlert(t('alerts.sizeRequiredCart', 'Vui lòng chọn kích cỡ (size) trước khi thêm vào giỏ'), t('alerts.warningTitle', 'Thông báo'), 'warning');
       return;
     }
     if (product) {
@@ -107,7 +107,8 @@ const ProductDetail = () => {
         await addToCart(product, 1, selectedSize, selectedColor);
         showAlert(t('alerts.cartSuccess', 'Đã thêm sản phẩm vào giỏ hàng.'), t('alerts.successTitle', 'Thành công'), 'success');
       } catch (error) {
-        showAlert(error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng'), t('alerts.errorTitle', 'Lỗi'), 'error');
+        const errorMessage = error.response?.data?.message || error.message || t('alerts.errorCart', 'Lỗi thêm vào giỏ hàng');
+        showAlert(errorMessage, t('alerts.errorTitle', 'Lỗi'), 'error');
       }
     }
   };
@@ -146,6 +147,8 @@ const ProductDetail = () => {
                   src={selectedImage || product.images?.[0] || 'https://placehold.co/500x500?text=No+Image'} 
                   alt={product.name} 
                   className="main-image" 
+                  onClick={() => setIsLightboxOpen(true)}
+                  style={{ cursor: 'zoom-in' }}
                 />
                 {product.images && product.images.length > 1 && (
                   <button className="nav-button next-button" onClick={handleNext}>
@@ -180,7 +183,7 @@ const ProductDetail = () => {
 
               {product.sizes && product.sizes.length > 0 && (
                 <div className="product-sizes">
-                  <h3>Kích cỡ (Size)</h3>
+                  <h3>{t('productDetail.sizeTitle', 'Kích cỡ (Size)')}</h3>
                   <div className="size-options">
                     {product.sizes.map((size) => (
                       <button
@@ -196,11 +199,11 @@ const ProductDetail = () => {
               )}
 
               <div className="product-color">
-                <h3>Mã màu len (tuỳ chọn)</h3>
+                <h3>{t('productDetail.colorTitle', 'Mã màu len (tuỳ chọn)')}</h3>
                 <input 
                   type="text" 
                   className="color-input" 
-                  placeholder="Nhập mã màu theo số (VD: 04, 12...)"
+                  placeholder={t('productDetail.colorPlaceholder', 'Nhập mã màu theo số (VD: 04, 12...)')}
                   value={selectedColor}
                   onChange={(e) => setSelectedColor(e.target.value)}
                 />
@@ -216,10 +219,65 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+          
+          <div className="ordering-guide-section">
+            <h3 className="guide-title">{t('productDetail.orderingGuideTitle', 'Hướng dẫn đặt hàng')}</h3>
+            <ul className="guide-steps">
+              <li>
+                <span className="step-number">1</span>
+                <p>{t('productDetail.guideStep1', 'Chọn size phù hợp')}</p>
+              </li>
+              <li>
+                <span className="step-number">2</span>
+                <p>{t('productDetail.guideStep2', 'Vào hình ảnh xem mã màu và nhập mã màu len yêu thích vào trường nhập liệu')}</p>
+              </li>
+              <li>
+                <span className="step-number">3</span>
+                <p>{t('productDetail.guideStep3', 'Bấm đặt hàng')}</p>
+              </li>
+            </ul>
+          </div>
+
           <ProductCommitments />
           </>
         )}
       </div>
+
+      {isLightboxOpen && (
+        <div className="lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
+          <button className="lightbox-close" onClick={() => setIsLightboxOpen(false)}>&times;</button>
+          
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            {product?.images && product.images.length > 1 && (
+              <button className="lightbox-nav-button prev" onClick={handlePrev}>
+                <FiChevronLeft size={36} />
+              </button>
+            )}
+            
+            <img src={selectedImage} alt={product?.name} className="lightbox-image" />
+            
+            {product?.images && product.images.length > 1 && (
+              <button className="lightbox-nav-button next" onClick={handleNext}>
+                <FiChevronRight size={36} />
+              </button>
+            )}
+          </div>
+          
+          {product?.images && product.images.length > 1 && (
+            <div className="lightbox-thumbnails" onClick={(e) => e.stopPropagation()}>
+              {product.images.map((imgUrl, index) => (
+                <img 
+                  key={index} 
+                  src={imgUrl} 
+                  alt={`thumbnail ${index}`} 
+                  className={`lightbox-thumbnail ${selectedImage === imgUrl ? 'active' : ''}`}
+                  onClick={() => setSelectedImage(imgUrl)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
