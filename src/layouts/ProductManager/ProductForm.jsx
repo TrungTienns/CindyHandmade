@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import imageCompression from 'browser-image-compression';
 import { createProduct, updateProduct } from '../../services/productService';
 import { fetchCategories } from '../../services/categoryService';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiUploadCloud, FiX, FiImage } from 'react-icons/fi';
 
 const ProductForm = ({ initialData, onBack, onSuccess }) => {
   const [categories, setCategories] = useState([]);
@@ -16,9 +16,28 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
     categoryId: initialData?.categoryId || '',
     sizes: initialData?.sizes ? initialData.sizes.join(', ') : '',
   });
+
+  // Ảnh cũ đã có trên server (URL string) — chỉ có khi Edit
+  const [existingImages, setExistingImages] = useState(
+    initialData?.images?.filter((img) => typeof img === 'string') || []
+  );
+  // Ảnh mới người dùng vừa chọn (File object)
   const [imageFiles, setImageFiles] = useState([]);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [activePreview, setActivePreview] = useState(null); // { type: 'existing'|'new', idx }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const fileInputRef = useRef(null);
+
+  const totalImages = existingImages.length + imageFiles.length;
+
+  const addFiles = useCallback((files) => {
+    const validFiles = Array.from(files).filter((f) => f.type.startsWith('image/'));
+    if (validFiles.length > 0) {
+      setImageFiles((prev) => [...prev, ...validFiles]);
+    }
+  }, []);
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -44,12 +63,36 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
   };
 
   const handleFileChange = (e) => {
-    if (e.target.files) {
-      setImageFiles((prev) => [...prev, ...Array.from(e.target.files)]);
-      // Reset value để người dùng có thể bấm chọn thêm ảnh (đặc biệt hữu ích cho đt Oppo/Android không cho chọn nhiều ảnh 1 lúc)
-      e.target.value = '';
-    }
+    const inputEl = e.target;
+    addFiles(inputEl.files || []);
+    setTimeout(() => { inputEl.value = ''; }, 0);
   };
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    addFiles(e.dataTransfer.files);
+  }, [addFiles]);
+
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const removeExistingImage = useCallback((idx) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== idx));
+    setActivePreview(null);
+  }, []);
+
+  const removeNewImage = useCallback((idx) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== idx));
+    setActivePreview(null);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +100,6 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
     setError('');
 
     try {
-      // Dùng FormData để hỗ trợ upload file
       const submitData = new FormData();
       submitData.append('name', formData.name);
       submitData.append('description', formData.description);
@@ -67,27 +109,29 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
       if (formData.sizes.trim()) {
         submitData.append('sizes', formData.sizes);
       }
-      
+
       const translations = { fr: {} };
       if (formData.name_fr) translations.fr.name = formData.name_fr;
       if (formData.description_fr) translations.fr.description = formData.description_fr;
       if (Object.keys(translations.fr).length > 0) {
         submitData.append('translations', JSON.stringify(translations));
       }
-      
+
+      // Gửi danh sách ảnh cũ muốn GIỮ LẠI — backend merge với ảnh mới upload
+      if (existingImages.length > 0) {
+        submitData.append('images', JSON.stringify(existingImages));
+      }
+
+      // Upload ảnh mới (nếu có)
       if (imageFiles && imageFiles.length > 0) {
-        const options = {
-          maxSizeMB: 5, // Tối đa 5MB để an toàn qua Cloudinary
-          maxWidthOrHeight: 1920,
-          useWebWorker: true
-        };
+        const options = { maxSizeMB: 5, maxWidthOrHeight: 1920, useWebWorker: true };
         for (const file of imageFiles) {
           try {
             const compressedFile = await imageCompression(file, options);
             submitData.append('images', compressedFile, compressedFile.name);
-          } catch (error) {
-            console.error('Lỗi nén ảnh:', error);
-            submitData.append('images', file); // Nếu nén lỗi thì dùng ảnh gốc
+          } catch (err) {
+            console.error('Lỗi nén ảnh:', err);
+            submitData.append('images', file);
           }
         }
       }
@@ -97,14 +141,52 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
       } else {
         await createProduct(submitData);
       }
-      
+
       setLoading(false);
-      onSuccess(); // Trở về danh sách và báo thành công
+      onSuccess();
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || 'Có lỗi xảy ra khi tạo sản phẩm.');
+      setError(err.response?.data?.message || 'Có lỗi xảy ra khi lưu sản phẩm.');
     }
   };
+
+  // Helper render thumbnail dùng chung cho ảnh cũ và ảnh mới
+  const renderThumb = (src, label, isCover, isActive, onClickThumb, onRemove, key) => (
+    <div
+      key={key}
+      className={`image-thumb ${isCover ? 'is-cover' : ''} ${isActive ? 'is-active' : ''}`}
+      onClick={onClickThumb}
+    >
+      <img src={src} alt={label} />
+      {isCover && <span className="cover-badge">Bìa</span>}
+      <button
+        type="button"
+        className="btn-remove-img"
+        onClick={(e) => { e.stopPropagation(); onRemove(); }}
+        title="Xóa ảnh này"
+      >
+        <FiX size={10} />
+      </button>
+      <div className="thumb-overlay">
+        <span>{label}</span>
+      </div>
+    </div>
+  );
+
+  // Nguồn ảnh đang được xem to
+  const getActiveSrc = () => {
+    if (!activePreview) return null;
+    if (activePreview.type === 'existing') return existingImages[activePreview.idx] || null;
+    if (activePreview.type === 'new' && imageFiles[activePreview.idx]) {
+      return URL.createObjectURL(imageFiles[activePreview.idx]);
+    }
+    return null;
+  };
+  const activeSrc = getActiveSrc();
+  const activeLabel = !activePreview ? '' :
+    activePreview.type === 'existing'
+      ? (activePreview.idx === 0 && imageFiles.length === 0 ? '📌 Ảnh bìa (hiển thị đầu tiên)' : `Ảnh cũ ${activePreview.idx + 1}`)
+      : `Ảnh mới ${activePreview.idx + 1}`;
 
   return (
     <div className="product-form-container">
@@ -121,49 +203,22 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
         <div className="form-row">
           <div className="form-group">
             <label>Tên sản phẩm *</label>
-            <input 
-              type="text" 
-              name="name" 
-              value={formData.name} 
-              onChange={handleChange} 
-              required 
-              placeholder="Nhập tên sản phẩm..."
-            />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Nhập tên sản phẩm..." />
           </div>
           <div className="form-group">
             <label>Tên sản phẩm (Tiếng Pháp)</label>
-            <input 
-              type="text" 
-              name="name_fr" 
-              value={formData.name_fr} 
-              onChange={handleChange} 
-              placeholder="Nhập tên sản phẩm bằng tiếng Pháp..."
-            />
+            <input type="text" name="name_fr" value={formData.name_fr} onChange={handleChange} placeholder="Nhập tên sản phẩm bằng tiếng Pháp..." />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label>Giá (VND) *</label>
-            <input 
-              type="text" 
-              name="price" 
-              value={formData.price} 
-              onChange={handleChange} 
-              required 
-              placeholder="0"
-            />
+            <input type="text" name="price" value={formData.price} onChange={handleChange} required placeholder="0" />
           </div>
           <div className="form-group">
             <label>Số lượng tồn kho (Stock) *</label>
-            <input 
-              type="number" 
-              name="stock" 
-              value={formData.stock} 
-              onChange={handleChange} 
-              required 
-              min="0"
-            />
+            <input type="number" name="stock" value={formData.stock} onChange={handleChange} required min="0" />
           </div>
         </div>
 
@@ -173,39 +228,111 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
             <select name="categoryId" value={formData.categoryId} onChange={handleChange} required>
               <option value="">-- Chọn danh mục --</option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
           </div>
-          <div className="form-group" style={{ flex: 1 }}>
-            <label>Ảnh sản phẩm (Có thể chọn nhiều ảnh)</label>
-            <input 
-              type="file" 
-              accept="image/*" 
-              multiple
-              onChange={handleFileChange} 
-            />
-            {imageFiles.length > 0 && (
-              <div style={{ marginTop: '15px' }}>
-                <div style={{ fontSize: '0.9rem', color: '#333', marginBottom: '8px' }}>
-                  Đã chọn {imageFiles.length} ảnh
-                  <button 
-                    type="button" 
-                    onClick={() => setImageFiles([])} 
-                    style={{ marginLeft: '15px', color: 'red', border: 'none', background: 'none', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
+
+          {/* ── Image Uploader ── */}
+          <div className="form-group image-uploader-group">
+            <label>
+              Ảnh sản phẩm
+              {totalImages > 0 && (
+                <span className="image-count-badge">{totalImages} ảnh</span>
+              )}
+            </label>
+
+            {/* Drop Zone */}
+            <div
+              className={`image-drop-zone ${isDragging ? 'dragging' : ''}`}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              <FiUploadCloud className="upload-icon" />
+              <p className="drop-zone-title">Kéo &amp; thả ảnh vào đây</p>
+              <p className="drop-zone-sub">hoặc <span>bấm để chọn ảnh</span> từ thiết bị</p>
+              <p className="drop-zone-hint">Hỗ trợ: JPG, PNG, WEBP, HEIC · Nhiều ảnh cùng lúc</p>
+            </div>
+
+            {/* Preview Grid */}
+            {totalImages > 0 && (
+              <div className="image-preview-section">
+                <div className="preview-header">
+                  <span className="preview-title">
+                    <FiImage size={14} /> Xem trước ({totalImages} ảnh)
+                    {existingImages.length > 0 && imageFiles.length > 0 && (
+                      <span className="badge-hint">&nbsp;· {existingImages.length} cũ + {imageFiles.length} mới</span>
+                    )}
+                  </span>
+                  <button
+                    type="button"
+                    className="btn-clear-all"
+                    onClick={() => { setExistingImages([]); setImageFiles([]); setActivePreview(null); }}
                   >
-                    Xóa tất cả
+                    <FiX size={12} /> Xóa tất cả
                   </button>
                 </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  {imageFiles.map((file, idx) => (
-                    <div key={idx} style={{ position: 'relative', width: '60px', height: '60px', borderRadius: '4px', overflow: 'hidden', border: '1px solid #ddd' }}>
-                      <img src={URL.createObjectURL(file)} alt="preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </div>
-                  ))}
+
+                <div className="image-preview-grid">
+                  {/* Ảnh cũ (URL từ server) */}
+                  {existingImages.map((url, idx) => {
+                    const isCover = idx === 0 && imageFiles.length === 0;
+                    const isActive = activePreview?.type === 'existing' && activePreview?.idx === idx;
+                    return renderThumb(
+                      url,
+                      isCover ? '📌 Ảnh bìa' : `Ảnh cũ ${idx + 1}`,
+                      isCover, isActive,
+                      () => setActivePreview(isActive ? null : { type: 'existing', idx }),
+                      () => removeExistingImage(idx),
+                      `existing-${idx}`
+                    );
+                  })}
+                  {/* Ảnh mới (File object) */}
+                  {imageFiles.map((file, idx) => {
+                    const globalIdx = existingImages.length + idx;
+                    const isCover = globalIdx === 0;
+                    const isActive = activePreview?.type === 'new' && activePreview?.idx === idx;
+                    const url = URL.createObjectURL(file);
+                    return renderThumb(
+                      url,
+                      isCover ? '📌 Ảnh bìa' : `Ảnh mới ${idx + 1}`,
+                      isCover, isActive,
+                      () => setActivePreview(isActive ? null : { type: 'new', idx }),
+                      () => removeNewImage(idx),
+                      `new-${idx}`
+                    );
+                  })}
                 </div>
+
+                {/* Lightbox preview */}
+                {activeSrc && (
+                  <div className="active-preview-box">
+                    <img src={activeSrc} alt="preview-large" />
+                    <div className="active-preview-info">
+                      <span>{activeLabel}</span>
+                      <button
+                        type="button"
+                        className="btn-remove-active"
+                        onClick={() => {
+                          if (activePreview.type === 'existing') removeExistingImage(activePreview.idx);
+                          else removeNewImage(activePreview.idx);
+                        }}
+                      >
+                        <FiX size={14} /> Xóa ảnh này
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -214,35 +341,18 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
         <div className="form-row">
           <div className="form-group" style={{ width: '100%' }}>
             <label>Kích cỡ (Sizes) - Tùy chọn</label>
-            <input 
-              type="text" 
-              name="sizes" 
-              value={formData.sizes} 
-              onChange={handleChange} 
-              placeholder="Nhập các kích cỡ cách nhau bởi dấu phẩy (VD: S, M, L, XL)..."
-            />
+            <input type="text" name="sizes" value={formData.sizes} onChange={handleChange} placeholder="Nhập các kích cỡ cách nhau bởi dấu phẩy (VD: S, M, L, XL)..." />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label>Mô tả chi tiết *</label>
-            <textarea 
-              name="description" 
-              value={formData.description} 
-              onChange={handleChange} 
-              required 
-              placeholder="Nhập mô tả sản phẩm..."
-            />
+            <textarea name="description" value={formData.description} onChange={handleChange} required placeholder="Nhập mô tả sản phẩm..." />
           </div>
           <div className="form-group">
             <label>Mô tả chi tiết (Tiếng Pháp)</label>
-            <textarea 
-              name="description_fr" 
-              value={formData.description_fr} 
-              onChange={handleChange} 
-              placeholder="Nhập mô tả bằng tiếng Pháp..."
-            />
+            <textarea name="description_fr" value={formData.description_fr} onChange={handleChange} placeholder="Nhập mô tả bằng tiếng Pháp..." />
           </div>
         </div>
 
