@@ -29,6 +29,7 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const fileInputRef = useRef(null);
+  const mobileInputRef = useRef(null); // Input riêng cho nút "Thêm ảnh" trên mobile
 
   const totalImages = existingImages.length + imageFiles.length;
 
@@ -242,15 +243,17 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
               )}
             </label>
 
-            {/* Drop Zone */}
-            <div
+            {/* Drop Zone — dùng label[htmlFor] thay vì .click() để hoạt động tốt trên mobile */}
+            <label
+              htmlFor="product-image-input"
               className={`image-drop-zone ${isDragging ? 'dragging' : ''}`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
-              onClick={() => fileInputRef.current?.click()}
             >
+              {/* Input thật — ẩn nhưng kết nối với label bằng id, không cần .click() */}
               <input
+                id="product-image-input"
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
@@ -259,10 +262,11 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
                 style={{ display: 'none' }}
               />
               <FiUploadCloud className="upload-icon" />
-              <p className="drop-zone-title">Kéo &amp; thả ảnh vào đây</p>
-              <p className="drop-zone-sub">hoặc <span>bấm để chọn ảnh</span> từ thiết bị</p>
-              <p className="drop-zone-hint">Hỗ trợ: JPG, PNG, WEBP, HEIC · Nhiều ảnh cùng lúc</p>
-            </div>
+              <p className="drop-zone-title">Chọn ảnh sản phẩm</p>
+              <p className="drop-zone-sub desktop-hint">Kéo &amp; thả hoặc <span>bấm để chọn</span> từ máy tính</p>
+              <p className="drop-zone-sub mobile-hint"><span>Bấm vào đây để chọn ảnh</span> từ thư viện</p>
+              <p className="drop-zone-hint">JPG, PNG, WEBP, HEIC · Hỗ trợ chọn nhiều ảnh</p>
+            </label>
 
             {/* Preview Grid */}
             {totalImages > 0 && (
@@ -313,6 +317,22 @@ const ProductForm = ({ initialData, onBack, onSuccess }) => {
                     );
                   })}
                 </div>
+
+                {/* Nút thêm ảnh bổ sung — hiển thị nổi bật trên mobile
+                    Người dùng Android/iOS bấm nhiều lần để thêm từng ảnh */}
+                <label htmlFor="product-image-add-more" className="btn-add-more-photos">
+                  <input
+                    id="product-image-add-more"
+                    ref={mobileInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                  />
+                  <FiUploadCloud size={15} />
+                  Thêm ảnh
+                </label>
 
                 {/* Lightbox preview */}
                 {activeSrc && (
